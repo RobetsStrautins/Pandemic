@@ -4,16 +4,21 @@ using UnityEngine;
 using TMPro;
 public class city : MonoBehaviour
 {
-    public int id;
-    public string cityName = "London";
+    CityData cityData = new CityData();
     public TextMeshProUGUI cityLabel;
-    public float Xcord;
-    public float Ycord;
-    public string color;
-    public List<city> connectedCities;
-    void Start()
+
+    public void Init(CityData data)
     {
-        cityLabel.text = cityName;
+        cityData.id = data.id;
+        cityData.cityName = data.cityName;
+        cityData.Xcord = data.Xcord;
+        cityData.Ycord = data.Ycord;
+        cityData.color = data.color;
+
+        transform.position = new Vector3(cityData.Xcord, cityData.Ycord);
+        gameObject.name = "city " + cityData.cityName;
+
+        if (cityLabel != null)
+            cityLabel.text = cityData.cityName;
     }
-    
 }
