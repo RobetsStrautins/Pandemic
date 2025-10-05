@@ -1,10 +1,18 @@
 {
   "cities": [
-    { "id": 1, "cityName": "Madride", "Xcord": 0, "Ycord": 0, "color": "blue" },
-    { "id": 2, "cityName": "Sanpaulu", "Xcord": 3, "Ycord": 1, "color": "Yellow" },
-    { "id": 3, "cityName": "Lagosa", "Xcord": -2, "Ycord": 4, "color": "Yellow" },
-    { "id": 4, "cityName": "Hartūma", "Xcord": 5, "Ycord": -3, "color": "Yellow" },
-    { "id": 5, "cityName": "Alžira", "Xcord": -4, "Ycord": -2, "color": "Black" },
-    { "id": 6, "cityName": "Kaira", "Xcord": -4, "Ycord": 2.3, "color": "Black" }
+    { "id": 1, "cityName": "Madride", "Xcord": 0, "Ycord": 0, "color": "blue"},
+    { "id": 2, "cityName": "Sanpaulu", "Xcord": 3, "Ycord": 1, "color": "Yellow"},
+    { "id": 3, "cityName": "Lagosa", "Xcord": -2, "Ycord": 4, "color": "Yellow"},
+    { "id": 4, "cityName": "Hartūma", "Xcord": 5, "Ycord": -3, "color": "Yellow"},
+    { "id": 5, "cityName": "Alžira", "Xcord": -4, "Ycord": -2, "color": "Black"},
+    { "id": 6, "cityName": "Kaira", "Xcord": -4, "Ycord": 2.3, "color": "Black"}
+  ],
+  "connections": [
+    { "first": 1, "second": 2 },
+    { "first": 1, "second": 5 },
+    { "first": 2, "second": 3 },
+    { "first": 3, "second": 4 },
+    { "first": 4, "second": 6 },
+    { "first": 5, "second": 6 }
   ]
 }

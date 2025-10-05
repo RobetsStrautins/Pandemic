@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEditor.MemoryProfiler;
 public class city : MonoBehaviour
 {
-    CityData cityData = new CityData();
+    [SerializeField] private CityData cityData = new CityData();
     public TextMeshProUGUI cityLabel;
 
     public void Init(CityData data)
@@ -14,6 +15,7 @@ public class city : MonoBehaviour
         cityData.Xcord = data.Xcord;
         cityData.Ycord = data.Ycord;
         cityData.color = data.color;
+        cityData.connectedcity = new List<int>(data.connectedcity);
 
         transform.position = new Vector3(cityData.Xcord, cityData.Ycord);
         gameObject.name = "city " + cityData.cityName;
