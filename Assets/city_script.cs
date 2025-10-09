@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEditor.MemoryProfiler;
-public class city : MonoBehaviour
+public class City : MonoBehaviour
 {
     [SerializeField] private CityData cityData = new CityData();
     public TextMeshProUGUI cityLabel;
@@ -22,9 +22,7 @@ public class city : MonoBehaviour
 
     void OnMouseDown()
     {
-        Debug.Log("City clicked: " + gameObject.name);
-
-        mainscript.main.activePlayerMoveCitys(cityData);
+        Mainscript.main.activePlayerMoveCitys(cityData);
     }
 }
 
@@ -36,10 +34,10 @@ public class CityData
     public float Xcord;
     public float Ycord;
     public string color;
-    public List<int> connectedcity = new List<int>();
+    public List<int> connectedCity = new List<int>();
     private int cubs = 0;
 
-    public city cityObj;
+    public City cityObj;
 
     public void addCubs(int newCubs)
     {

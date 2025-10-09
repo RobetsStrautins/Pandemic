@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class mainscript : MonoBehaviour
+public class Mainscript : MonoBehaviour
 {
-    public static mainscript main;  
+    public static Mainscript main;  
 
     public CitySpawner citySpawner;
     public GameObject player;
-    private player activePlayer;
+    private Player activePlayer;
     public int playerTrunCount = 4;
 
     void Awake()
@@ -21,7 +21,7 @@ public class mainscript : MonoBehaviour
         citySpawner.Setup();
 
         GameObject spawnedPlayer = Instantiate(player);
-        activePlayer = spawnedPlayer.GetComponent<player>();
+        activePlayer = spawnedPlayer.GetComponent<Player>();
     }
 
     void Update()
@@ -30,8 +30,8 @@ public class mainscript : MonoBehaviour
         {
             int cityid = Random.Range(1, 7);
             CityData randomCity = CitySpawner.cityMap[cityid];
-
             randomCity.addCubs(1);
+            
         }
     }
 

@@ -26,10 +26,10 @@ public class CitySpawner : MonoBehaviour
                 CityData city1 = cityMap[temp.first];
                 CityData city2 = cityMap[temp.second];
 
-                if (!city1.connectedcity.Contains(temp.second))
+                if (!city1.connectedCity.Contains(temp.second))
                 {
-                    city2.connectedcity.Add(temp.first);
-                    city1.connectedcity.Add(temp.second);
+                    city2.connectedCity.Add(temp.first);
+                    city1.connectedCity.Add(temp.second);
                 }
             }
         }
@@ -37,7 +37,7 @@ public class CitySpawner : MonoBehaviour
         foreach (CityData data in world.cities)
         {
             GameObject cityObj = Instantiate(city);
-            cityObj.GetComponent<city>().Init(data);
+            cityObj.GetComponent<City>().Init(data);
         }
 
         connectionParent = new GameObject("Connections");

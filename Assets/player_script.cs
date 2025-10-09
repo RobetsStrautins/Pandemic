@@ -2,31 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class player : MonoBehaviour
+public class Player : MonoBehaviour
 {
-    private int cityid = 1;
+    private int cityId = 1;
     private CityData city;
 
     void Start()
     {
-        if (CitySpawner.cityMap.ContainsKey(cityid))
+        if (CitySpawner.cityMap.ContainsKey(cityId))
         {
-            city = CitySpawner.cityMap[cityid];
+            city = CitySpawner.cityMap[cityId];
             transform.position = new Vector3(city.Xcord, city.Ycord,-1);
-        }
-        else
-        {
-            Debug.LogWarning($"City with ID {cityid} not found!");
         }
     }
 
     public void canMoveToCity(CityData moveCity)
     {
-        if (city.connectedcity.Contains(moveCity.id))
+        if (city.connectedCity.Contains(moveCity.id))
         {
             city = moveCity;
             transform.position = new Vector3(city.Xcord, city.Ycord, -1);
-            mainscript.main.playerTrunCount -= 1;
+            Mainscript.main.playerTrunCount -= 1;
         }
         else
         {
