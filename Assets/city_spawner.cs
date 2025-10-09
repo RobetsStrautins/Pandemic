@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,11 +7,12 @@ public class CitySpawner : MonoBehaviour
 {
     public GameObject city;
     public GameObject connectionParent;
-    void Start()
+    public static Dictionary<int, CityData> cityMap = new Dictionary<int, CityData>();//c++ map
+
+    public void Setup()
     {
         TextAsset jsonFile = Resources.Load<TextAsset>("cities");//dabut pilsetas
         WorldData world = JsonUtility.FromJson<WorldData>(jsonFile.text);
-        Dictionary<int, CityData> cityMap = new Dictionary<int, CityData>();//c++ map
 
         foreach (CityData data in world.cities)
         {
@@ -26,8 +28,8 @@ public class CitySpawner : MonoBehaviour
 
                 if (!city1.connectedcity.Contains(temp.second))
                 {
-                    city2.connectedcity.Add(temp.second);
-                    city1.connectedcity.Add(temp.first);
+                    city2.connectedcity.Add(temp.first);
+                    city1.connectedcity.Add(temp.second);
                 }
             }
         }
@@ -66,17 +68,6 @@ public class CitySpawner : MonoBehaviour
         lineRenderer.startColor = Color.black;
         lineRenderer.endColor = Color.black;
     }
-}
-
-[System.Serializable]
-public class CityData
-{
-    public int id;
-    public string cityName;
-    public float Xcord;
-    public float Ycord;
-    public string color;
-    public List<int> connectedcity = new List<int>();
 }
 
 [System.Serializable]
