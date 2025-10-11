@@ -4,29 +4,37 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private int cityId = 1;
+    private int startingCityId = 1;
     private CityData city;
 
     void Start()
     {
-        if (CitySpawner.cityMap.ContainsKey(cityId))
+        if (CitySpawner.cityMap.ContainsKey(startingCityId))
         {
-            city = CitySpawner.cityMap[cityId];
-            transform.position = new Vector3(city.Xcord, city.Ycord,-1);
+            city = CitySpawner.cityMap[startingCityId];
+            transform.position = new Vector3(city.Xcord, city.Ycord, -1);
         }
     }
 
-    public void canMoveToCity(CityData moveCity)
+    public void canMoveToCity(CityData pressedCity)
     {
-        if (city.connectedCity.Contains(moveCity.id))
+        if (city.connectedCity.Contains(pressedCity.id))
         {
-            city = moveCity;
+            city = pressedCity;
             transform.position = new Vector3(city.Xcord, city.Ycord, -1);
             Mainscript.main.playerTrunCount -= 1;
         }
-        else
+
+    }
+
+    public void clearCubs(CityData pressedCity)
+    {
+        if (city.id == pressedCity.id)
         {
-            Debug.LogWarning($"Cant move to city with ID {moveCity.id}");
-        }
+            if (pressedCity.removeCubs(1))
+            {
+                Mainscript.main.playerTrunCount -= 1;
+            }
+        } 
     }
 }

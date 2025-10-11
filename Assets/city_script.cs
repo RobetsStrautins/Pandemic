@@ -7,17 +7,30 @@ public class City : MonoBehaviour
 {
     [SerializeField] private CityData cityData = new CityData();
     public TextMeshProUGUI cityLabel;
+    public GameObject[] resourceCubes;
 
     public void Init(CityData data)
     {
-        cityData=data;///Savieno cityData ar city
-        cityData.cityObj = this;  
+        cityData = data;///Savieno cityData ar city
+        cityData.cityObj = this;
 
         transform.position = new Vector3(cityData.Xcord, cityData.Ycord);
         gameObject.name = "city " + cityData.cityName;
 
         if (cityLabel != null)
             cityLabel.text = cityData.cityName;
+
+        updateCubs();
+    }
+
+    public void updateCubs()
+    {
+        int cubs = cityData.getCubs();
+
+        for (int i = 0; i < resourceCubes.Length; i++)
+        {
+            resourceCubes[i].SetActive(i < cubs);
+        }
     }
 
     void OnMouseDown()
@@ -49,8 +62,19 @@ public class CityData
         {
             cubs += newCubs;
         }
+        cityObj?.updateCubs();
     }
 
+    public bool removeCubs(int removeCubs)
+    {
+        if (cubs == 0)
+        {
+            return false;
+        }
+        cubs -= removeCubs;  
+        cityObj?.updateCubs();
+        return true;
+    }
     public int getCubs()
     {
         return cubs;

@@ -28,15 +28,18 @@ public class Mainscript : MonoBehaviour
     {
         if (playerTrunCount == 0)
         {
-            int cityid = Random.Range(1, 7);
-            CityData randomCity = CitySpawner.cityMap[cityid];
+
+            int cityId = Random.Range(1, 7);
+            CityData randomCity = CitySpawner.cityMap[cityId];
             randomCity.addCubs(1);
-            
+            Debug.LogWarning($"added cube to {randomCity.cityName}");
+            playerTrunCount = 2;//vajag 4
         }
     }
 
-    public void activePlayerMoveCitys(CityData movecity)
+    public void activePlayerMoveCitys(CityData pressedCity)
     {
-        activePlayer.canMoveToCity(movecity);
+        activePlayer.clearCubs(pressedCity);
+        activePlayer.canMoveToCity(pressedCity);
     }
 }
