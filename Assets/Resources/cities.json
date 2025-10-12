@@ -1,6 +1,6 @@
 {
   "cities": [
-    { "id": 1, "cityName": "Madride", "Xcord": 0, "Ycord": 0, "color": "blue"},
+    { "id": 1, "cityName": "Madride", "Xcord": 0, "Ycord": 0, "color": "Blue"},
     { "id": 2, "cityName": "Sanpaulu", "Xcord": 3, "Ycord": 1, "color": "Yellow"},
     { "id": 3, "cityName": "Lagosa", "Xcord": -2, "Ycord": 4, "color": "Yellow"},
     { "id": 4, "cityName": "Hartūma", "Xcord": -5, "Ycord": 3, "color": "Yellow"},

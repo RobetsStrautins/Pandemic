@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
         {
             city = pressedCity;
             transform.position = new Vector3(city.Xcord, city.Ycord, -1);
-            Mainscript.main.playerTrunCount -= 1;
+            Mainscript.main.playerTurnCount -= 1;
         }
 
     }
@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
         {
             if (pressedCity.removeCubs(1))
             {
-                Mainscript.main.playerTrunCount -= 1;
+                Mainscript.main.playerTurnCount -= 1;
             }
         } 
     }
