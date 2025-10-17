@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEditor.MemoryProfiler;
+
 public class City : MonoBehaviour
 {
     [SerializeField] private CityData cityData = new CityData();

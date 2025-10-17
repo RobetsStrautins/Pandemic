@@ -3,15 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
 public class Mainscript : MonoBehaviour
 {
     public static Mainscript main;  
 
     public CitySpawner citySpawner;
+    public PlayerCardScript playerCardScript;
+
     public GameObject player;
     private Player activePlayer;
     public Text moveCount;
-    public int playerTurnCount = 4;
+    public int playerTurnCount;
+
 
     void Awake()
     {
@@ -25,6 +29,7 @@ public class Mainscript : MonoBehaviour
         GameObject spawnedPlayer = Instantiate(player);
         activePlayer = spawnedPlayer.GetComponent<Player>();
 
+        playerTurnCount = 1;///vajag 4
         updateMoveCount();
     }
 
@@ -56,6 +61,7 @@ public class Mainscript : MonoBehaviour
         randomCity.addCubs(1);
         //Debug.LogWarning($"added cube to {randomCity.cityName}");
         playerTurnCount = 2;//vajag 4
+        playerCardScript.givePlayerCard();
     }
 
     public void updateMoveCount()

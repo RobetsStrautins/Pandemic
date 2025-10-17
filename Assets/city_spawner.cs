@@ -55,7 +55,7 @@ public class CitySpawner : MonoBehaviour
     void DrawConnection(Vector3 start, Vector3 end)
     {
         GameObject lineObj = new GameObject("Connection");
-        lineObj.transform.parent = connectionParent.transform; 
+        lineObj.transform.parent = connectionParent.transform;
 
         LineRenderer lineRenderer = lineObj.AddComponent<LineRenderer>();
 
@@ -67,6 +67,15 @@ public class CitySpawner : MonoBehaviour
         lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
         lineRenderer.startColor = Color.black;
         lineRenderer.endColor = Color.black;
+    }
+
+    private Color stringToColor(string str)
+    {
+        switch (str)
+        {
+            case "blue": return new Color(1f, 0f, 0f, 1f) ;
+        }
+        return new Color(1f, 0f, 0f, 1f) ;
     }
 }
 
