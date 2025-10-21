@@ -21,8 +21,8 @@ public class PlayerCard : MonoBehaviour
             cityLabel.text = data.cityName;
     } 
 
-    public void OnMouseDown()
+    private void OnMouseDown()
     {
-        //...
+        CardInfoManager.Instance.ShowInfo( "ttttitiititt", "cardDescription");
     }
 }

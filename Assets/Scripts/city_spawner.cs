@@ -68,15 +68,6 @@ public class CitySpawner : MonoBehaviour
         lineRenderer.startColor = Color.black;
         lineRenderer.endColor = Color.black;
     }
-
-    private Color stringToColor(string str)
-    {
-        switch (str)
-        {
-            case "blue": return new Color(1f, 0f, 0f, 1f) ;
-        }
-        return new Color(1f, 0f, 0f, 1f) ;
-    }
 }
 
 [System.Serializable]

@@ -21,6 +21,8 @@ public class City : MonoBehaviour
         if (cityLabel != null)
             cityLabel.text = cityData.cityName;
 
+        cityData.unityColor = stringToColor(cityData.color);
+        
         updateCubs();
         setUpcolor();
         
@@ -41,41 +43,30 @@ public class City : MonoBehaviour
         Mainscript.main.activePlayerMoveCitys(cityData);
     }
 
-    private void setUpcolor() //vajag velak pielabot
+    private void setUpcolor() 
     {
-
-        if (!ColorUtility.TryParseHtmlString(cityData.color, out Color colorValue))
-        {
-            colorValue = Color.white; 
-        }
-        
         Transform point = transform.Find("Point");
         SpriteRenderer pointRender = point.GetComponent<SpriteRenderer>();
-        if (ColorUtility.TryParseHtmlString(cityData.color, out Color parsed))
-        {
-            colorValue = parsed;
-        }
-        
-        pointRender.color = colorValue;
 
-        switch (cityData.color.ToLower())
+        pointRender.color = cityData.unityColor;
+        cubeColor(cityData.unityColor);
+    }
+    private Color stringToColor(string strin)
+    {
+        string str = strin.ToLower();
+        switch (str)
         {
             case "blue":
-                cubeColor(Color.blue);
-                break;
+                return new Color(0f, 0f, 1f, 1f);
             case "red":
-                cubeColor(Color.red);
-                break;
-            case "black":
-                cubeColor(Color.black);
-                break;
+                return new Color(1f, 0f, 0f, 1f);
             case "yellow":
-                cubeColor(Color.yellow);
-                break;
-            default:
-                cubeColor(Color.grey);
-                break;
+                return new Color(1f, 47f / 51f, 0.015686275f, 1f);
+            case "black":
+                return new Color(0f, 0f, 0f, 1f);
         }
+        Debug.Log("nav krasa" + str);
+        return new Color(1f, 1f, 1f, 1f) ;
     }
         
     private void cubeColor(Color colorValue)
@@ -97,6 +88,7 @@ public class CityData
     public float Xcord;
     public float Ycord;
     public string color;
+    public Color unityColor;
     public List<int> connectedCity = new List<int>();
     private int cubs = 0;
 
@@ -129,4 +121,5 @@ public class CityData
     {
         return cubs;
     }
+
 }
