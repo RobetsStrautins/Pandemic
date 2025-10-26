@@ -9,7 +9,7 @@ public class Mainscript : MonoBehaviour
     public static Mainscript main;  
 
     public CitySpawner citySpawner;
-    public PlayerCardScript playerCardScript;
+    public PlayerCardSpawnerScript PlayerCardSpawnerScript;
 
     public GameObject player;
     private Player activePlayer;
@@ -61,11 +61,16 @@ public class Mainscript : MonoBehaviour
         randomCity.addCubs(1);
         //Debug.LogWarning($"added cube to {randomCity.cityName}");
         playerTurnCount = 2;//vajag 4
-        playerCardScript.givePlayerCard();
+        PlayerCardSpawnerScript.givePlayerCard();
     }
 
     public void updateMoveCount()
     {
-        moveCount.text= playerTurnCount.ToString() + "/4";
+        moveCount.text = playerTurnCount.ToString() + "/4";
+    }
+    
+    public void popUp(CityData tempCity)
+    {
+        CardInfoManager.Instance.ShowInfo(tempCity, activePlayer);
     }
 }

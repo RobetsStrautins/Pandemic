@@ -16,13 +16,13 @@ public class PlayerCard : MonoBehaviour
 
         name = "Card " + data.cityName;
 
-        //cardBackgroundColor.GetComponent<SpriteRenderer>().color = data.color;
+        cardBackgroundColor.GetComponent<SpriteRenderer>().color = data.unityColor;
         if (cityLabel != null)
             cityLabel.text = data.cityName;
     } 
 
     private void OnMouseDown()
     {
-        CardInfoManager.Instance.ShowInfo( "ttttitiititt", "cardDescription");
+        Mainscript.main.popUp(cityCard);
     }
 }

@@ -378,7 +378,7 @@ MonoBehaviour:
     connectedCity: 
     cityObj: {fileID: 0}
   cityLabel: {fileID: 6790222117881069680}
-  cardBackgroundColor: {fileID: 0}
+  cardBackgroundColor: {fileID: 8716294819782291691}
 --- !u!61 &4920647153654085218
 BoxCollider2D:
   m_ObjectHideFlags: 0
