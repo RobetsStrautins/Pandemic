@@ -23,6 +23,6 @@ public class PlayerCard : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Mainscript.main.popUp(cityCard);
+        Mainscript.main.popUp(this);
     }
 }

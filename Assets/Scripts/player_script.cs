@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private int startingCityId = 1;
-    private CityData city;
+    public CityData city;
 
     void Start()
     {
@@ -24,7 +24,13 @@ public class Player : MonoBehaviour
             transform.position = new Vector3(city.Xcord, city.Ycord, -1);
             Mainscript.main.playerTurnCount -= 1;
         }
+    }
 
+    public void moveToCity(CityData pressedCity)
+    {
+        city = pressedCity;
+        transform.position = new Vector3(city.Xcord, city.Ycord, -1);
+        Mainscript.main.playerTurnCount -= 1;
     }
 
     public void clearCubs(CityData pressedCity)
@@ -35,6 +41,6 @@ public class Player : MonoBehaviour
             {
                 Mainscript.main.playerTurnCount -= 1;
             }
-        } 
+        }
     }
 }

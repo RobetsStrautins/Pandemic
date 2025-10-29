@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Mainscript : MonoBehaviour
 {
-    public static Mainscript main;  
+    public static Mainscript main;
 
     public CitySpawner citySpawner;
     public PlayerCardSpawnerScript PlayerCardSpawnerScript;
@@ -16,6 +16,8 @@ public class Mainscript : MonoBehaviour
     public Text moveCount;
     public int playerTurnCount;
 
+    private bool waitingForCityClick = false;
+    private PlayerCard currentCard;
 
     void Awake()
     {
@@ -33,7 +35,7 @@ public class Mainscript : MonoBehaviour
         updateMoveCount();
     }
 
-    private bool playerTurnComplite()
+    public bool playerTurnComplite()
     {
         if (playerTurnCount == 0)
         {
@@ -43,15 +45,31 @@ public class Mainscript : MonoBehaviour
 
         return false;
     }
-    
+
+    public void flytoCity(CityData tempCity)
+    {
+        activePlayer.moveToCity(tempCity);
+        updateMoveCount();
+    }
+
     public void activePlayerMoveCitys(CityData pressedCity)
     {
-        if(!playerTurnComplite())
+        if (!playerTurnComplite())
         {
-            activePlayer.clearCubs(pressedCity);
-            activePlayer.canMoveToCity(pressedCity);
-            updateMoveCount();
+            if (waitingForCityClick)
+            {
+                activePlayer.moveToCity(pressedCity);
+                waitingForCityClick = false;
+
+            }
+            else
+            {
+                activePlayer.clearCubs(pressedCity);
+                activePlayer.canMoveToCity(pressedCity); 
+            }
+
         }
+        updateMoveCount();
     }
 
     public void nextTurn()
@@ -68,9 +86,16 @@ public class Mainscript : MonoBehaviour
     {
         moveCount.text = playerTurnCount.ToString() + "/4";
     }
-    
-    public void popUp(CityData tempCity)
+
+    public void popUp(PlayerCard tempCard)
     {
-        CardInfoManager.Instance.ShowInfo(tempCity, activePlayer);
+        CardInfoManager.Instance.ShowInfo(tempCard, activePlayer);
     }
+    
+    public void StartFlyAnywhere(PlayerCard card)
+    {
+        waitingForCityClick = true;
+        currentCard = card;
+    }
+
 }

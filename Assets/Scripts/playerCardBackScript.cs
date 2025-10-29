@@ -6,7 +6,7 @@ public class PlayerCardBack : MonoBehaviour
 {
     void OnMouseDown()
     {
-        if(Mainscript.main.playerTurnCount == 0)
+        if(Mainscript.main.playerTurnComplite())
         {
             Mainscript.main.nextTurn();
             Mainscript.main.updateMoveCount();

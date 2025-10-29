@@ -9,7 +9,7 @@ public class PlayerCardSpawnerScript : MonoBehaviour
     private int playerCardCount = 0;
     private int maxCardLimit = 7;
 
-    private PlayerCardList playerCardList = new PlayerCardList();
+    public static PlayerCardList playerCardList = new PlayerCardList();
 
     public void givePlayerCard()
     {
@@ -39,11 +39,13 @@ public class PlayerCardList
     public CardNode last = null;
     private float firstCardCordX = -7.5f;
     private float firstCardCordY = -4;
-    private int playerCardCount= 0;
+    private int playerCardCount = 0;
 
     public void addCards(PlayerCard card)
     {
         CardNode node = new CardNode { card = card };
+        card.myNode = node;
+
         if (first == null)
         {
             first = node;
@@ -79,6 +81,24 @@ public class PlayerCardList
                 last = node.prev;
             }
             else node.next.prev = node.prev;
+        }
+            
+        node.card.myNode = null;
+        GameObject.Destroy(node.card.gameObject);
+        playerCardCount--;
+        updateCardPos();
+    }
+
+    private void updateCardPos()
+    {
+        CardNode current = first;
+        int i = 0;
+
+        while (current != null)
+        {
+            current.card.transform.localPosition = new Vector3(firstCardCordX + 1.8f * i, firstCardCordY);
+            i++;
+            current = current.next;
         }
     }
 }
