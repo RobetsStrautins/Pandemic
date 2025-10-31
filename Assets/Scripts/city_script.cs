@@ -9,6 +9,7 @@ public class City : MonoBehaviour
     [SerializeField] private CityData cityData = new CityData();
     public TextMeshProUGUI cityLabel;
     public GameObject[] resourceCubes;
+    public GameObject rStation;
 
     public void Init(CityData data)
     {
@@ -19,13 +20,15 @@ public class City : MonoBehaviour
         gameObject.name = "city " + cityData.cityName;
 
         if (cityLabel != null)
+        {
             cityLabel.text = cityData.cityName;
+        }
 
         cityData.unityColor = stringToColor(cityData.color);
-        
+
         updateCubs();
         setUpcolor();
-        
+
     }   
 
     public void updateCubs()
@@ -51,6 +54,7 @@ public class City : MonoBehaviour
         pointRender.color = cityData.unityColor;
         cubeColor(cityData.unityColor);
     }
+    
     private Color stringToColor(string strin)
     {
         string str = strin.ToLower();
@@ -66,7 +70,7 @@ public class City : MonoBehaviour
                 return new Color(0f, 0f, 0f, 1f);
         }
         Debug.Log("nav krasa" + str);
-        return new Color(1f, 1f, 1f, 1f) ;
+        return new Color(1f, 1f, 1f, 1f);
     }
         
     private void cubeColor(Color colorValue)
@@ -91,6 +95,7 @@ public class CityData
     public Color unityColor;
     public List<int> connectedCity = new List<int>();
     private int cubs = 0;
+    private bool researchStation = false;
 
     public City cityObj;
 
@@ -113,13 +118,25 @@ public class CityData
         {
             return false;
         }
-        cubs -= removeCubs;  
+        cubs -= removeCubs;
         cityObj?.updateCubs();
         return true;
     }
+    
     public int getCubs()
     {
         return cubs;
     }
 
+    public void buildResearchStation()
+    {
+        cityObj.rStation.SetActive(true);
+        researchStation = true;
+        Mainscript.main.playerTurnCount -= 1;
+    }
+
+    public bool hasResearchStation()
+    {
+        return researchStation;
+    }
 }

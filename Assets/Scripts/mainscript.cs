@@ -64,7 +64,11 @@ public class Mainscript : MonoBehaviour
             }
             else
             {
-                activePlayer.clearCubs(pressedCity);
+                if (pressedCity == activePlayer.city)
+                {
+                   CardInfoManager.Instance.ShowInfoWhenCityPressed(pressedCity, activePlayer);
+                }
+                //activePlayer.clearCubs(pressedCity);
                 activePlayer.canMoveToCity(pressedCity); 
             }
 
@@ -80,6 +84,7 @@ public class Mainscript : MonoBehaviour
         //Debug.LogWarning($"added cube to {randomCity.cityName}");
         playerTurnCount = 2;//vajag 4
         PlayerCardSpawnerScript.givePlayerCard();
+        PlayerCardSpawnerScript.givePlayerCard();
     }
 
     public void updateMoveCount()
@@ -89,7 +94,7 @@ public class Mainscript : MonoBehaviour
 
     public void popUp(PlayerCard tempCard)
     {
-        CardInfoManager.Instance.ShowInfo(tempCard, activePlayer);
+        CardInfoManager.Instance.ShowInfoWhenCardPressed(tempCard, activePlayer);
     }
     
     public void StartFlyAnywhere(PlayerCard card)
