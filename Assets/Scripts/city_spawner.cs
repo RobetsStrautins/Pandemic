@@ -7,6 +7,7 @@ public class CitySpawner : MonoBehaviour
 {
     public GameObject city;
     public GameObject connectionParent;
+    public GameObject CityParent;
     public static Dictionary<int, CityData> cityMap = new Dictionary<int, CityData>();//c++ map
 
     public void Setup()
@@ -33,10 +34,11 @@ public class CitySpawner : MonoBehaviour
                 }
             }
         }
-
+        CityParent = new GameObject("Cities");
         foreach (CityData data in world.cities)
         {
             GameObject cityObj = Instantiate(city);
+            cityObj.transform.parent = CityParent.transform;
             cityObj.GetComponent<City>().Init(data);
         }
 

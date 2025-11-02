@@ -12,17 +12,21 @@ public class PopUpScript : MonoBehaviour
     public void flyTo(PlayerCard card)
     {
         Mainscript.main.flytoCity(card.cityCard);
-        
-        PlayerCardSpawnerScript.playerCardList.removeCards(card.myNode);
+
+        Player player = Mainscript.main.getActivePlayer();
+        player.playerCardList.removeCards(card.myNode);
+
         exitPopUp();
     }
 
     public void flyAnywhere(PlayerCard card)
     {
         Debug.Log("Nospied pilsetu");
-        Mainscript.main.StartFlyAnywhere(card);
+        Mainscript.main.waitingForCityClick = true;
 
-        PlayerCardSpawnerScript.playerCardList.removeCards(card.myNode);
+        Player player = Mainscript.main.getActivePlayer();
+        player.playerCardList.removeCards(card.myNode);
+
         exitPopUp();
     }
 
@@ -30,7 +34,33 @@ public class PopUpScript : MonoBehaviour
     {
         card.cityCard.buildResearchStation();
 
-        PlayerCardSpawnerScript.playerCardList.removeCards(card.myNode);
+        Player player = Mainscript.main.getActivePlayer();
+        player.playerCardList.removeCards(card.myNode);
+
         exitPopUp();
     }
+
+    public void flyToResearchStation(CityData city)
+    {
+        exitPopUp();
+        Mainscript.main.loadReserchOpcions(city);
+    }
+    
+    public void trasportTo(CityData city)
+    {
+        Mainscript.main.flytoCity(city);
+        
+        exitPopUp();
+    }
+
+    public void clearCubs(CityData city, int count)
+    {
+        city.removeCubs(count);
+
+        Mainscript.main.playerTurnCount -= count;
+        Mainscript.main.updateMoveCount();
+
+        exitPopUp();
+    }
+    
 }

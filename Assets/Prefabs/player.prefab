@@ -97,3 +97,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c703d0af810ce2d4ba1e972dc31be254, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  city:
+    id: 0
+    cityName: 
+    Xcord: 0
+    Ycord: 0
+    color: 
+    unityColor: {r: 0, g: 0, b: 0, a: 0}
+    connectedCity: 
+    cityObj: {fileID: 0}
+  playerCardSpawnerScript: {fileID: 0}

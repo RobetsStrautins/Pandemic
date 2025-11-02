@@ -12,12 +12,19 @@ public class Mainscript : MonoBehaviour
     public PlayerCardSpawnerScript PlayerCardSpawnerScript;
 
     public GameObject player;
-    private Player activePlayer;
-    public Text moveCount;
+
+    [SerializeField]
+    private Text moveCount;
     public int playerTurnCount;
 
-    private bool waitingForCityClick = false;
-    private PlayerCard currentCard;
+    private int playerCount = 2;
+    public List<Player> playersList = new List<Player>();
+    private int currentPlayerIndex = 0;
+    private Player activePlayer;
+
+    public bool waitingForCityClick = false;
+
+    public List<CityData> researchStationOnMap;
 
     void Awake()
     {
@@ -28,11 +35,26 @@ public class Mainscript : MonoBehaviour
     {
         citySpawner.Setup();
 
-        GameObject spawnedPlayer = Instantiate(player);
-        activePlayer = spawnedPlayer.GetComponent<Player>();
+        for (int i = 0; i < playerCount; i++)
+        {
+            GameObject spawnedPlayer = Instantiate(player);
+            activePlayer = spawnedPlayer.GetComponent<Player>();
+            activePlayer.playerColor = UnityEngine.Random.ColorHSV(0f, 1f, 0.8f, 1f, 0.8f, 1f);
+            activePlayer.name = "Speletaijs" + (i + 1);
+            playersList.Add(activePlayer);
+        }
 
-        playerTurnCount = 1;///vajag 4
+        CityData startingCity = CitySpawner.cityMap[1];
+        startingCity.buildResearchStation();
+
+        playerTurnCount = 4;///vajag 4
+        currentPlayerIndex = 1;
         updateMoveCount();
+    }
+
+    public Player getActivePlayer()
+    {
+        return activePlayer;
     }
 
     public bool playerTurnComplite()
@@ -54,24 +76,24 @@ public class Mainscript : MonoBehaviour
 
     public void activePlayerMoveCitys(CityData pressedCity)
     {
-        if (!playerTurnComplite())
+
+        if (waitingForCityClick)
         {
-            if (waitingForCityClick)
-            {
-                activePlayer.moveToCity(pressedCity);
-                waitingForCityClick = false;
+            activePlayer.moveToCity(pressedCity);
+            waitingForCityClick = false;
 
-            }
-            else
+        }
+        else
+        {
+            if (pressedCity == activePlayer.city)
             {
-                if (pressedCity == activePlayer.city)
-                {
-                   CardInfoManager.Instance.ShowInfoWhenCityPressed(pressedCity, activePlayer);
-                }
-                //activePlayer.clearCubs(pressedCity);
-                activePlayer.canMoveToCity(pressedCity); 
+                CardInfoManager.Instance.showInfoWhenCityPressed(pressedCity, activePlayer);
             }
-
+            //activePlayer.clearCubs(pressedCity);
+            if (!playerTurnComplite())
+            {
+                activePlayer.canMoveToCity(pressedCity);
+            }
         }
         updateMoveCount();
     }
@@ -80,11 +102,14 @@ public class Mainscript : MonoBehaviour
     {
         int cityId = UnityEngine.Random.Range(1, 7);
         CityData randomCity = CitySpawner.cityMap[cityId];
-        randomCity.addCubs(1);
+        randomCity.addCubs(UnityEngine.Random.Range(1, 3));
         //Debug.LogWarning($"added cube to {randomCity.cityName}");
-        playerTurnCount = 2;//vajag 4
-        PlayerCardSpawnerScript.givePlayerCard();
-        PlayerCardSpawnerScript.givePlayerCard();
+        playerTurnCount = 4;//vajag 4
+        PlayerCardSpawnerScript.givePlayerCard(activePlayer);
+        PlayerCardSpawnerScript.givePlayerCard(activePlayer);
+
+        currentPlayerIndex = (currentPlayerIndex + 1) % playerCount;
+        activePlayer = playersList[currentPlayerIndex];
     }
 
     public void updateMoveCount()
@@ -94,13 +119,32 @@ public class Mainscript : MonoBehaviour
 
     public void popUp(PlayerCard tempCard)
     {
-        CardInfoManager.Instance.ShowInfoWhenCardPressed(tempCard, activePlayer);
-    }
-    
-    public void StartFlyAnywhere(PlayerCard card)
-    {
-        waitingForCityClick = true;
-        currentCard = card;
+        CardInfoManager.Instance.showInfoWhenCardPressed(tempCard, activePlayer);
     }
 
+    public void loadReserchOpcions(CityData city)
+    {
+        CardInfoManager.Instance.showReserchOpcions(city);
+    }
+
+    public bool inMiddleOfAcion()
+    {
+        if (CardInfoManager.isPopupOpen || waitingForCityClick)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+
+
+    Color[] playerColors = new Color[]
+    {
+        Color.red,
+        Color.blue,
+        Color.green,
+        Color.yellow,
+    };
 }
+

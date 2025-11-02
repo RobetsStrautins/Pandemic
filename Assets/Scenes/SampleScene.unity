@@ -251,8 +251,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 428169267}
+  - component: {fileID: 428169268}
   m_Layer: 0
-  m_Name: cityPopUpScript
+  m_Name: playerCardSpawnerScript
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -273,6 +274,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1208874237}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &428169268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 428169266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bc1cafb861abd44dbb662b2f2259634, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCardPrefab: {fileID: 7461730535434611236, guid: 09b5428fb0de0a047895ce9c66869a3f, type: 3}
 --- !u!1 &459766795
 GameObject:
   m_ObjectHideFlags: 0
@@ -662,6 +676,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   city: {fileID: 2600418127226929491, guid: f9797387ecdae1742b4e3b6616be4406, type: 3}
   connectionParent: {fileID: 0}
+  CityParent: {fileID: 0}
 --- !u!4 &711798848
 Transform:
   m_ObjectHideFlags: 0
@@ -853,7 +868,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IgnoreReversedGraphics: 0
-  m_BlockingObjects: 0
+  m_BlockingObjects: 3
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -965,10 +980,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   citySpawner: {fileID: 711798847}
-  PlayerCardSpawnerScript: {fileID: 1428398893}
+  PlayerCardSpawnerScript: {fileID: 428169268}
   player: {fileID: 6895538866950325300, guid: f1963caca5e081043ba749deb363fd68, type: 3}
   moveCount: {fileID: 2018478116}
   playerTurnCount: 4
+  waitingForCityClick: 0
+  researchStationOnMap: []
 --- !u!4 &1208874237
 Transform:
   m_ObjectHideFlags: 0
@@ -996,28 +1013,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1428398894}
-  - component: {fileID: 1428398893}
   - component: {fileID: 1428398895}
   m_Layer: 0
-  m_Name: playerCardSpawnerScript
+  m_Name: cardManiger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1428398893
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1428398892}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bc1cafb861abd44dbb662b2f2259634, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerCardPrefab: {fileID: 7461730535434611236, guid: 09b5428fb0de0a047895ce9c66869a3f, type: 3}
 --- !u!4 &1428398894
 Transform:
   m_ObjectHideFlags: 0
@@ -1527,7 +1530,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2034299030
 RectTransform:
   m_ObjectHideFlags: 0

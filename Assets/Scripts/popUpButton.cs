@@ -5,113 +5,87 @@ using TMPro;
 using System;
 using UnityEngine.UI;
 
-public enum ButtonActionType
-{
-    Card,
-    City,
-}
+
 
 public class PopUpButton : MonoBehaviour
 {
     public TMP_Text buttonText;
     
-    private PlayerCard card;
-    private CityData city;
-
-    private ButtonActionType buttonActionType;
 
     public void Init(string name, PlayerCard card, PopUpScript popup)
     {
         this.name = name;
-        this.card = card;
-
-        buttonActionType = ButtonActionType.Card;
+        Button btn = GetComponent<Button>();
 
         if (name == "flyTo")
         {
             buttonText.text = "Lidot uz " + card.cityCard.cityName;
-            Button btn = GetComponent<Button>();
             btn.onClick.AddListener(() => popup.flyTo(card));
+
+
         }
         else if (name == "flyAnywhere")
         {
             buttonText.text = "Lidot no " + card.cityCard.cityName;
-            Button btn = GetComponent<Button>();
             btn.onClick.AddListener(() => popup.flyAnywhere(card));
         }
         else if (name == "makereRearchStation")
         {
             buttonText.text = "Uztaisit majinu";
-            Button btn = GetComponent<Button>();
             btn.onClick.AddListener(() => popup.makereRearchStation(card));
         }
         else
         {
             buttonText.text = name;
         }
+        
+        if (Mainscript.main.playerTurnComplite())
+        {
+            btn.interactable = false;
+        }
 
     }
 
-    public void Init(string name, CityData city)
+    public void Init(string name, CityData city, PopUpScript popup)
     {
         this.name = name;
-        this.city = city;
-        buttonActionType = ButtonActionType.City;
-
         buttonText.text = name;
 
-    }
+        Button btn = GetComponent<Button>();
 
-    private void OnMouseDown()
-    {
-        if (!Mainscript.main.playerTurnComplite())
+        if (name == "flyToResearchStation")
         {
-            if (buttonActionType == ButtonActionType.Card)
+            btn.onClick.AddListener(() => popup.flyToResearchStation(city));
+        }
+        else if (name == "trasport")
+        {
+            btn.onClick.AddListener(() => popup.trasportTo(city));
+            buttonText.text = city.cityName;
+        }
+
+        string[] nameSplit = name.Split(' ');
+
+        if (nameSplit[0] == "Remove")
+        {
+            if (int.TryParse(nameSplit[1], out int cubeCount))
             {
-                pressedCardButton();
+                if (cubeCount > Mainscript.main.playerTurnCount)
+                {
+                    btn.interactable = false;
+                }
+
+                btn.onClick.AddListener(() => popup.clearCubs(city, cubeCount));
             }
             else
             {
-                pressedCityButton();
-            }
-            CardInfoManager.Instance.hideInfo();
-        }
-        else
-        {
-            Debug.Log("Nav pietiekami daudz gajieni");
-        }
-    }
-
-    private void pressedCardButton()
-    {
-        if (name == "flyTo")
-        {
-            if (!Mainscript.main.playerTurnComplite())
-            {
-                Mainscript.main.flytoCity(card.cityCard);
+                Debug.LogError($"nav ints   {name}");
             }
         }
-        else if (name == "flyAnywhere")
+        
+        if (Mainscript.main.playerTurnComplite())
         {
-            Debug.Log("Nospied pilsetu");
-            Mainscript.main.StartFlyAnywhere(card);
-        }
-        else if (name == "makereRearchStation")
-        {
-            card.cityCard.buildResearchStation();
+            btn.interactable = false;
         }
 
-        PlayerCardSpawnerScript.playerCardList.removeCards(card.myNode);
-    }
-    
-    private void pressedCityButton()
-    {
-        if (name == "flyTo")
-        {
-            if (!Mainscript.main.playerTurnComplite())
-            {
-                Mainscript.main.flytoCity(card.cityCard);
-            }
-        }
     }
 }

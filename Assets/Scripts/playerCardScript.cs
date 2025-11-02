@@ -23,6 +23,11 @@ public class PlayerCard : MonoBehaviour
 
     private void OnMouseDown()
     {
+        if (Mainscript.main.inMiddleOfAcion())
+        {
+            return;
+        }
+        
         Mainscript.main.popUp(this);
     }
 }

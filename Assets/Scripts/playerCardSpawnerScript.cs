@@ -6,15 +6,8 @@ public class PlayerCardSpawnerScript : MonoBehaviour
 {
     public GameObject playerCardPrefab;
 
-    private int playerCardCount = 0;
-    private int maxCardLimit = 7;
-
-    public static PlayerCardList playerCardList = new PlayerCardList();
-
-    public void givePlayerCard()
+    public void givePlayerCard(Player player)
     {
-        playerCardCount += 1;
-
         int cityId = Random.Range(1, 7);
         CityData randomCity = CitySpawner.cityMap[cityId];
 
@@ -22,7 +15,7 @@ public class PlayerCardSpawnerScript : MonoBehaviour
         PlayerCard newCard = cardObj.GetComponent<PlayerCard>();
         newCard.Init(randomCity);
 
-        playerCardList.addCards(newCard);
+        player.playerCardList.addCards(newCard);
     }
 }
 
@@ -31,6 +24,8 @@ public class CardNode
     public CardNode prev = null;
     public CardNode next = null;
     public PlayerCard card;
+
+    //public BounsCard Bcard;
 }
 
 public class PlayerCardList
@@ -57,7 +52,6 @@ public class PlayerCardList
             node.prev = last;
             last = node;
         }
-        node.card.transform.localPosition = new Vector3(firstCardCordX + 1.8f * playerCardCount, firstCardCordY);
         playerCardCount++;
     }
 
@@ -86,10 +80,10 @@ public class PlayerCardList
         node.card.myNode = null;
         GameObject.Destroy(node.card.gameObject);
         playerCardCount--;
-        updateCardPos();
+        //showCardPos();
     }
 
-    private void updateCardPos()
+    private void showCardPos()
     {
         CardNode current = first;
         int i = 0;
@@ -101,4 +95,16 @@ public class PlayerCardList
             current = current.next;
         }
     }
+
+    private void disableCardPos()
+    {
+        CardNode current = first;
+
+        while (current != null)
+        {
+            Object.Destroy(current.card.gameObject);
+            current = current.next;
+        }
+    }
+
 }

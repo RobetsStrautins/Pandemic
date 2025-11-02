@@ -43,6 +43,11 @@ public class City : MonoBehaviour
 
     void OnMouseDown()
     {
+        if (Mainscript.main.inMiddleOfAcion() && !Mainscript.main.waitingForCityClick)
+        {
+            return;
+        }
+        
         Mainscript.main.activePlayerMoveCitys(cityData);
     }
 
@@ -133,6 +138,8 @@ public class CityData
         cityObj.rStation.SetActive(true);
         researchStation = true;
         Mainscript.main.playerTurnCount -= 1;
+        Mainscript.main.researchStationOnMap.Add(this);
+        Mainscript.main.updateMoveCount();
     }
 
     public bool hasResearchStation()

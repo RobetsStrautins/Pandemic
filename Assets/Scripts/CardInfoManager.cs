@@ -14,6 +14,7 @@ public class CardInfoManager : MonoBehaviour
     public PopUpScript popupScript;
 
     public static CardInfoManager Instance;
+    public static bool isPopupOpen = false;
 
     private List<GameObject> buttonList = new List<GameObject>();
 
@@ -23,8 +24,10 @@ public class CardInfoManager : MonoBehaviour
         panel.SetActive(false);
     }
 
-    public void ShowInfoWhenCardPressed(PlayerCard card, Player player)//izarstet,lidota ar maju,nonemt cubicinu
+    public void showInfoWhenCardPressed(PlayerCard card, Player player)//izarstet,lidota ar maju,nonemt cubicinu
     {
+        isPopupOpen = true;
+
         GameObject cardObj;
         PopUpButton newButton;
         if (player.city == card.cityCard)
@@ -56,8 +59,10 @@ public class CardInfoManager : MonoBehaviour
         panel.SetActive(true);
     }
 
-    public void ShowInfoWhenCityPressed(CityData city, Player player)
+    public void showInfoWhenCityPressed(CityData city, Player player)
     {
+        isPopupOpen = true;
+
         GameObject cardObj;
         PopUpButton newButton;
 
@@ -65,29 +70,53 @@ public class CardInfoManager : MonoBehaviour
         {
             cardObj = Instantiate(button, popUp.transform);
             newButton = cardObj.GetComponentInChildren<PopUpButton>();
-            newButton.Init("cureDesise", city);
+            newButton.Init("cureDesise", city, popupScript);
             buttonList.Add(cardObj);
         }
-
-        if (city.hasResearchStation())
+        
+        if (city.hasResearchStation() && Mainscript.main.researchStationOnMap.Count >= 2)
         {
             cardObj = Instantiate(button, popUp.transform);
             newButton = cardObj.GetComponentInChildren<PopUpButton>();
-            newButton.Init("flyToResearchStation", city);
+            newButton.Init("flyToResearchStation", city, popupScript);
             buttonList.Add(cardObj);
         }
 
         int cubs = city.getCubs();
-        for (int i = 0; i < cubs; i++)
+        for (int i = 1; i <= cubs; i++)
         {
             cardObj = Instantiate(button, popUp.transform);
             newButton = cardObj.GetComponentInChildren<PopUpButton>();
-            newButton.Init("Remove " + i + "cubs", city);
+            newButton.Init("Remove " + i + " cubs", city, popupScript);
             buttonList.Add(cardObj);
+        }
+
+        buttonPos();
+        titleText.text = "Ko darit " + city.cityName;
+        descriptionText.text = "cardDescription";
+        panel.SetActive(true);
+    }
+    
+    public void showReserchOpcions(CityData pressedcity)
+    {
+        isPopupOpen = true;
+
+        GameObject cardObj;
+        PopUpButton newButton;
+
+        foreach (CityData city in Mainscript.main.researchStationOnMap)
+        {
+            if (!(pressedcity == city))
+            {
+                cardObj = Instantiate(button, popUp.transform);
+                newButton = cardObj.GetComponentInChildren<PopUpButton>();
+                newButton.Init("trasport", city, popupScript);
+                buttonList.Add(cardObj);
+            }
         }
         
         buttonPos();
-        titleText.text ="Ko darit "+ city.cityName;
+        titleText.text = "Uz kuru lidot?";
         descriptionText.text = "cardDescription";
         panel.SetActive(true);
     }
@@ -108,6 +137,7 @@ public class CardInfoManager : MonoBehaviour
     public void hideInfo()
     {
         panel.SetActive(false);
+        isPopupOpen = false;
 
         foreach (GameObject obj in buttonList)
         {
