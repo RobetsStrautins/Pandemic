@@ -12,6 +12,7 @@ public class CardInfoManager : MonoBehaviour
     public GameObject button;
 
     public PopUpScript popupScript;
+    public PlayerCardSpawnerScript playerCardSpawnerScript;
 
     public static CardInfoManager Instance;
     public static bool isPopupOpen = false;
@@ -30,19 +31,30 @@ public class CardInfoManager : MonoBehaviour
 
         GameObject cardObj;
         PopUpButton newButton;
-        if (player.city == card.cityCard)
+        if (player.city == card.myNode.cityCard)
         {
             cardObj = Instantiate(button, popUp.transform);
             newButton = cardObj.GetComponentInChildren<PopUpButton>();
             newButton.Init("flyAnywhere", card, popupScript);
             buttonList.Add(cardObj);
 
-            if (!card.cityCard.hasResearchStation())
+            if (!card.myNode.cityCard.hasResearchStation())
             {
                 cardObj = Instantiate(button, popUp.transform);
                 newButton = cardObj.GetComponentInChildren<PopUpButton>();
                 newButton.Init("makereRearchStation", card, popupScript);
                 buttonList.Add(cardObj);
+            }
+
+            foreach (Player playerInList in Mainscript.main.playersList)
+            {            
+                if (player != playerInList && playerInList.city==card.myNode.cityCard)
+                {
+                    cardObj = Instantiate(button, popUp.transform);
+                    newButton = cardObj.GetComponentInChildren<PopUpButton>();
+                    newButton.Init("giveCard", card, popupScript, playerInList);
+                    buttonList.Add(cardObj);
+                }
             }
         }
         else
@@ -53,8 +65,13 @@ public class CardInfoManager : MonoBehaviour
             buttonList.Add(cardObj);
         }
 
+        cardObj = Instantiate(button, popUp.transform);
+        newButton = cardObj.GetComponentInChildren<PopUpButton>();
+        newButton.Init("removeCard", card, popupScript);
+        buttonList.Add(cardObj);
+
         buttonPos();
-        titleText.text = card.cityCard.cityName;
+        titleText.text = card.myNode.cityCard.cityName;
         descriptionText.text = "cardDescription";
         panel.SetActive(true);
     }
@@ -144,5 +161,7 @@ public class CardInfoManager : MonoBehaviour
             Destroy(obj);
         }
         buttonList.Clear();
+
+        playerCardSpawnerScript.showPlayersHand(Mainscript.main.getActivePlayer());
     }
 }

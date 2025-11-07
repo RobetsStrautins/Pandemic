@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public int playerId;
+
     private int startingCityId = 1;
     public CityData city;
 
@@ -42,14 +44,5 @@ public class Player : MonoBehaviour
         city = pressedCity;
         transform.position = new Vector3(city.Xcord, city.Ycord, -1);
         Mainscript.main.playerTurnCount -= 1;
-    }
-
-    public void addCardToHand()
-    {
-        GameObject cardObj = Instantiate(playerCardPrefab);
-        PlayerCard newCard = cardObj.GetComponent<PlayerCard>();
-        newCard.Init(randomCity);
-
-        player.playerCardList.addCards(newCard);
     }
 }

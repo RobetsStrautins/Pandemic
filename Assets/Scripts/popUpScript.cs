@@ -6,15 +6,16 @@ public class PopUpScript : MonoBehaviour
 {
     public void exitPopUp()
     {
+        PlayerCardInfoManager.Instance.hideInfo();
         CardInfoManager.Instance.hideInfo();
     }
 
     public void flyTo(PlayerCard card)
     {
-        Mainscript.main.flytoCity(card.cityCard);
+        Mainscript.main.flytoCity(card.myNode.cityCard);
 
         Player player = Mainscript.main.getActivePlayer();
-        player.playerCardList.removeCards(card.myNode);
+        player.playerCardList.removeCard(card.myNode, card);
 
         exitPopUp();
     }
@@ -25,17 +26,35 @@ public class PopUpScript : MonoBehaviour
         Mainscript.main.waitingForCityClick = true;
 
         Player player = Mainscript.main.getActivePlayer();
-        player.playerCardList.removeCards(card.myNode);
+        player.playerCardList.removeCard(card.myNode, card);
 
         exitPopUp();
     }
 
     public void makereRearchStation(PlayerCard card)
     {
-        card.cityCard.buildResearchStation();
+        card.myNode.cityCard.buildResearchStation();
 
         Player player = Mainscript.main.getActivePlayer();
-        player.playerCardList.removeCards(card.myNode);
+        player.playerCardList.removeCard(card.myNode, card);
+
+        exitPopUp();
+    }
+
+    public void giveCard(PlayerCard card, Player playerToGiveCard)
+    {
+        playerToGiveCard.playerCardList.newNodeCard(card.myNode.cityCard);
+
+        Player player = Mainscript.main.getActivePlayer();
+        player.playerCardList.removeCard(card.myNode, card);
+
+        exitPopUp();
+    }
+
+    public void removeCard(PlayerCard card)
+    {
+        Player player = Mainscript.main.getActivePlayer();
+        player.playerCardList.removeCard(card.myNode, card);
 
         exitPopUp();
     }
@@ -43,13 +62,13 @@ public class PopUpScript : MonoBehaviour
     public void flyToResearchStation(CityData city)
     {
         exitPopUp();
-        Mainscript.main.loadReserchOpcions(city);
+        CardInfoManager.Instance.showReserchOpcions(city);
     }
-    
+
     public void trasportTo(CityData city)
     {
         Mainscript.main.flytoCity(city);
-        
+
         exitPopUp();
     }
 
@@ -62,5 +81,13 @@ public class PopUpScript : MonoBehaviour
 
         exitPopUp();
     }
-    
+
+    public void endTurnButton()
+    {
+        if (Mainscript.main.playerTurnCount == 0 && PlayerCardBack.playerTookCards)
+        {
+            PlayerCardBack.playerTookCards = false;
+            Mainscript.main.nextTurn();
+        }
+    }
 }

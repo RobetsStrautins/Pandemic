@@ -5,20 +5,19 @@ using TMPro;
 
 public class PlayerCard : MonoBehaviour
 {
-    public CityData cityCard;
     public CardNode myNode;
     public TextMeshProUGUI cityLabel;
     public GameObject cardBackgroundColor;
     
-    public void Init(CityData data)
+    public void Init(CardNode cardNode)
     {
-        cityCard = data;
+        myNode = cardNode;
 
-        name = "Card " + data.cityName;
+        name = "Card " + myNode.cityCard.cityName;
 
-        cardBackgroundColor.GetComponent<SpriteRenderer>().color = data.unityColor;
+        cardBackgroundColor.GetComponent<SpriteRenderer>().color = myNode.cityCard.unityColor;
         if (cityLabel != null)
-            cityLabel.text = data.cityName;
+            cityLabel.text = myNode.cityCard.cityName;
     } 
 
     private void OnMouseDown()
@@ -27,7 +26,8 @@ public class PlayerCard : MonoBehaviour
         {
             return;
         }
-        
-        Mainscript.main.popUp(this);
+
+        CardInfoManager.Instance.showInfoWhenCardPressed(this, Mainscript.main.getActivePlayer());
+
     }
 }

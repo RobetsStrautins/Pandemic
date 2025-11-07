@@ -5,41 +5,96 @@ using UnityEngine;
 public class PlayerCardSpawnerScript : MonoBehaviour
 {
     public GameObject playerCardPrefab;
+    private GameObject playerCardParent;
+
 
     public void givePlayerCard(Player player)
     {
         int cityId = Random.Range(1, 7);
         CityData randomCity = CitySpawner.cityMap[cityId];
 
-        GameObject cardObj = Instantiate(playerCardPrefab);
-        PlayerCard newCard = cardObj.GetComponent<PlayerCard>();
-        newCard.Init(randomCity);
+        player.playerCardList.newNodeCard(randomCity);
+    }
 
-        player.playerCardList.addCards(newCard);
+    public void showPlayersHand(Player player)
+    {
+
+        clearPlayerHand();
+
+        float firstCardCordX = -7.5f;
+        float firstCardCordY = -4;
+
+        CardNode current = player.playerCardList.first;
+        int i = 0;
+
+        playerCardParent = new GameObject("Speletaja " + (player.playerId+1)+ " kartis");
+
+        while (current != null)
+        {
+            GameObject cardObj = Instantiate(playerCardPrefab);
+            cardObj.transform.parent = playerCardParent.transform;
+            PlayerCard newCard = cardObj.GetComponent<PlayerCard>();
+            newCard.Init(current);
+
+            cardObj.transform.localPosition = new Vector3(firstCardCordX + 1.8f * i, firstCardCordY, 0f);
+
+            i++;
+            current = current.next;
+        }
+    }
+
+    public void clearPlayerHand()
+    {
+        if (playerCardParent != null)
+        {
+            Object.Destroy(playerCardParent);
+            playerCardParent = null;
+        }
+    }
+
+    public void RemoveCard(Player player, PlayerCard cardToRemove)
+    {
+        player.playerCardList.removeCard(cardToRemove.myNode, cardToRemove);
+
+        Object.Destroy(cardToRemove.gameObject);
+
+        uppdateCardPos();
+    }
+
+    private void uppdateCardPos()
+    {
+        float firstCardCordX = -7.5f;
+        float firstCardCordY = -4f;
+
+        int i = 0;
+
+        foreach (Transform child in playerCardParent.transform)
+        {
+            child.localPosition = new Vector3(firstCardCordX + 1.8f * i, firstCardCordY, 0f);
+            i++;
+        }
     }
 }
 
 public class CardNode
-{
-    public CardNode prev = null;
-    public CardNode next = null;
-    public PlayerCard card;
+    {
+        public CardNode prev = null;
+        public CardNode next = null;
 
-    //public BounsCard Bcard;
-}
+        public CityData cityCard;
+
+        //public BounsCard Bcard;
+    }
 
 public class PlayerCardList
 {
     public CardNode first = null;
     public CardNode last = null;
-    private float firstCardCordX = -7.5f;
-    private float firstCardCordY = -4;
-    private int playerCardCount = 0;
+    public int playerCardCount = 0;
 
-    public void addCards(PlayerCard card)
+    public void newNodeCard(CityData city)
     {
-        CardNode node = new CardNode { card = card };
-        card.myNode = node;
+        CardNode node = new CardNode { cityCard = city };
 
         if (first == null)
         {
@@ -55,7 +110,7 @@ public class PlayerCardList
         playerCardCount++;
     }
 
-    public void removeCards(CardNode node)
+    public void removeCard(CardNode node, PlayerCard playerCard)
     {
         if (first == node && last == node)
         {
@@ -77,34 +132,9 @@ public class PlayerCardList
             else node.next.prev = node.prev;
         }
             
-        node.card.myNode = null;
-        GameObject.Destroy(node.card.gameObject);
+        playerCard.myNode = null;
+        GameObject.Destroy(playerCard.gameObject);
         playerCardCount--;
-        //showCardPos();
-    }
-
-    private void showCardPos()
-    {
-        CardNode current = first;
-        int i = 0;
-
-        while (current != null)
-        {
-            current.card.transform.localPosition = new Vector3(firstCardCordX + 1.8f * i, firstCardCordY);
-            i++;
-            current = current.next;
-        }
-    }
-
-    private void disableCardPos()
-    {
-        CardNode current = first;
-
-        while (current != null)
-        {
-            Object.Destroy(current.card.gameObject);
-            current = current.next;
-        }
     }
 
 }
