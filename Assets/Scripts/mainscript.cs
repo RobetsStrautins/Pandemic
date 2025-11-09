@@ -48,8 +48,10 @@ public class Mainscript : MonoBehaviour
             activePlayer.playerId = i;
             playersList.Add(activePlayer);
 
-            PlayerCardSpawnerScript.givePlayerCard(activePlayer);
-            PlayerCardSpawnerScript.givePlayerCard(activePlayer);
+            for (int j = 0; j < 7;j++)
+            {
+                PlayerCardSpawnerScript.givePlayerCard(activePlayer);
+            }
     
             GameObject spawnedPlayerTop = Instantiate(playerTop);
             PlayerTop newPlayerTop = spawnedPlayerTop.GetComponent<PlayerTop>();

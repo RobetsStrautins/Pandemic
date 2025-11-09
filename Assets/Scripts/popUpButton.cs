@@ -70,7 +70,12 @@ public class PopUpButton : MonoBehaviour
 
         Button btn = GetComponent<Button>();
 
-        if (name == "flyToResearchStation")
+        if (name == "cureDesise")
+        {
+            btn.onClick.AddListener(() => popup.cureDesisePopUp());
+            buttonText.text = "Izarstet slimibu";
+        }
+        else if (name == "flyToResearchStation")
         {
             btn.onClick.AddListener(() => popup.flyToResearchStation(city));
         }

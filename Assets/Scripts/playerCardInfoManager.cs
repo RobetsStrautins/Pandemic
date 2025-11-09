@@ -42,7 +42,33 @@ public class PlayerCardInfoManager : MonoBehaviour
         }
 
         buttonPos();
-        titleText.text = "Speletaja " + (player.playerId+1) + " kartis";
+        titleText.text = "Speletaja " + (player.playerId + 1) + " kartis";
+        panel.SetActive(true);
+    }
+    
+    public void pickCardsToCureDesise()
+    {
+        Player player = Mainscript.main.getActivePlayer();
+
+        CardInfoManager.isPopupOpen = true;
+
+        GameObject cardObj;
+        PlayerCardInPopUp playerCardInPopUp;
+
+        CardNode current = player.playerCardList.first;
+
+        while (current != null)
+        {
+            cardObj = Instantiate(playerPanalCards, popUp.transform);
+            playerCardInPopUp = cardObj.GetComponentInChildren<PlayerCardInPopUp>();
+            playerCardInPopUp.Init(current);
+            buttonList.Add(cardObj);
+
+            current = current.next;
+        }
+
+        buttonPos();
+        titleText.text = "Izvelies kartis kuras izmantot";
         panel.SetActive(true);
     }
 

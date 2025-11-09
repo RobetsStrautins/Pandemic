@@ -59,6 +59,12 @@ public class PopUpScript : MonoBehaviour
         exitPopUp();
     }
 
+    public void cureDesisePopUp()
+    {
+        exitPopUp();
+        PlayerCardInfoManager.Instance.pickCardsToCureDesise();
+    }
+
     public void flyToResearchStation(CityData city)
     {
         exitPopUp();

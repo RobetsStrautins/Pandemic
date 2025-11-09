@@ -83,7 +83,7 @@ public class CardInfoManager : MonoBehaviour
         GameObject cardObj;
         PopUpButton newButton;
 
-        if (false)///kkad jauztaisa xd
+        if (true)
         {
             cardObj = Instantiate(button, popUp.transform);
             newButton = cardObj.GetComponentInChildren<PopUpButton>();
