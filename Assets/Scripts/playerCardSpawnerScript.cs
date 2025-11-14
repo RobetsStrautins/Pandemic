@@ -7,6 +7,12 @@ public class PlayerCardSpawnerScript : MonoBehaviour
     public GameObject playerCardPrefab;
     private GameObject playerCardParent;
 
+    public static PlayerCardSpawnerScript Instance;
+
+    public void Awake()
+    {
+        Instance = this;
+    }
 
     public void givePlayerCard(Player player)
     {
@@ -49,29 +55,6 @@ public class PlayerCardSpawnerScript : MonoBehaviour
         {
             Object.Destroy(playerCardParent);
             playerCardParent = null;
-        }
-    }
-
-    public void RemoveCard(Player player, PlayerCard cardToRemove)
-    {
-        player.playerCardList.removeCard(cardToRemove.myNode, cardToRemove);
-
-        Object.Destroy(cardToRemove.gameObject);
-
-        uppdateCardPos();
-    }
-
-    private void uppdateCardPos()
-    {
-        float firstCardCordX = -7.5f;
-        float firstCardCordY = -4f;
-
-        int i = 0;
-
-        foreach (Transform child in playerCardParent.transform)
-        {
-            child.localPosition = new Vector3(firstCardCordX + 1.8f * i, firstCardCordY, 0f);
-            i++;
         }
     }
 }
@@ -131,10 +114,36 @@ public class PlayerCardList
             }
             else node.next.prev = node.prev;
         }
-            
+
         playerCard.myNode = null;
         GameObject.Destroy(playerCard.gameObject);
         playerCardCount--;
     }
+    
+        public void removeCard(CardNode node)
+    {
+        if (first == node && last == node)
+        {
+            first = null;
+            last = null;
+        }
+        else
+        {
+            if (node.prev == null)
+            {
+                first = node.next;
+            }
+            else node.prev.next = node.next;
+
+            if (node.next == null)
+            {
+                last = node.prev;
+            }
+            else node.next.prev = node.prev;
+        }
+            
+        playerCardCount--;
+    }
+
 
 }

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerCardBack : MonoBehaviour
 {
-    public PlayerCardSpawnerScript PlayerCardSpawnerScript;
 
     public static bool playerTookCards = false;
 
@@ -18,9 +17,9 @@ public class PlayerCardBack : MonoBehaviour
         if(Mainscript.main.playerTurnComplite() && !playerTookCards)
         {
             Player player = Mainscript.main.getActivePlayer();
-            PlayerCardSpawnerScript.givePlayerCard(player);
-            PlayerCardSpawnerScript.givePlayerCard(player);
-            PlayerCardSpawnerScript.showPlayersHand(player);
+            PlayerCardSpawnerScript.Instance.givePlayerCard(player);
+            PlayerCardSpawnerScript.Instance.givePlayerCard(player);
+            PlayerCardSpawnerScript.Instance.showPlayersHand(player);
 
             playerTookCards = true;
             

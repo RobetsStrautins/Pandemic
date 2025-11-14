@@ -138,7 +138,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7861366998486525717}
         m_TargetAssemblyTypeName: PlayerCardInPopUp, Assembly-CSharp
-        m_MethodName: OnCardClicked
+        m_MethodName: onCardClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

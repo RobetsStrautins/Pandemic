@@ -12,7 +12,6 @@ public class CardInfoManager : MonoBehaviour
     public GameObject button;
 
     public PopUpScript popupScript;
-    public PlayerCardSpawnerScript playerCardSpawnerScript;
 
     public static CardInfoManager Instance;
     public static bool isPopupOpen = false;
@@ -83,12 +82,17 @@ public class CardInfoManager : MonoBehaviour
         GameObject cardObj;
         PopUpButton newButton;
 
-        if (true)
+        string colorThatCanBeCured = countCardColors(player);
+        //Debug.Log("aaaadsa" + DesiseMarkers.Instance.desiseColorDict[colorThatCanBeCured].isCuredDesise);
+        if (colorThatCanBeCured !=null && city.hasResearchStation())
         {
-            cardObj = Instantiate(button, popUp.transform);
-            newButton = cardObj.GetComponentInChildren<PopUpButton>();
-            newButton.Init("cureDesise", city, popupScript);
-            buttonList.Add(cardObj);
+            if(!DesiseMarkers.Instance.desiseColorDict[colorThatCanBeCured].isCuredDesise)
+            {
+                cardObj = Instantiate(button, popUp.transform);
+                newButton = cardObj.GetComponentInChildren<PopUpButton>();
+                newButton.Init("cureDesise " + colorThatCanBeCured, city, popupScript);
+                buttonList.Add(cardObj);
+            }
         }
         
         if (city.hasResearchStation() && Mainscript.main.researchStationOnMap.Count >= 2)
@@ -99,7 +103,16 @@ public class CardInfoManager : MonoBehaviour
             buttonList.Add(cardObj);
         }
 
+
         int cubs = city.getCubs();
+        if (cubs >= 1 && !DesiseMarkers.Instance.desiseColorDict[city.color])
+        {
+            cardObj = Instantiate(button, popUp.transform);
+            newButton = cardObj.GetComponentInChildren<PopUpButton>();
+            newButton.Init("Remove " + cubs + " cubs", city, popupScript);
+            buttonList.Add(cardObj);
+        } 
+        
         for (int i = 1; i <= cubs; i++)
         {
             cardObj = Instantiate(button, popUp.transform);
@@ -162,6 +175,40 @@ public class CardInfoManager : MonoBehaviour
         }
         buttonList.Clear();
 
-        playerCardSpawnerScript.showPlayersHand(Mainscript.main.getActivePlayer());
+        PlayerCardSpawnerScript.Instance.showPlayersHand(Mainscript.main.getActivePlayer());
     }
+
+    private string countCardColors(Player player)
+    {
+        var colorCounts = new Dictionary<string, int>
+        {
+            { "Red", 0 },
+            { "Yellow", 0 },
+            { "Black", 0 },
+            { "Blue", 0 }
+        };
+
+        CardNode current = player.playerCardList.first;
+
+        while (current != null)
+        {
+            if (colorCounts.ContainsKey(current.cityCard.color))
+            {
+                colorCounts[current.cityCard.color]++;
+            }
+
+            current = current.next;
+        }
+
+        foreach (var color in colorCounts)
+        {
+            if (color.Value >= 5)
+            {
+                return color.Key;   
+            }
+        }
+
+        return null;
+    }
+
 }

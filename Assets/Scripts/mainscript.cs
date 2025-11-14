@@ -9,7 +9,6 @@ public class Mainscript : MonoBehaviour
     public static Mainscript main;
 
     public CitySpawner citySpawner;
-    public PlayerCardSpawnerScript PlayerCardSpawnerScript;
 
     public GameObject player;
     public GameObject playerTop;
@@ -50,7 +49,7 @@ public class Mainscript : MonoBehaviour
 
             for (int j = 0; j < 7;j++)
             {
-                PlayerCardSpawnerScript.givePlayerCard(activePlayer);
+                PlayerCardSpawnerScript.Instance.givePlayerCard(activePlayer);
             }
     
             GameObject spawnedPlayerTop = Instantiate(playerTop);
@@ -60,7 +59,7 @@ public class Mainscript : MonoBehaviour
         }
 
         activePlayer = playersList[0];
-        PlayerCardSpawnerScript.showPlayersHand(activePlayer);
+        PlayerCardSpawnerScript.Instance.showPlayersHand(activePlayer);
 
         CityData startingCity = CitySpawner.cityMap[1];
         startingCity.buildResearchStation();
@@ -117,7 +116,7 @@ public class Mainscript : MonoBehaviour
 
     public void nextTurn()
     {
-        PlayerCardSpawnerScript.clearPlayerHand();
+        PlayerCardSpawnerScript.Instance.clearPlayerHand();
 
         int cityId = UnityEngine.Random.Range(1, 7);
         CityData randomCity = CitySpawner.cityMap[cityId];
@@ -127,7 +126,7 @@ public class Mainscript : MonoBehaviour
         currentPlayerIndex = (currentPlayerIndex + 1) % playerCount;
         activePlayer = playersList[currentPlayerIndex];
 
-        PlayerCardSpawnerScript.showPlayersHand(activePlayer);
+        PlayerCardSpawnerScript.Instance.showPlayersHand(activePlayer);
 
         playerTurnCount = 4;//vajag 4
         updateMoveCount();

@@ -8,6 +8,7 @@ public class PopUpScript : MonoBehaviour
     {
         PlayerCardInfoManager.Instance.hideInfo();
         CardInfoManager.Instance.hideInfo();
+        CureInfoManager.Instance.hideInfo();
     }
 
     public void flyTo(PlayerCard card)
@@ -59,10 +60,10 @@ public class PopUpScript : MonoBehaviour
         exitPopUp();
     }
 
-    public void cureDesisePopUp()
+    public void cureDesisePopUp(string color)
     {
         exitPopUp();
-        PlayerCardInfoManager.Instance.pickCardsToCureDesise();
+        CureInfoManager.Instance.pickCardsToCureDesise(color);
     }
 
     public void flyToResearchStation(CityData city)

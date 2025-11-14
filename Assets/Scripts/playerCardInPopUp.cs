@@ -20,34 +20,31 @@ public class PlayerCardInPopUp : MonoBehaviour
 
         cardBackgroundColor.color = myNode.cityCard.unityColor;
         baseColor = myNode.cityCard.unityColor;
-        selectedColor = baseColor * 0.7f; // Darker version for selection
+        selectedColor = baseColor * 0.7f; 
 
         if (cityLabel != null)
             cityLabel.text = myNode.cityCard.cityName;
     }
 
-    // Called when the button is clicked
-    public void OnCardClicked()
+    public void onCardClicked()
     {
-        if (SelectionManager.Instance == null) return;
+        if (SelectionManager.Instance == null)
+        {
+            return;
+        } 
 
         if (!isSelected && SelectionManager.Instance.CanSelectMore())
         {
             isSelected = true;
             SelectionManager.Instance.SelectCard(this);
-            Highlight(true);
+            cardBackgroundColor.color = selectedColor;
         }
         else if (isSelected)
         {
             isSelected = false;
             SelectionManager.Instance.DeselectCard(this);
-            Highlight(false);
+            cardBackgroundColor.color = baseColor;
         }
-    }
-
-    private void Highlight(bool enable)
-    {
-        cardBackgroundColor.color = enable ? selectedColor : baseColor;
     }
 
     public bool IsSelected => isSelected;

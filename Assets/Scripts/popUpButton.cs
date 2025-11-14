@@ -70,12 +70,7 @@ public class PopUpButton : MonoBehaviour
 
         Button btn = GetComponent<Button>();
 
-        if (name == "cureDesise")
-        {
-            btn.onClick.AddListener(() => popup.cureDesisePopUp());
-            buttonText.text = "Izarstet slimibu";
-        }
-        else if (name == "flyToResearchStation")
+        if (name == "flyToResearchStation")
         {
             btn.onClick.AddListener(() => popup.flyToResearchStation(city));
         }
@@ -87,7 +82,12 @@ public class PopUpButton : MonoBehaviour
 
         string[] nameSplit = name.Split(' ');
 
-        if (nameSplit[0] == "Remove")
+        if (nameSplit[0] == "cureDesise")
+        {
+            btn.onClick.AddListener(() => popup.cureDesisePopUp(nameSplit[1]));
+            buttonText.text = "Izarstet slimibu " + nameSplit[1];
+        }
+        else if (nameSplit[0] == "Remove")
         {
             if (int.TryParse(nameSplit[1], out int cubeCount))
             {
