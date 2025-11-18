@@ -20,7 +20,7 @@ public class CitySpawner : MonoBehaviour
             cityMap[data.id] = data;
         }
 
-        foreach (IntPair temp in world.connections)
+        foreach (IntPair temp in world.connections)//savieno pilsetas
         {
             if (cityMap.ContainsKey(temp.first) && cityMap.ContainsKey(temp.second))
             {
@@ -34,8 +34,9 @@ public class CitySpawner : MonoBehaviour
                 }
             }
         }
+
         CityParent = new GameObject("Cities");
-        foreach (CityData data in world.cities)
+        foreach (CityData data in world.cities)// uztaiasa pilsetas ui
         {
             GameObject cityObj = Instantiate(city);
             cityObj.transform.parent = CityParent.transform;
@@ -43,32 +44,48 @@ public class CitySpawner : MonoBehaviour
         }
 
         connectionParent = new GameObject("Connections");
-        foreach (IntPair temp in world.connections)
+        Vector3 city1Cords;
+        Vector3 city2Cords;
+        foreach (IntPair temp in world.connections)// uztaisa ui connections
         {
             CityData city1 = cityMap[temp.first];
             CityData city2 = cityMap[temp.second];
+            GameObject lineObj = new GameObject("Connection " + city1.id + " " + city2.id);
 
-            Vector3 city1Cords = new Vector3(city1.Xcord, city1.Ycord, 20);
-            Vector3 city2Cords = new Vector3(city2.Xcord, city2.Ycord, 20);
-            DrawConnection(city1Cords, city2Cords);
+            if((city1.id == 1 && city2.id == 40)||(city1.id == 1 && city2.id == 46)||(city1.id == 13 && city2.id == 48))
+            {
+                city1Cords = new Vector3(city1.Xcord, city1.Ycord, 20);
+                city2Cords = new Vector3(-11, city2.Ycord, 20);
+                DrawConnection(city1Cords, city2Cords, lineObj);
+
+                GameObject lineObj2 = new GameObject("Connection " + city1.id + " " + city2.id); 
+                city1Cords = new Vector3(10, city1.Ycord, 20);
+                city2Cords = new Vector3(city2.Xcord, city2.Ycord, 20);
+                DrawConnection(city1Cords, city2Cords, lineObj2);
+                
+                continue;
+            }
+            
+            city1Cords = new Vector3(city1.Xcord, city1.Ycord, 20);
+            city2Cords = new Vector3(city2.Xcord, city2.Ycord, 20);
+            DrawConnection(city1Cords, city2Cords, lineObj);
         }
     }
 
-    void DrawConnection(Vector3 start, Vector3 end)
+    void DrawConnection(Vector3 start, Vector3 end, GameObject lineObj)
     {
-        GameObject lineObj = new GameObject("Connection");
         lineObj.transform.parent = connectionParent.transform;
 
         LineRenderer lineRenderer = lineObj.AddComponent<LineRenderer>();
 
         lineRenderer.SetPosition(0, start);
         lineRenderer.SetPosition(1, end);
-        lineRenderer.startWidth = 0.05f;
-        lineRenderer.endWidth = 0.05f;
+        lineRenderer.startWidth = 0.03f;
+        lineRenderer.endWidth = 0.03f;
         lineRenderer.useWorldSpace = true;
         lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
-        lineRenderer.startColor = Color.black;
-        lineRenderer.endColor = Color.black;
+        lineRenderer.startColor = Color.yellow;
+        lineRenderer.endColor = Color.yellow;
     }
 }
 

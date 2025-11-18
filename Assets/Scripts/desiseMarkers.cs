@@ -12,6 +12,13 @@ public class DesiseMarkers : MonoBehaviour
 
     public Dictionary<string, DesiseColor> desiseColorDict = new Dictionary<string, DesiseColor>();
 
+    public Dictionary<string, int> cubeColorCount = new Dictionary<string,int>
+    {
+        { "Yellow", 0 },
+        { "Red", 0 },
+        { "Blue", 0 },
+        { "Black", 0 }
+    };
 
     public void Awake()
     {
@@ -32,6 +39,14 @@ public class DesiseMarkers : MonoBehaviour
 
             desiseColorDict[colorList[i]] = colorScript;
 
+        }
+    }
+
+    public void checkForExtinctDisease(string color)
+    {
+        if(cubeColorCount[color] == 0)
+        {
+            desiseColorDict[color].extinctDisease();
         }
     }
 }

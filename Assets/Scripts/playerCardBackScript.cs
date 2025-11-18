@@ -14,7 +14,7 @@ public class PlayerCardBack : MonoBehaviour
             return;
         }
 
-        if(Mainscript.main.playerTurnComplite() && !playerTookCards)
+        //if(Mainscript.main.playerTurnComplite() && !playerTookCards)
         {
             Player player = Mainscript.main.getActivePlayer();
             PlayerCardSpawnerScript.Instance.givePlayerCard(player);

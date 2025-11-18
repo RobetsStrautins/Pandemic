@@ -105,20 +105,22 @@ public class CardInfoManager : MonoBehaviour
 
 
         int cubs = city.getCubs();
-        if (cubs >= 1 && !DesiseMarkers.Instance.desiseColorDict[city.color])
+        if (cubs >= 1 && DesiseMarkers.Instance.desiseColorDict[city.color].isCuredDesise)
         {
             cardObj = Instantiate(button, popUp.transform);
             newButton = cardObj.GetComponentInChildren<PopUpButton>();
-            newButton.Init("Remove " + cubs + " cubs", city, popupScript);
+            newButton.Init("Remove all cubs", city, popupScript);
             buttonList.Add(cardObj);
-        } 
-        
-        for (int i = 1; i <= cubs; i++)
+        }
+        else
         {
-            cardObj = Instantiate(button, popUp.transform);
-            newButton = cardObj.GetComponentInChildren<PopUpButton>();
-            newButton.Init("Remove " + i + " cubs", city, popupScript);
-            buttonList.Add(cardObj);
+            for (int i = 1; i <= cubs; i++)
+            {
+                cardObj = Instantiate(button, popUp.transform);
+                newButton = cardObj.GetComponentInChildren<PopUpButton>();
+                newButton.Init("Remove " + i + " cubs", city, popupScript);
+                buttonList.Add(cardObj);
+            }  
         }
 
         buttonPos();

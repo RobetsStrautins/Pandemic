@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using UnityEngine.UI;
 
 public class PlayerCard : MonoBehaviour
 {
     public CardNode myNode;
-    public TextMeshProUGUI cityLabel;
+    public Text cityLabel;
     public GameObject cardBackgroundColor;
     
     public void Init(CardNode cardNode)

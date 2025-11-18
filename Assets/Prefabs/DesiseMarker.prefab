@@ -100,7 +100,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4463740938405603588
 Transform:
   m_ObjectHideFlags: 0
@@ -218,6 +218,8 @@ MonoBehaviour:
   cure: {fileID: 6249627449131052567}
   cureSilutet: {fileID: 1306730053282471408}
   cross: {fileID: 5400732366947650214}
+  isCuredDesise: 0
+  isExtinctDisease: 0
 --- !u!1 &9173073016414301757
 GameObject:
   m_ObjectHideFlags: 0

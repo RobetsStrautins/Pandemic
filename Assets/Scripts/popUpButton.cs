@@ -9,7 +9,6 @@ public class PopUpButton : MonoBehaviour
 {
     public TMP_Text buttonText;
 
-
     public void Init(string name, PlayerCard card, PopUpScript popup)
     {
         this.name = name;
@@ -19,7 +18,6 @@ public class PopUpButton : MonoBehaviour
         {
             buttonText.text = "Lidot uz " + card.myNode.cityCard.cityName;
             btn.onClick.AddListener(() => popup.flyTo(card));
-
         }
         else if (name == "flyAnywhere")
         {
@@ -87,6 +85,7 @@ public class PopUpButton : MonoBehaviour
             btn.onClick.AddListener(() => popup.cureDesisePopUp(nameSplit[1]));
             buttonText.text = "Izarstet slimibu " + nameSplit[1];
         }
+
         else if (nameSplit[0] == "Remove")
         {
             if (int.TryParse(nameSplit[1], out int cubeCount))
@@ -100,7 +99,7 @@ public class PopUpButton : MonoBehaviour
             }
             else
             {
-                Debug.LogError($"nav ints   {name}");
+                btn.onClick.AddListener(() => popup.clearAllCubs(city));
             }
         }
         

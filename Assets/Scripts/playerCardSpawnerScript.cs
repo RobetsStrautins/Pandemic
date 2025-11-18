@@ -16,8 +16,8 @@ public class PlayerCardSpawnerScript : MonoBehaviour
 
     public void givePlayerCard(Player player)
     {
-        int cityId = Random.Range(1, 7);
-        CityData randomCity = CitySpawner.cityMap[1];
+        int cityId = Random.Range(1, 48);
+        CityData randomCity = CitySpawner.cityMap[cityId];
 
         player.playerCardList.newNodeCard(randomCity);
     }

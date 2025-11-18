@@ -89,6 +89,19 @@ public class PopUpScript : MonoBehaviour
         exitPopUp();
     }
 
+    public void clearAllCubs(CityData city)
+    {
+        int cubs = city.getCubs();
+        city.removeCubs(cubs);
+
+        Mainscript.main.playerTurnCount --;
+        Mainscript.main.updateMoveCount();
+
+        DesiseMarkers.Instance.checkForExtinctDisease(city.color);
+
+        exitPopUp();
+    }
+
     public void endTurnButton()
     {
         if (Mainscript.main.playerTurnCount == 0 && PlayerCardBack.playerTookCards)

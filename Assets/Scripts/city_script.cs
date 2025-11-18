@@ -1,13 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
-using UnityEditor.MemoryProfiler;
+using UnityEngine.UI;
 
 public class City : MonoBehaviour
 {
     [SerializeField] private CityData cityData = new CityData();
-    public TextMeshProUGUI cityLabel;
+    public Text cityLabel;
     public GameObject[] resourceCubes;
     public GameObject rStation;
 
@@ -106,26 +105,27 @@ public class CityData
 
     public void addCubs(int newCubs)
     {
-        if (cubs + newCubs > 3)
+        if(!DesiseMarkers.Instance.desiseColorDict[color].isExtinctDisease)
         {
-            cubs = 3;
+            if (cubs + newCubs > 3)
+            {
+                cubs = 3;
+                DesiseMarkers.Instance.cubeColorCount[color] += 3;
+            }
+            else
+            {
+                cubs += newCubs;
+                DesiseMarkers.Instance.cubeColorCount[color] += newCubs;
+            }
+            cityObj?.updateCubs();
         }
-        else
-        {
-            cubs += newCubs;
-        }
-        cityObj?.updateCubs();
     }
 
-    public bool removeCubs(int removeCubs)
+    public void removeCubs(int removeCubs)
     {
-        if (cubs == 0)
-        {
-            return false;
-        }
         cubs -= removeCubs;
+        DesiseMarkers.Instance.cubeColorCount[color] -= removeCubs;
         cityObj?.updateCubs();
-        return true;
     }
     
     public int getCubs()

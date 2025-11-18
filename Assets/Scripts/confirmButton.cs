@@ -15,8 +15,8 @@ public class ConfirmButton : MonoBehaviour
 
             if (DesiseMarkers.Instance.desiseColorDict.ContainsKey(color))
             {
-                DesiseColor desise = DesiseMarkers.Instance.desiseColorDict[color];
-                desise.curedDesise();
+                DesiseMarkers.Instance.desiseColorDict[color].curedDesise();
+                DesiseMarkers.Instance.checkForExtinctDisease(color);
             }
 
             Player player = Mainscript.main.getActivePlayer();

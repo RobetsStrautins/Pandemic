@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
 {
     public int playerId;
 
-    private int startingCityId = 1;
+    private int startingCityId = 3;
     public CityData city;
 
     public PlayerCardList playerCardList = new PlayerCardList();
