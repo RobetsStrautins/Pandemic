@@ -109,13 +109,14 @@ public class CityData
         {
             if (cubs + newCubs > 3)
             {
+                DesiseMarkers.Instance.cubeColorCount[color] += 3-cubs;
                 cubs = 3;
-                DesiseMarkers.Instance.cubeColorCount[color] += 3;
+                Mainscript.main.outBreak(this);
             }
             else
             {
-                cubs += newCubs;
                 DesiseMarkers.Instance.cubeColorCount[color] += newCubs;
+                cubs += newCubs;
             }
             cityObj?.updateCubs();
         }
@@ -146,4 +147,5 @@ public class CityData
     {
         return researchStation;
     }
+
 }
