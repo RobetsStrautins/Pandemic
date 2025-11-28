@@ -6,17 +6,19 @@ public class PlayerDeck : MonoBehaviour
 {
     public static PlayerDeck Instance;
 
-    public int epidemicCount = 4;
+    public int epidemicCardCount = 4;
 
     public List<CardData> deck = new List<CardData>();
     public List<CardData> usedDeck = new List<CardData>();
 
+    public List<CityData> infectionDeck = new List<CityData>();
+    public List<CityData> usedInfectionDeck = new List<CityData>();
     void Awake()
     {
         Instance = this;
     }
 
-    public void Setup()
+    public void SetupBeforeEpidemicCard()
     {
         deck.Clear();
         usedDeck.Clear();
@@ -31,31 +33,52 @@ public class PlayerDeck : MonoBehaviour
             //deck.Add(new BonusCardData("Bonus Card " + (i + 1), Random.Range(1, 5)));
         }
 
-        for (int i = 0; i < epidemicCount; i++)
-        {
-            deck.Add(new PandemicCardData("Pandemic"));
-        }
-
         shuffle(deck);
     }
 
-    public CardData Draw()
+    public void SetupAfterEpidemicCard()
+    {
+        int baseStackSize = deck.Count / epidemicCardCount;
+        int extraCards = deck.Count % epidemicCardCount;
+        int currentIndex = 0;
+        
+        for (int i = 0; i < epidemicCardCount; i++)
+        {
+            int stackSize = baseStackSize + (i < extraCards ? 1 : 0);
+
+            int insertIndex = Random.Range(currentIndex, currentIndex + stackSize + 1);
+
+            deck.Insert(insertIndex, new EpidemicCardData("Epidemic"));
+
+            currentIndex += stackSize + 1;
+        }
+    }
+
+    public void Draw(Player player)
     {
         if (deck.Count == 0)
         {
-            deck.AddRange(usedDeck);
-            usedDeck.Clear();
-            shuffle(deck);
+            GameOverScript.Instance.GameLost();
+            return;
         }
 
-        CardData top = deck[0];
-        deck.RemoveAt(0);
-        return top;
+        if(deck[0].Type == CardType.Epidemic)
+        {
+            usedDeck.Add(deck[0]);
+            deck.Remove(deck[0]);
+            DiseaseDeck.Instance.epidemic();
+        }
+        else
+        {
+            player.playerCardList.newNodeCard(deck[0]);
+            usedDeck.Add(deck[0]);
+            deck.Remove(deck[0]);
+        }
     }
 
     public void shuffle(List<CardData> list)
     {
-        int cardCount=list.Count;
+        int cardCount = list.Count;
         while (cardCount > 1)
         {
             cardCount--;

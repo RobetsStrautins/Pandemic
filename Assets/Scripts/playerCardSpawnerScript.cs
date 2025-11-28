@@ -16,13 +16,11 @@ public class PlayerCardSpawnerScript : MonoBehaviour
 
     public void givePlayerCard(Player player)
     {
-        CardData drawn = PlayerDeck.Instance.Draw();
-        player.playerCardList.newNodeCard(drawn);
+        PlayerDeck.Instance.Draw(player);
     }
 
     public void showPlayersHand(Player player)
     {
-
         clearPlayerHand();
 
         float firstCardCordX = -7.5f;

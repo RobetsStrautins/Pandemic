@@ -22,7 +22,7 @@ public class CureInfoManager : MonoBehaviour
         panel.SetActive(false);
     }
     
-    public void pickCardsToCureDesise(string tempColor)
+    public void pickCardsToCureDisease(string tempColor)
     {
         Player player = Mainscript.main.getActivePlayer();
 

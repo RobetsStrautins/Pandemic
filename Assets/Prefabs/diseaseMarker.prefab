@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 6846528042865116206}
   - component: {fileID: 7508668564019627644}
   m_Layer: 0
-  m_Name: DesiseMarker
+  m_Name: diseaseMarker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

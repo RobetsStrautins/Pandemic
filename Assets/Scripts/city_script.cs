@@ -105,18 +105,18 @@ public class CityData
 
     public void addCubs(int newCubs)
     {
-        if(!DesiseMarkers.Instance.desiseColorDict[color].isExtinctDisease)
+        if(!DiseaseMarkers.Instance.diseaseColorDict[color].isExtinctDisease)
         {
-            Debug.LogWarning($"added {newCubs} cube to {this.cityName}");
+            Debug.Log($"added {newCubs} cube to {cityName}");
             if (cubs + newCubs > 3)
             {
-                DesiseMarkers.Instance.cubeColorCount[color] += 3-cubs;
+                DiseaseMarkers.Instance.addColorCubes(color, 3 - cubs);
                 cubs = 3;
-                DesiseDeck.Instance.outBreak(this);
+                DiseaseDeck.Instance.outBreak(this);
             }
             else
             {
-                DesiseMarkers.Instance.cubeColorCount[color] += newCubs;
+                DiseaseMarkers.Instance.addColorCubes(color, newCubs);
                 cubs += newCubs;
             }
             cityObj?.updateCubs();
@@ -126,7 +126,7 @@ public class CityData
     public void removeCubs(int removeCubs)
     {
         cubs -= removeCubs;
-        DesiseMarkers.Instance.cubeColorCount[color] -= removeCubs;
+        DiseaseMarkers.Instance.cubeColorCount[color] -= removeCubs;
         cityObj?.updateCubs();
     }
     

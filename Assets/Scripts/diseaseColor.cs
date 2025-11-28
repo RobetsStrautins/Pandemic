@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DesiseColor : MonoBehaviour
+public class DiseaseColor : MonoBehaviour
 {
     public SpriteRenderer cure;
     public SpriteRenderer cureSilutet;
 
     public GameObject cross;
 
-    public bool isCuredDesise = false;
+    public bool isCuredDisease = false;
     public bool isExtinctDisease = false;
 
     public void Init(string cureColor)
@@ -24,14 +24,14 @@ public class DesiseColor : MonoBehaviour
 
     }
 
-    public void curedDesise()
+    public void curedDisease()
     {
         Color siluetColor = cureSilutet.color;
         siluetColor.a = 1;
         cureSilutet.color = siluetColor;
 
         cure.gameObject.SetActive(false);
-        isCuredDesise = true;
+        isCuredDisease = true;
     }
 
     public void extinctDisease()

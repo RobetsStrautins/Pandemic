@@ -13,10 +13,10 @@ public class ConfirmButton : MonoBehaviour
         {
             string color = selectionManager.selectedCards[0].cardsCityData.color;
 
-            if (DesiseMarkers.Instance.desiseColorDict.ContainsKey(color))
+            if (DiseaseMarkers.Instance.diseaseColorDict.ContainsKey(color))
             {
-                DesiseMarkers.Instance.desiseColorDict[color].curedDesise();
-                DesiseMarkers.Instance.checkForExtinctDisease(color);
+                DiseaseMarkers.Instance.diseaseColorDict[color].curedDisease();
+                DiseaseMarkers.Instance.checkForExtinctDisease(color);
             }
 
             Player player = Mainscript.main.getActivePlayer();

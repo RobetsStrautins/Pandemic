@@ -24,10 +24,10 @@ public class PopUpButton : MonoBehaviour
             buttonText.text = "Lidot no " + card.cardsCityData.cityName;
             btn.onClick.AddListener(() => popup.flyAnywhere(card));
         }
-        else if (name == "makereRearchStation")
+        else if (name == "makeRearchStation")
         {
             buttonText.text = "Uztaisit majinu";
-            btn.onClick.AddListener(() => popup.makereRearchStation(card));
+            btn.onClick.AddListener(() => popup.makeRearchStation(card));
         }
         else if (name == "removeCard")
         {
@@ -80,9 +80,9 @@ public class PopUpButton : MonoBehaviour
 
         string[] nameSplit = name.Split(' ');
 
-        if (nameSplit[0] == "cureDesise")
+        if (nameSplit[0] == "cureDisease")
         {
-            btn.onClick.AddListener(() => popup.cureDesisePopUp(nameSplit[1]));
+            btn.onClick.AddListener(() => popup.cureDiseasePopUp(nameSplit[1]));
             buttonText.text = "Izarstet slimibu " + nameSplit[1];
         }
 

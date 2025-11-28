@@ -47,7 +47,7 @@ public class CardInfoManager : MonoBehaviour
             {
                 cardObj = Instantiate(button, popUp.transform);
                 newButton = cardObj.GetComponentInChildren<PopUpButton>();
-                newButton.Init("makereRearchStation", card, popupScript);
+                newButton.Init("makeRearchStation", card, popupScript);
                 buttonList.Add(cardObj);
             }
 
@@ -89,14 +89,14 @@ public class CardInfoManager : MonoBehaviour
         PopUpButton newButton;
 
         string colorThatCanBeCured = countCardColors(player);
-        //Debug.Log("aaaadsa" + DesiseMarkers.Instance.desiseColorDict[colorThatCanBeCured].isCuredDesise);
+        //Debug.Log("aaaadsa" + DiseaseMarkers.Instance.diseaseColorDict[colorThatCanBeCured].isCuredDisease);
         if (colorThatCanBeCured !=null && city.hasResearchStation())
         {
-            if(!DesiseMarkers.Instance.desiseColorDict[colorThatCanBeCured].isCuredDesise)
+            if(!DiseaseMarkers.Instance.diseaseColorDict[colorThatCanBeCured].isCuredDisease)
             {
                 cardObj = Instantiate(button, popUp.transform);
                 newButton = cardObj.GetComponentInChildren<PopUpButton>();
-                newButton.Init("cureDesise " + colorThatCanBeCured, city, popupScript);
+                newButton.Init("cureDisease " + colorThatCanBeCured, city, popupScript);
                 buttonList.Add(cardObj);
             }
         }
@@ -111,7 +111,7 @@ public class CardInfoManager : MonoBehaviour
 
 
         int cubs = city.getCubs();
-        if (cubs >= 1 && DesiseMarkers.Instance.desiseColorDict[city.color].isCuredDesise)
+        if (cubs >= 1 && DiseaseMarkers.Instance.diseaseColorDict[city.color].isCuredDisease)
         {
             cardObj = Instantiate(button, popUp.transform);
             newButton = cardObj.GetComponentInChildren<PopUpButton>();

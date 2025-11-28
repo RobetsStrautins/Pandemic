@@ -19,6 +19,8 @@ public class Mainscript : MonoBehaviour
     private Text whatPlayerTurn;
     [SerializeField]
     private Text outBreakCountText;
+    [SerializeField]
+    private Text infectionRateCountText;
 
     public int playerTurnCount;
 
@@ -39,8 +41,8 @@ public class Mainscript : MonoBehaviour
     void Start()
     {
         citySpawner.Setup();
-        DesiseDeck.Instance.Setup();
-        PlayerDeck.Instance.Setup();
+        DiseaseDeck.Instance.Setup();
+        PlayerDeck.Instance.SetupBeforeEpidemicCard();
         
         for (int i = 0; i < playerCount; i++)
         {
@@ -51,7 +53,7 @@ public class Mainscript : MonoBehaviour
             activePlayer.playerId = i;
             playersList.Add(activePlayer);
 
-            for (int j = 0; j < 7;j++)
+            for (int j = 0; j < 6 - playerCount;j++)
             {
                 PlayerCardSpawnerScript.Instance.givePlayerCard(activePlayer);
             }
@@ -62,6 +64,8 @@ public class Mainscript : MonoBehaviour
 
         }
 
+        //PlayerDeck.Instance.SetupAfterEpidemicCard();
+
         activePlayer = playersList[0];
         PlayerCardSpawnerScript.Instance.showPlayersHand(activePlayer);
 
@@ -71,6 +75,7 @@ public class Mainscript : MonoBehaviour
         playerTurnCount = 4;///vajag 4
         updateMoveCount();
         updateOutBreakCount(0);
+        updateInfectionRateCount(2);
     }
 
     public Player getActivePlayer()
@@ -122,11 +127,7 @@ public class Mainscript : MonoBehaviour
     {
         PlayerCardSpawnerScript.Instance.clearPlayerHand();
 
-        DesiseDeck.Instance.infectCities(1);
-        int cityId = UnityEngine.Random.Range(1, 48);
-        CityData randomCity = CitySpawner.cityMap[cityId];
-
-        randomCity.addCubs(UnityEngine.Random.Range(1, 3));
+        DiseaseDeck.Instance.infectCityCount();// infice pilsetas starp gajieniem
 
         currentPlayerIndex = (currentPlayerIndex + 1) % playerCount;
         activePlayer = playersList[currentPlayerIndex];
@@ -143,9 +144,14 @@ public class Mainscript : MonoBehaviour
         moveCount.text = playerTurnCount.ToString() + "/4";
     }
 
-    public void updateOutBreakCount(int OutBreakCount)
+    public void updateOutBreakCount(int outBreakCount)
     {
-        outBreakCountText.text = "Out Breaks: " + OutBreakCount;
+        outBreakCountText.text = "Out Breaks: " + outBreakCount;
+    }
+
+    public void updateInfectionRateCount(int infectionRateCount)
+    {
+        infectionRateCountText.text = "Infection rate: " + infectionRateCount;
     }
     
     public bool inMiddleOfAcion()

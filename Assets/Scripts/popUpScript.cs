@@ -32,7 +32,7 @@ public class PopUpScript : MonoBehaviour
         exitPopUp();
     }
 
-    public void makereRearchStation(PlayerCityCard card)
+    public void makeRearchStation(PlayerCityCard card)
     {
         card.cardsCityData.buildResearchStation();
 
@@ -60,10 +60,10 @@ public class PopUpScript : MonoBehaviour
         exitPopUp();
     }
 
-    public void cureDesisePopUp(string color)
+    public void cureDiseasePopUp(string color)
     {
         exitPopUp();
-        CureInfoManager.Instance.pickCardsToCureDesise(color);
+        CureInfoManager.Instance.pickCardsToCureDisease(color);
     }
 
     public void flyToResearchStation(CityData city)
@@ -97,7 +97,7 @@ public class PopUpScript : MonoBehaviour
         Mainscript.main.playerTurnCount --;
         Mainscript.main.updateMoveCount();
 
-        DesiseMarkers.Instance.checkForExtinctDisease(city.color);
+        DiseaseMarkers.Instance.checkForExtinctDisease(city.color);
 
         exitPopUp();
     }

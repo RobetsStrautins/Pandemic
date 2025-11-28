@@ -18,9 +18,9 @@ public class GameOverScript : MonoBehaviour
 
     public void checkIfGameWon()
     {
-        foreach (DesiseColor Desise in DesiseMarkers.Instance.desiseColorDict.Values)
+        foreach (DiseaseColor Disease in DiseaseMarkers.Instance.diseaseColorDict.Values)
         {
-            if(!Desise.isCuredDesise)
+            if(!Disease.isCuredDisease)
             {
                 return;
             }
@@ -30,13 +30,11 @@ public class GameOverScript : MonoBehaviour
         text.text = "You won";
     }
 
-    public void checkIfGameLost()
+    public void GameLost()
     {
-        if(DesiseDeck.Instance.OutBreakCount>=8)
-        {
-            panel.SetActive(true);
-            text.text = "You Lost";
-        }
+        panel.SetActive(true);
+        text.text = "You Lost";
+        Mainscript.main.waitingForCityClick = true;
     }
 
 }

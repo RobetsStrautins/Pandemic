@@ -6,9 +6,9 @@ public enum CardType
 {
     City,
     Bonus,
-    Pandemic
+    Epidemic
 }
-
+[System.Serializable]
 public abstract class CardData 
 {
     public CardType Type;
@@ -19,6 +19,7 @@ public abstract class CardData
     }
 }
 
+[System.Serializable]
 public class PlayerCityCardData : CardData
 {
     public CityData cityCard;
@@ -29,15 +30,17 @@ public class PlayerCityCardData : CardData
     }
 }
 
-public class PandemicCardData : CardData
+[System.Serializable]
+public class EpidemicCardData : CardData
 {
     public string eventName;
 
-    public PandemicCardData(string name) : base(CardType.Pandemic)
+    public EpidemicCardData(string name) : base(CardType.Epidemic)
     {
         eventName = name;
     }
 }
+
 
 
 
