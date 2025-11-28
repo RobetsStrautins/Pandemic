@@ -32,7 +32,7 @@ public class GameOverScript : MonoBehaviour
 
     public void checkIfGameLost()
     {
-        if(Mainscript.main.OutBreakCount>=8)
+        if(DesiseDeck.Instance.OutBreakCount>=8)
         {
             panel.SetActive(true);
             text.text = "You Lost";

@@ -35,15 +35,20 @@ public class CureInfoManager : MonoBehaviour
 
         while (current != null)
         {
-            if(current.cityCard.color == tempColor)
+            if(current.data.Type == CardType.City)
             {
-                cardObj = Instantiate(playerPanalCards, popUp.transform);
-                playerCardInPopUp = cardObj.GetComponentInChildren<PlayerCardInPopUp>();
-                playerCardInPopUp.Init(current);
-                buttonList.Add(cardObj);
-            }
+                var currentCity = current.data as PlayerCityCardData;
 
-            current = current.next;
+                if(currentCity.cityCard.color == tempColor)
+                {
+                    cardObj = Instantiate(playerPanalCards, popUp.transform);
+                    playerCardInPopUp = cardObj.GetComponentInChildren<PlayerCardInPopUp>();
+                    playerCardInPopUp.Init(current);
+                    buttonList.Add(cardObj);
+                }
+
+                current = current.next;
+            }
         }
 
         buttonPos();

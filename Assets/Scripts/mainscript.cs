@@ -31,9 +31,6 @@ public class Mainscript : MonoBehaviour
 
     public List<CityData> researchStationOnMap = new();
 
-    private List<CityData>  CitiesOutBreakHappend = new();
-    public int OutBreakCount = 0;
-
     void Awake()
     {
         main = this;
@@ -43,6 +40,7 @@ public class Mainscript : MonoBehaviour
     {
         citySpawner.Setup();
         DesiseDeck.Instance.Setup();
+        PlayerDeck.Instance.Setup();
         
         for (int i = 0; i < playerCount; i++)
         {
@@ -72,7 +70,7 @@ public class Mainscript : MonoBehaviour
 
         playerTurnCount = 4;///vajag 4
         updateMoveCount();
-        updateOutBreakCount();
+        updateOutBreakCount(0);
     }
 
     public Player getActivePlayer()
@@ -124,12 +122,11 @@ public class Mainscript : MonoBehaviour
     {
         PlayerCardSpawnerScript.Instance.clearPlayerHand();
 
-        CitiesOutBreakHappend.Clear();
+        DesiseDeck.Instance.infectCities(1);
         int cityId = UnityEngine.Random.Range(1, 48);
         CityData randomCity = CitySpawner.cityMap[cityId];
 
         randomCity.addCubs(UnityEngine.Random.Range(1, 3));
-        Debug.LogWarning($"added cube to {randomCity.cityName}");
 
         currentPlayerIndex = (currentPlayerIndex + 1) % playerCount;
         activePlayer = playersList[currentPlayerIndex];
@@ -146,7 +143,7 @@ public class Mainscript : MonoBehaviour
         moveCount.text = playerTurnCount.ToString() + "/4";
     }
 
-    public void updateOutBreakCount()
+    public void updateOutBreakCount(int OutBreakCount)
     {
         outBreakCountText.text = "Out Breaks: " + OutBreakCount;
     }
@@ -159,29 +156,5 @@ public class Mainscript : MonoBehaviour
         }
 
         return false;
-    }
-
-    public void outBreak(CityData outBreakCity)
-    {
-        OutBreakCount++;
-        updateOutBreakCount();
-
-        GameOverScript.Instance.checkIfGameLost();
-
-        if(!CitiesOutBreakHappend.Contains(outBreakCity))
-        {
-            CitiesOutBreakHappend.Add(outBreakCity);
-        }
-        
-        foreach (int cityId in outBreakCity.connectedCity)
-        {
-
-            CityData closeCity = CitySpawner.cityMap[cityId];
-            if (!CitiesOutBreakHappend.Contains(closeCity))
-            {
-                closeCity.addCubs(1);
-                Debug.LogWarning($"added cube to {closeCity.cityName}");
-            }
-        }
     }
 }

@@ -24,20 +24,26 @@ public class CardInfoManager : MonoBehaviour
         panel.SetActive(false);
     }
 
-    public void showInfoWhenCardPressed(PlayerCard card, Player player)//izarstet,lidota ar maju,nonemt cubicinu
+    public void showInfoWhenCardPressed(PlayerCityCard card, Player player)//izarstet,lidota ar maju,nonemt cubicinu
     {
         isPopupOpen = true;
 
         GameObject cardObj;
         PopUpButton newButton;
-        if (player.city == card.myNode.cityCard)
+
+        if (card.myNode.data.Type != CardType.City)
+        {
+           return; 
+        }
+
+        if (player.city == card.cardsCityData)
         {
             cardObj = Instantiate(button, popUp.transform);
             newButton = cardObj.GetComponentInChildren<PopUpButton>();
             newButton.Init("flyAnywhere", card, popupScript);
             buttonList.Add(cardObj);
 
-            if (!card.myNode.cityCard.hasResearchStation())
+            if (!card.cardsCityData.hasResearchStation())
             {
                 cardObj = Instantiate(button, popUp.transform);
                 newButton = cardObj.GetComponentInChildren<PopUpButton>();
@@ -47,7 +53,7 @@ public class CardInfoManager : MonoBehaviour
 
             foreach (Player playerInList in Mainscript.main.playersList)
             {            
-                if (player != playerInList && playerInList.city==card.myNode.cityCard)
+                if (player != playerInList && playerInList.city == card.cardsCityData)
                 {
                     cardObj = Instantiate(button, popUp.transform);
                     newButton = cardObj.GetComponentInChildren<PopUpButton>();
@@ -70,7 +76,7 @@ public class CardInfoManager : MonoBehaviour
         buttonList.Add(cardObj);
 
         buttonPos();
-        titleText.text = card.myNode.cityCard.cityName;
+        titleText.text = card.cardsCityData.cityName;
         descriptionText.text = "cardDescription";
         panel.SetActive(true);
     }
@@ -194,9 +200,14 @@ public class CardInfoManager : MonoBehaviour
 
         while (current != null)
         {
-            if (colorCounts.ContainsKey(current.cityCard.color))
+            if(current.data.Type == CardType.City)
             {
-                colorCounts[current.cityCard.color]++;
+                var currentCity = current.data as PlayerCityCardData;
+
+                if (colorCounts.ContainsKey(currentCity.cityCard.color))
+                {
+                    colorCounts[currentCity.cityCard.color]++;
+                }  
             }
 
             current = current.next;

@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerCard : MonoBehaviour
+public class PlayerCityCard : MonoBehaviour
 {
     public CardNode myNode;
+    public CityData cardsCityData;
     public Text cityLabel;
     public GameObject cardBackgroundColor;
     
@@ -13,12 +14,16 @@ public class PlayerCard : MonoBehaviour
     {
         myNode = cardNode;
 
-        name = "Card " + myNode.cityCard.cityName;
+        PlayerCityCardData card = myNode.data as PlayerCityCardData;
+        cardsCityData = card.cityCard;
 
-        cardBackgroundColor.GetComponent<SpriteRenderer>().color = myNode.cityCard.unityColor;
+        name = "Card " + cardsCityData.cityName;
+
+        cardBackgroundColor.GetComponent<SpriteRenderer>().color = cardsCityData.unityColor;
+
         if (cityLabel != null)
-            cityLabel.text = myNode.cityCard.cityName;
-    } 
+            cityLabel.text = cardsCityData.cityName;
+    }
 
     private void OnMouseDown()
     {

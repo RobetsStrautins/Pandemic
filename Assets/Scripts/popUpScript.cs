@@ -11,9 +11,9 @@ public class PopUpScript : MonoBehaviour
         CureInfoManager.Instance.hideInfo();
     }
 
-    public void flyTo(PlayerCard card)
+    public void flyTo(PlayerCityCard card)
     {
-        Mainscript.main.flytoCity(card.myNode.cityCard);
+        Mainscript.main.flytoCity(card.cardsCityData);
 
         Player player = Mainscript.main.getActivePlayer();
         player.playerCardList.removeCard(card.myNode, card);
@@ -21,7 +21,7 @@ public class PopUpScript : MonoBehaviour
         exitPopUp();
     }
 
-    public void flyAnywhere(PlayerCard card)
+    public void flyAnywhere(PlayerCityCard card)
     {
         Debug.Log("Nospied pilsetu");
         Mainscript.main.waitingForCityClick = true;
@@ -32,9 +32,9 @@ public class PopUpScript : MonoBehaviour
         exitPopUp();
     }
 
-    public void makereRearchStation(PlayerCard card)
+    public void makereRearchStation(PlayerCityCard card)
     {
-        card.myNode.cityCard.buildResearchStation();
+        card.cardsCityData.buildResearchStation();
 
         Player player = Mainscript.main.getActivePlayer();
         player.playerCardList.removeCard(card.myNode, card);
@@ -42,9 +42,9 @@ public class PopUpScript : MonoBehaviour
         exitPopUp();
     }
 
-    public void giveCard(PlayerCard card, Player playerToGiveCard)
+    public void giveCard(PlayerCityCard card, Player playerToGiveCard)
     {
-        playerToGiveCard.playerCardList.newNodeCard(card.myNode.cityCard);
+        playerToGiveCard.playerCardList.newNodeCard(card.myNode.data);
 
         Player player = Mainscript.main.getActivePlayer();
         player.playerCardList.removeCard(card.myNode, card);
@@ -52,7 +52,7 @@ public class PopUpScript : MonoBehaviour
         exitPopUp();
     }
 
-    public void removeCard(PlayerCard card)
+    public void removeCard(PlayerCityCard card)
     {
         Player player = Mainscript.main.getActivePlayer();
         player.playerCardList.removeCard(card.myNode, card);

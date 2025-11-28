@@ -9,19 +9,19 @@ public class PopUpButton : MonoBehaviour
 {
     public TMP_Text buttonText;
 
-    public void Init(string name, PlayerCard card, PopUpScript popup)
+    public void Init(string name, PlayerCityCard card, PopUpScript popup)
     {
         this.name = name;
         Button btn = GetComponent<Button>();
 
         if (name == "flyTo")
         {
-            buttonText.text = "Lidot uz " + card.myNode.cityCard.cityName;
+            buttonText.text = "Lidot uz " + card.cardsCityData.cityName;
             btn.onClick.AddListener(() => popup.flyTo(card));
         }
         else if (name == "flyAnywhere")
         {
-            buttonText.text = "Lidot no " + card.myNode.cityCard.cityName;
+            buttonText.text = "Lidot no " + card.cardsCityData.cityName;
             btn.onClick.AddListener(() => popup.flyAnywhere(card));
         }
         else if (name == "makereRearchStation")
@@ -45,7 +45,7 @@ public class PopUpButton : MonoBehaviour
         }
     }
     
-    public void Init(string name, PlayerCard card, PopUpScript popup, Player player)
+    public void Init(string name, PlayerCityCard card, PopUpScript popup, Player player)
     {
         this.name = name;
         Button btn = GetComponent<Button>();

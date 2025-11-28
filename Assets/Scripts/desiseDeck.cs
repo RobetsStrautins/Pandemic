@@ -9,9 +9,12 @@ public class DesiseDeck : MonoBehaviour
     public List<CityData> infectionDeck = new List<CityData>();
     public List<CityData> usedInfectionDeck = new List<CityData>();
 
+    private List<CityData>  CitiesOutBreakHappend = new();
+    public int OutBreakCount = 0;
+
     void Awake()
     {
-        Instance=this;
+        Instance = this;
     }
 
     public void Setup()
@@ -23,13 +26,23 @@ public class DesiseDeck : MonoBehaviour
             infectionDeck.Add(city);
         }
 
-        Shuffle(infectionDeck, infectionDeck.Count);
+        shuffle(infectionDeck);
 
         Debug.Log($"Infection deck built. {infectionDeck.Count} cards.");
+
+        infectCities(3);
+        infectCities(3);
+        infectCities(2);
+        infectCities(2);
+        infectCities(1);
+        infectCities(1);
+
     }
 
-    private void Shuffle(List<CityData> list, int cardCount)
+    private void shuffle(List<CityData> list)
     {
+        int cardCount = list.Count;
+
         while (cardCount > 1)
         {
             cardCount--;
@@ -38,11 +51,56 @@ public class DesiseDeck : MonoBehaviour
         }
     }
 
-    public void infectCities()
+    public void infectCities(int cubeCount)
     {
+        CityData infectedCity = infectionDeck[0];
+
+        infectedCity.addCubs(cubeCount);
+        
+        CitiesOutBreakHappend.Clear();
+        
         usedInfectionDeck.Add(infectionDeck[0]);
         infectionDeck.Remove(infectionDeck[0]);
     }
 
+    public void epidemic()
+    {
+        int temp = infectionDeck.Count-1;
+        CityData lastCity = infectionDeck[temp];
 
+        lastCity.addCubs(3);
+        CitiesOutBreakHappend.Clear();
+
+        usedInfectionDeck.Add(infectionDeck[temp]);
+        infectionDeck.Remove(infectionDeck[temp]);
+
+        shuffle(usedInfectionDeck);
+
+        infectionDeck.AddRange(usedInfectionDeck);
+        usedInfectionDeck.Clear();
+    }
+
+    public void outBreak(CityData outBreakCity)
+    {
+        OutBreakCount++;
+        Mainscript.main.updateOutBreakCount(OutBreakCount);
+
+        GameOverScript.Instance.checkIfGameLost();
+
+        if(!CitiesOutBreakHappend.Contains(outBreakCity))
+        {
+            CitiesOutBreakHappend.Add(outBreakCity);
+        }
+        
+        foreach (int cityId in outBreakCity.connectedCity)
+        {
+
+            CityData closeCity = CitySpawner.cityMap[cityId];
+            if (!CitiesOutBreakHappend.Contains(closeCity))
+            {
+                closeCity.addCubs(1);
+                Debug.LogWarning($"added cube to {closeCity.cityName}");
+            }
+        }
+    }
 }

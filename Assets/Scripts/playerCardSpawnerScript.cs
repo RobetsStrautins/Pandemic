@@ -16,10 +16,8 @@ public class PlayerCardSpawnerScript : MonoBehaviour
 
     public void givePlayerCard(Player player)
     {
-        int cityId = Random.Range(1, 48);
-        CityData randomCity = CitySpawner.cityMap[cityId];
-
-        player.playerCardList.newNodeCard(randomCity);
+        CardData drawn = PlayerDeck.Instance.Draw();
+        player.playerCardList.newNodeCard(drawn);
     }
 
     public void showPlayersHand(Player player)
@@ -37,14 +35,17 @@ public class PlayerCardSpawnerScript : MonoBehaviour
 
         while (current != null)
         {
-            GameObject cardObj = Instantiate(playerCardPrefab);
-            cardObj.transform.parent = playerCardParent.transform;
-            PlayerCard newCard = cardObj.GetComponent<PlayerCard>();
-            newCard.Init(current);
+            if(current.data.Type == CardType.City)
+            {
+                GameObject cardObj = Instantiate(playerCardPrefab);
+                cardObj.transform.parent = playerCardParent.transform;
+                PlayerCityCard newCard = cardObj.GetComponent<PlayerCityCard>();
+                newCard.Init(current);
 
-            cardObj.transform.localPosition = new Vector3(firstCardCordX + 1.8f * i, firstCardCordY, 0f);
+                cardObj.transform.localPosition = new Vector3(firstCardCordX + 1.8f * i, firstCardCordY, 0f);
 
-            i++;
+                i++;
+            }
             current = current.next;
         }
     }
@@ -59,15 +60,14 @@ public class PlayerCardSpawnerScript : MonoBehaviour
     }
 }
 
+
 public class CardNode
-    {
-        public CardNode prev = null;
-        public CardNode next = null;
+{
+    public CardNode prev = null;
+    public CardNode next = null;
 
-        public CityData cityCard;
-
-        //public BounsCard Bcard;
-    }
+    public CardData data;
+}
 
 public class PlayerCardList
 {
@@ -75,9 +75,9 @@ public class PlayerCardList
     public CardNode last = null;
     public int playerCardCount = 0;
 
-    public void newNodeCard(CityData city)
+    public void newNodeCard(CardData data)
     {
-        CardNode node = new CardNode { cityCard = city };
+        CardNode node = new CardNode { data = data };
 
         if (first == null)
         {
@@ -93,7 +93,7 @@ public class PlayerCardList
         playerCardCount++;
     }
 
-    public void removeCard(CardNode node, PlayerCard playerCard)
+    public void removeCard(CardNode node, PlayerCityCard playerCard)
     {
         if (first == node && last == node)
         {
@@ -120,7 +120,7 @@ public class PlayerCardList
         playerCardCount--;
     }
     
-        public void removeCard(CardNode node)
+    public void removeCard(CardNode node)
     {
         if (first == node && last == node)
         {

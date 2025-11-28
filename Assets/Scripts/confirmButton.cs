@@ -11,7 +11,7 @@ public class ConfirmButton : MonoBehaviour
     {
         if (selectionManager.selectedCards.Count == 5)
         {
-            string color = selectionManager.selectedCards[0].myNode.cityCard.color;
+            string color = selectionManager.selectedCards[0].cardsCityData.color;
 
             if (DesiseMarkers.Instance.desiseColorDict.ContainsKey(color))
             {

@@ -107,11 +107,12 @@ public class CityData
     {
         if(!DesiseMarkers.Instance.desiseColorDict[color].isExtinctDisease)
         {
+            Debug.LogWarning($"added {newCubs} cube to {this.cityName}");
             if (cubs + newCubs > 3)
             {
                 DesiseMarkers.Instance.cubeColorCount[color] += 3-cubs;
                 cubs = 3;
-                Mainscript.main.outBreak(this);
+                DesiseDeck.Instance.outBreak(this);
             }
             else
             {
