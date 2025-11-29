@@ -43,7 +43,7 @@ public class CureInfoManager : MonoBehaviour
                 {
                     cardObj = Instantiate(playerPanalCards, popUp.transform);
                     playerCardInPopUp = cardObj.GetComponentInChildren<PlayerCardInPopUp>();
-                    playerCardInPopUp.Init(current);
+                    playerCardInPopUp.Init(current, true);
                     buttonList.Add(cardObj);
                 }
 

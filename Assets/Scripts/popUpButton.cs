@@ -55,7 +55,23 @@ public class PopUpButton : MonoBehaviour
             buttonText.text = "Iedot karti speletajam " + (player.playerId+1);
             btn.onClick.AddListener(() => popup.giveCard(card, player));
         }
-            else
+        else
+        {
+            buttonText.text = name;
+        }
+    }
+    
+    public void Init(string name, string cityname, CardNode cardNode, PopUpScript popup, Player player)
+    {
+        this.name = name;
+        Button btn = GetComponent<Button>();
+
+        if (name == "takeCard")
+        {
+            buttonText.text = $"Paņemt {cityname} karti no {player.playerId+1}";
+            btn.onClick.AddListener(() => popup.takeCard(cardNode, player));
+        }
+        else
         {
             buttonText.text = name;
         }

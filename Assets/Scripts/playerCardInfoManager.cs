@@ -35,7 +35,7 @@ public class PlayerCardInfoManager : MonoBehaviour
         {
             cardObj = Instantiate(playerPanalCards, popUp.transform);
             playerCardInPopUp = cardObj.GetComponentInChildren<PlayerCardInPopUp>();
-            playerCardInPopUp.Init(current);
+            playerCardInPopUp.Init(current, false);
             buttonList.Add(cardObj);
 
             current = current.next;

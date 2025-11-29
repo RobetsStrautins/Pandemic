@@ -134,6 +134,45 @@ public class CardInfoManager : MonoBehaviour
         descriptionText.text = "cardDescription";
         panel.SetActive(true);
     }
+
+    public void showInfoWhenFromOtherPLayer(CardNode cardNode, Player player)
+    {
+        isPopupOpen = true;
+
+        GameObject cardObj;
+        PopUpButton newButton;
+
+        if (cardNode.data.Type == CardType.City)
+        {
+            PlayerCityCardData card = cardNode.data as PlayerCityCardData;
+            CityData cardsCityData = card.cityCard;
+
+            foreach (Player playerInList in Mainscript.main.playersList)
+            {            
+                if (player != playerInList && playerInList.city == cardsCityData)
+                {
+                    cardObj = Instantiate(button, popUp.transform);
+                    newButton = cardObj.GetComponentInChildren<PopUpButton>();
+                    newButton.Init("takeCard", cardsCityData.cityName, cardNode, popupScript, playerInList);
+                    buttonList.Add(cardObj);
+                }
+            }
+
+            buttonPos();
+            titleText.text = cardsCityData.cityName;
+            descriptionText.text = "cardDescription";
+            panel.SetActive(true);
+        }
+
+        if (buttonList.Count != 0)
+        {
+            PlayerCardInfoManager.Instance.hideInfo();
+        }
+        else
+        {
+            hideInfo();
+        }
+    }
     
     public void showReserchOpcions(CityData pressedcity)
     {

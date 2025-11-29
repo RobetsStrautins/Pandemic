@@ -10,7 +10,6 @@ public class PlayerTop : MonoBehaviour
 
     private Player player;
 
-
     public void Init(Player player)
     {
         this.player = player;

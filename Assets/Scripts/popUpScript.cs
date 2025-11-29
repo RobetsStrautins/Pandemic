@@ -52,6 +52,16 @@ public class PopUpScript : MonoBehaviour
         exitPopUp();
     }
 
+    public void takeCard(CardNode cardNode, Player playerToTakeCard)
+    {
+        playerToTakeCard.playerCardList.removeCard(cardNode);   
+
+        Player player = Mainscript.main.getActivePlayer();
+        player.playerCardList.newNodeCard(cardNode.data);
+
+        exitPopUp();
+    }
+
     public void removeCard(PlayerCityCard card)
     {
         Player player = Mainscript.main.getActivePlayer();

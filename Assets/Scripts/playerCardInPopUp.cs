@@ -14,12 +14,15 @@ public class PlayerCardInPopUp : MonoBehaviour
     private Color baseColor;
     private Color selectedColor;
 
-    public void Init(CardNode cardNode)
+    private bool multiCardSelect;
+
+    public void Init(CardNode cardNode , bool multi)
     {
         myNode = cardNode;
-        
+        multiCardSelect = multi;
+
         PlayerCityCardData card = myNode.data as PlayerCityCardData;
-        cardsCityData=card.cityCard;
+        cardsCityData = card.cityCard;
 
         name = "Card " + cardsCityData.cityName;
 
@@ -38,6 +41,18 @@ public class PlayerCardInPopUp : MonoBehaviour
             return;
         } 
 
+        if(multiCardSelect)
+        {
+            onCardClickedWhenMultipleCard();
+        }
+        else
+        {
+            onCardClickedWhenSingleCard();
+        }
+    }
+
+    public void onCardClickedWhenMultipleCard()
+    {
         if (!isSelected && SelectionManager.Instance.CanSelectMore())
         {
             isSelected = true;
@@ -50,6 +65,11 @@ public class PlayerCardInPopUp : MonoBehaviour
             SelectionManager.Instance.DeselectCard(this);
             cardBackgroundColor.color = baseColor;
         }
+    }
+
+    public void onCardClickedWhenSingleCard()
+    {
+        CardInfoManager.Instance.showInfoWhenFromOtherPLayer(myNode, Mainscript.main.getActivePlayer());
     }
 
     public bool IsSelected => isSelected;
