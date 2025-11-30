@@ -1,16 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using UnityEngine.UI;
 using Unity.VisualScripting;
 
 public class PlayerCardInfoManager : MonoBehaviour
 {
     public GameObject panel;
-    public TMP_Text titleText;
+    public Text titleText;
     public Transform popUp;
-    public GameObject playerPanalCards;
-
+    public GameObject playerPopUpCityCards;
+    public GameObject playerPopUpBonesCards;
     public PopUpScript popupScript;
     public static PlayerCardInfoManager Instance;
 
@@ -27,26 +27,37 @@ public class PlayerCardInfoManager : MonoBehaviour
         CardInfoManager.isPopupOpen = true;
 
         GameObject cardObj;
-        PlayerCardInPopUp playerCardInPopUp;
+        PlayerCityCardInPopUp playerCityCardInPopUp;
+        PlayerBonusCardInPopUp playerBonusCardInPopUp;
 
         CardNode current = player.playerCardList.first;
 
         while (current != null)
         {
-            cardObj = Instantiate(playerPanalCards, popUp.transform);
-            playerCardInPopUp = cardObj.GetComponentInChildren<PlayerCardInPopUp>();
-            playerCardInPopUp.Init(current, false);
-            buttonList.Add(cardObj);
+            if (current.data.Type == CardType.City)
+            {
+                cardObj = Instantiate(playerPopUpCityCards, popUp.transform);
+                playerCityCardInPopUp = cardObj.GetComponentInChildren<PlayerCityCardInPopUp>();
+                playerCityCardInPopUp.Init(current, false);
+                buttonList.Add(cardObj);
+            }
+            else if (current.data.Type == CardType.Bonus)
+            {
+                cardObj = Instantiate(playerPopUpBonesCards, popUp.transform);
+                playerBonusCardInPopUp = cardObj.GetComponentInChildren<PlayerBonusCardInPopUp>();
+                playerBonusCardInPopUp.Init(current, player);
+                buttonList.Add(cardObj);
+            }
 
             current = current.next;
         }
 
-        buttonPos();
+        CardPos();
         titleText.text = "Speletaja " + (player.playerId + 1) + " kartis";
         panel.SetActive(true);
     }
     
-    private void buttonPos()
+    private void CardPos()
     {
         float startX = -805;
         int index = 0;
@@ -54,7 +65,7 @@ public class PlayerCardInfoManager : MonoBehaviour
         foreach (GameObject obj in buttonList)
         {
             RectTransform rt = obj.GetComponent<RectTransform>();
-            rt.anchoredPosition = new Vector2(startX + index * +230, 0f);
+            rt.anchoredPosition = new Vector2(startX + index * + 230, 0f);
             index++;
         }
     }

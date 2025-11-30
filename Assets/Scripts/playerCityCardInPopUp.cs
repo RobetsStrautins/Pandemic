@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerCardInPopUp : MonoBehaviour
+public class PlayerCityCardInPopUp : MonoBehaviour
 {
     public CardNode myNode;
     public CityData cardsCityData;

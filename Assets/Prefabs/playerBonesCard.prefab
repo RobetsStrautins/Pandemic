@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 1513da7fb413cb4429c59cdb8790292c, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.8216348, b: 0.3820755, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -300,8 +300,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -4, y: 0}
-  m_SizeDelta: {x: 300, y: 50}
+  m_AnchoredPosition: {x: 2.8, y: 2.87}
+  m_SizeDelta: {x: 320.2, y: 63.57}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6790625822325611381
 CanvasRenderer:
@@ -333,18 +333,18 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 36
-    m_FontStyle: 0
+    m_FontSize: 26
+    m_FontStyle: 1
     m_BestFit: 0
-    m_MinSize: 3
-    m_MaxSize: 40
+    m_MinSize: 2
+    m_MaxSize: 47
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "Sanktp\u0113terburga"
+  m_Text: jaaa
 --- !u!1 &7461730535434611236
 GameObject:
   m_ObjectHideFlags: 0
@@ -355,8 +355,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3872469479943716650}
   - component: {fileID: 4920647153654085218}
+  - component: {fileID: 8532587298049313568}
   m_Layer: 0
-  m_Name: bounesCard
+  m_Name: playerBonesCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -425,6 +426,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.3, y: 3.07}
   m_EdgeRadius: 0
+--- !u!114 &8532587298049313568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7461730535434611236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ece4c7462c0e27948bc64c9d5ffe9549, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  title: {fileID: 6030812828263353554}
+  description: {fileID: 5805029149883268251}
+  bonusCardType: 0
 --- !u!1 &8716294819782291691
 GameObject:
   m_ObjectHideFlags: 0

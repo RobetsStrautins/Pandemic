@@ -148,5 +148,4 @@ public class CityData
     {
         return researchStation;
     }
-
 }

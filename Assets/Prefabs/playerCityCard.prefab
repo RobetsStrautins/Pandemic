@@ -277,7 +277,7 @@ GameObject:
   - component: {fileID: 8905210618027212798}
   - component: {fileID: 4920647153654085218}
   m_Layer: 0
-  m_Name: playerCard
+  m_Name: playerCityCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

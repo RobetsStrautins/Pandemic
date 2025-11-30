@@ -13,6 +13,9 @@ public class PlayerDeck : MonoBehaviour
 
     public List<CityData> infectionDeck = new List<CityData>();
     public List<CityData> usedInfectionDeck = new List<CityData>();
+
+    public bool quietNight = false;
+    public Player airLiftPlayer;
     void Awake()
     {
         Instance = this;
@@ -28,10 +31,7 @@ public class PlayerDeck : MonoBehaviour
             deck.Add(new PlayerCityCardData(city));
         }
 
-        for (int i = 0; i < 5; i++)
-        {
-            //deck.Add(new BonusCardData("Bonus Card " + (i + 1), Random.Range(1, 5)));
-        }
+        createBonuesCards();
 
         shuffle(deck);
     }
@@ -85,5 +85,38 @@ public class PlayerDeck : MonoBehaviour
             int swap = Random.Range(0, cardCount + 1);
             (list[swap], list[cardCount]) = (list[cardCount], list[swap]); 
         }
+    }
+
+    private void createBonuesCards()
+    {
+        deck.Add(new BonusCardData(
+            BonusCardType.ValdibasSubsidija,
+            "VALDĪBAS SUBSĪDIJA",
+            "Ieliec izpētes staciju jebkurā pilsētā (nav nepieciešama plisētas kārts)."
+        ));
+
+        deck.Add(new BonusCardData(
+            BonusCardType.KlusaNakts,
+            "KLUSA NAKTS",
+            "Tiek izlaists nākamais “Inficē pilsētas” solis (netiek atvērtas infekciju kārtis)."
+        ));
+
+        deck.Add(new BonusCardData(
+            BonusCardType.PopulacijasPretosanas,
+            "POPULĀCIJAS PRETOŠANĀS",
+            "Izņem no spēles vienu infekcijas kārti, kas atrodas izlietoto infekcijas kāršu kaudzē. Šo kārti drīkst izspēlēt starp soļiem “Inficēt” un “Pastiprināties” epidēmijas laikā."
+        ));
+
+        deck.Add(new BonusCardData(
+            BonusCardType.GaisaTransportas,
+            "GAISA TRANSPORTAS",
+            "Pārvieto jebkuru kauliņu uz jebkuru pilsētu. Pārvietojot cita spēlētaju kauliņu, vispirms ir jāsaņem atļauja."
+        ));
+
+        deck.Add(new BonusCardData(
+            BonusCardType.Prognoze,
+            "PROGNOZE",
+            "Pacel un aplūko 6 virsējas kārtis no infekcijas kāršu kaudzītes, pēc tam sakārto tās jebkādā secībā un noliec infekcijas kāršu kaudzītes virspusē."
+        ));
     }
 }

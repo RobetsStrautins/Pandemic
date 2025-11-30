@@ -30,6 +30,7 @@ public class Mainscript : MonoBehaviour
     private Player activePlayer;
 
     public bool waitingForCityClick = false;
+    public string waitingForCityClickAction;
 
     public List<CityData> researchStationOnMap = new();
 
@@ -100,12 +101,26 @@ public class Mainscript : MonoBehaviour
         updateMoveCount();
     }
 
-    public void activePlayerMoveCitys(CityData pressedCity)
+    public void activePlayerMoveCitys(CityData pressedCity )
     {
-
         if (waitingForCityClick)
         {
-            activePlayer.moveToCity(pressedCity);
+            switch (waitingForCityClickAction)
+            {
+                case "FlyTo":
+                    activePlayer.moveToCity(pressedCity);
+                    break;
+
+                case "BuildStation":
+                    playerTurnCount++;
+                    pressedCity.buildResearchStation();
+                    break;
+
+                case "AirLift":
+                    playerTurnCount++;
+                    PlayerDeck.Instance.airLiftPlayer.moveToCity(pressedCity);
+                    break;
+            }
             waitingForCityClick = false;
 
         }
@@ -127,7 +142,10 @@ public class Mainscript : MonoBehaviour
     {
         PlayerCardSpawnerScript.Instance.clearPlayerHand();
 
-        DiseaseDeck.Instance.infectCityCount();// infice pilsetas starp gajieniem
+        if (!PlayerDeck.Instance.quietNight)
+        {
+            DiseaseDeck.Instance.infectCityCount();// infice pilsetas starp gajieniem
+        }
 
         currentPlayerIndex = (currentPlayerIndex + 1) % playerCount;
         activePlayer = playersList[currentPlayerIndex];

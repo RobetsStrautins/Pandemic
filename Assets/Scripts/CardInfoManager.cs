@@ -1,13 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
-
+using UnityEngine.UI;
 public class CardInfoManager : MonoBehaviour
 {
     public GameObject panel;
-    public TMP_Text titleText;
-    public TMP_Text descriptionText;
+    public Text titleText;
     public Transform popUp;
     public GameObject button;
 
@@ -75,10 +73,31 @@ public class CardInfoManager : MonoBehaviour
         newButton.Init("removeCard", card, popupScript);
         buttonList.Add(cardObj);
 
-        buttonPos();
         titleText.text = card.cardsCityData.cityName;
-        descriptionText.text = "cardDescription";
         panel.SetActive(true);
+        StartCoroutine(scrollToTop());
+    }
+
+    public void showInfoWhenBonusCardPressed(string title, BonusCardType bonusCardType, CardNode node,  Player player)
+    {
+        isPopupOpen = true;
+
+        GameObject cardObj;
+        PopUpButton newButton;
+
+        cardObj = Instantiate(button, popUp.transform);
+        newButton = cardObj.GetComponentInChildren<PopUpButton>();
+        newButton.Init("useCard", title, bonusCardType, node, popupScript, player);
+        buttonList.Add(cardObj);
+
+        cardObj = Instantiate(button, popUp.transform);
+        newButton = cardObj.GetComponentInChildren<PopUpButton>();
+        newButton.Init("removeCard", title, bonusCardType, node, popupScript, player);
+        buttonList.Add(cardObj);
+
+        titleText.text = title;
+        panel.SetActive(true);
+        StartCoroutine(scrollToTop());
     }
 
     public void showInfoWhenCityPressed(CityData city, Player player)
@@ -129,10 +148,9 @@ public class CardInfoManager : MonoBehaviour
             }  
         }
 
-        buttonPos();
         titleText.text = "Ko darit " + city.cityName;
-        descriptionText.text = "cardDescription";
         panel.SetActive(true);
+        StartCoroutine(scrollToTop());
     }
 
     public void showInfoWhenFromOtherPLayer(CardNode cardNode, Player player)
@@ -158,10 +176,9 @@ public class CardInfoManager : MonoBehaviour
                 }
             }
 
-            buttonPos();
             titleText.text = cardsCityData.cityName;
-            descriptionText.text = "cardDescription";
             panel.SetActive(true);
+            StartCoroutine(scrollToTop());
         }
 
         if (buttonList.Count != 0)
@@ -192,23 +209,48 @@ public class CardInfoManager : MonoBehaviour
             }
         }
         
-        buttonPos();
         titleText.text = "Uz kuru lidot?";
-        descriptionText.text = "cardDescription";
         panel.SetActive(true);
+        StartCoroutine(scrollToTop());
     }
 
-    private void buttonPos()
+    public void showAllOpcionsDiscardDisease(CardNode cardNode, Player player)
     {
-        float startY = 300;
-        int index = 0;
+        isPopupOpen = true;
 
-        foreach (GameObject obj in buttonList)
+        GameObject cardObj;
+        PopUpButton newButton;
+
+        foreach (CityData city in DiseaseDeck.Instance.usedInfectionDeck)
         {
-            RectTransform rt = obj.GetComponent<RectTransform>();
-            rt.anchoredPosition = new Vector2(0f, startY + index * -80);
-            index++;
+            cardObj = Instantiate(button, popUp.transform);
+            newButton = cardObj.GetComponentInChildren<PopUpButton>();
+            newButton.Init(city, popupScript, cardNode, player);
+            buttonList.Add(cardObj);
         }
+        
+        titleText.text = "Kuru karti iznemt";
+        panel.SetActive(true);
+        StartCoroutine(scrollToTop());
+    }
+    public void showAllPlayers(CardNode cardNode, Player player)
+    {
+        isPopupOpen = true;
+
+        GameObject cardObj;
+        PopUpButton newButton;
+
+        foreach (Player playerlist in Mainscript.main.playersList)
+        {
+            cardObj = Instantiate(button, popUp.transform);
+            newButton = cardObj.GetComponentInChildren<PopUpButton>();
+            newButton.Init(playerlist, popupScript, cardNode, player);
+            buttonList.Add(cardObj);
+        }
+        
+        titleText.text = "Kuru karti iznemt";
+        panel.SetActive(true);
+        StartCoroutine(scrollToTop());
     }
 
     public void hideInfo()
@@ -221,8 +263,6 @@ public class CardInfoManager : MonoBehaviour
             Destroy(obj);
         }
         buttonList.Clear();
-
-        PlayerCardSpawnerScript.Instance.showPlayersHand(Mainscript.main.getActivePlayer());
     }
 
     private string countCardColors(Player player)
@@ -263,4 +303,11 @@ public class CardInfoManager : MonoBehaviour
         return null;
     }
 
+    private IEnumerator scrollToTop()
+    {
+        yield return null;
+
+        ScrollRect scroll = panel.GetComponentInChildren<ScrollRect>();
+        scroll.verticalNormalizedPosition = 1;
+    }
 }

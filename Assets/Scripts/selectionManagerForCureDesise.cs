@@ -6,14 +6,14 @@ public class SelectionManager : MonoBehaviour
     public static SelectionManager Instance;
     public int maxSelections = 5;
 
-    public List<PlayerCardInPopUp> selectedCards = new List<PlayerCardInPopUp>();
+    public List<PlayerCityCardInPopUp> selectedCards = new List<PlayerCityCardInPopUp>();
 
     private void Awake()
     {
         Instance = this;
     }
 
-    public void SelectCard(PlayerCardInPopUp card)
+    public void SelectCard(PlayerCityCardInPopUp card)
     {
         if (!selectedCards.Contains(card))
         {
@@ -21,7 +21,7 @@ public class SelectionManager : MonoBehaviour
         }
     }
 
-    public void DeselectCard(PlayerCardInPopUp card)
+    public void DeselectCard(PlayerCityCardInPopUp card)
     {
         selectedCards.Remove(card);
     }
@@ -30,6 +30,4 @@ public class SelectionManager : MonoBehaviour
     {
         return selectedCards.Count < maxSelections;
     }
-
-    
 }

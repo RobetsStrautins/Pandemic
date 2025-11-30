@@ -8,6 +8,16 @@ public enum CardType
     Bonus,
     Epidemic
 }
+
+public enum BonusCardType
+{
+    ValdibasSubsidija,
+    KlusaNakts,
+    PopulacijasPretosanas,
+    GaisaTransportas,
+    Prognoze
+}
+
 [System.Serializable]
 public abstract class CardData 
 {
@@ -31,6 +41,21 @@ public class PlayerCityCardData : CardData
 }
 
 [System.Serializable]
+public class BonusCardData : CardData
+{
+    public string title;
+    public string description;
+    public BonusCardType bonusType;
+
+    public BonusCardData(BonusCardType type, string title, string description): base(CardType.Bonus)
+    {
+        bonusType = type;
+        this.title = title;
+        this.description = description;
+    }
+}
+
+[System.Serializable]
 public class EpidemicCardData : CardData
 {
     public string eventName;
@@ -40,8 +65,3 @@ public class EpidemicCardData : CardData
         eventName = name;
     }
 }
-
-
-
-
-

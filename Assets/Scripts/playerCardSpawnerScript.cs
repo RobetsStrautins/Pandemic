@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class PlayerCardSpawnerScript : MonoBehaviour
 {
-    public GameObject playerCardPrefab;
+    public GameObject playerCityCardPrefab;
+
+    public GameObject playerBonesCardPrefab;
     private GameObject playerCardParent;
 
     public static PlayerCardSpawnerScript Instance;
@@ -35,15 +37,23 @@ public class PlayerCardSpawnerScript : MonoBehaviour
         {
             if(current.data.Type == CardType.City)
             {
-                GameObject cardObj = Instantiate(playerCardPrefab);
+                GameObject cardObj = Instantiate(playerCityCardPrefab);
                 cardObj.transform.parent = playerCardParent.transform;
                 PlayerCityCard newCard = cardObj.GetComponent<PlayerCityCard>();
                 newCard.Init(current);
 
                 cardObj.transform.localPosition = new Vector3(firstCardCordX + 1.8f * i, firstCardCordY, 0f);
-
-                i++;
             }
+            else if(current.data.Type == CardType.Bonus)
+            {
+                GameObject cardObj = Instantiate(playerBonesCardPrefab);
+                cardObj.transform.parent = playerCardParent.transform;
+                playerBonesCard newCard = cardObj.GetComponent<playerBonesCard>();
+                newCard.Init(current);
+
+                cardObj.transform.localPosition = new Vector3(firstCardCordX + 1.8f * i, firstCardCordY, 0f);
+            }
+            i++;
             current = current.next;
         }
     }
@@ -90,33 +100,6 @@ public class PlayerCardList
         }
         playerCardCount++;
     }
-
-    public void removeCard(CardNode node, PlayerCityCard playerCard)
-    {
-        if (first == node && last == node)
-        {
-            first = null;
-            last = null;
-        }
-        else
-        {
-            if (node.prev == null)
-            {
-                first = node.next;
-            }
-            else node.prev.next = node.next;
-
-            if (node.next == null)
-            {
-                last = node.prev;
-            }
-            else node.next.prev = node.prev;
-        }
-
-        playerCard.myNode = null;
-        GameObject.Destroy(playerCard.gameObject);
-        playerCardCount--;
-    }
     
     public void removeCard(CardNode node)
     {
@@ -139,9 +122,8 @@ public class PlayerCardList
             }
             else node.next.prev = node.prev;
         }
-            
+        
+        PlayerCardSpawnerScript.Instance.showPlayersHand(Mainscript.main.getActivePlayer());   
         playerCardCount--;
     }
-
-
 }

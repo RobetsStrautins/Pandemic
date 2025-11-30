@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using UnityEngine.UI;
 using Unity.VisualScripting;
 
 public class CureInfoManager : MonoBehaviour
 {
     public GameObject panel;
-    public TMP_Text titleText;
+    public Text titleText;
     public Transform popUp;
     public GameObject playerPanalCards;
 
@@ -29,7 +29,7 @@ public class CureInfoManager : MonoBehaviour
         CardInfoManager.isPopupOpen = true;
 
         GameObject cardObj;
-        PlayerCardInPopUp playerCardInPopUp;
+        PlayerCityCardInPopUp playerCityCardInPopUp;
 
         CardNode current = player.playerCardList.first;
 
@@ -42,13 +42,14 @@ public class CureInfoManager : MonoBehaviour
                 if(currentCity.cityCard.color == tempColor)
                 {
                     cardObj = Instantiate(playerPanalCards, popUp.transform);
-                    playerCardInPopUp = cardObj.GetComponentInChildren<PlayerCardInPopUp>();
-                    playerCardInPopUp.Init(current, true);
+                    playerCityCardInPopUp = cardObj.GetComponentInChildren<PlayerCityCardInPopUp>();
+                    playerCityCardInPopUp.Init(current, true);
                     buttonList.Add(cardObj);
                 }
-
-                current = current.next;
+ 
             }
+            
+            current = current.next;
         }
 
         buttonPos();

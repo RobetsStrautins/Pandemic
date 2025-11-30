@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 using System;
 using UnityEngine.UI;
+using System.Diagnostics;
 
 public class PopUpButton : MonoBehaviour
 {
-    public TMP_Text buttonText;
+    public Text buttonText;
 
     public void Init(string name, PlayerCityCard card, PopUpScript popup)
     {
@@ -32,7 +32,7 @@ public class PopUpButton : MonoBehaviour
         else if (name == "removeCard")
         {
             buttonText.text = "Nomest karti";
-            btn.onClick.AddListener(() => popup.removeCard(card));
+            btn.onClick.AddListener(() => popup.removeCard(card.myNode));
         }
         else
         {
@@ -45,6 +45,45 @@ public class PopUpButton : MonoBehaviour
         }
     }
     
+    public void Init(string name, string title, BonusCardType bonesCardType, CardNode node, PopUpScript popup, Player player)
+    {
+        this.name = name;
+        Button btn = GetComponent<Button>();
+
+        if (name == "removeCard")
+        {
+            buttonText.text = "Nomest karti";
+            btn.onClick.AddListener(() => popup.removeCard(node));
+            return;
+        }
+
+        buttonText.text = "Izmantot " + title; 
+
+        switch (bonesCardType)
+        {
+            case BonusCardType.KlusaNakts:
+                btn.onClick.AddListener(() => popup.quietNight(node, player));
+                break;
+
+            case BonusCardType.PopulacijasPretosanas:
+                btn.onClick.AddListener(() => popup.resilientPopulation(node, player));
+                break;
+
+            case BonusCardType.ValdibasSubsidija:
+                btn.onClick.AddListener(() => popup.governmentGrant(node, player));
+                break;
+
+            case BonusCardType.GaisaTransportas:
+                btn.onClick.AddListener(() => popup.airLift(node, player));
+                break;
+
+            default:
+                btn.onClick.AddListener(() => popup.removeCard(node));
+                break;
+        }
+
+    }
+
     public void Init(string name, PlayerCityCard card, PopUpScript popup, Player player)
     {
         this.name = name;
@@ -123,6 +162,23 @@ public class PopUpButton : MonoBehaviour
         {
             btn.interactable = false;
         }
+    }
 
+    public void Init(CityData city, PopUpScript popup, CardNode cardNode, Player player)
+    {
+        name = city.cityName + " button";
+        Button btn = GetComponent<Button>();
+
+        buttonText.text = city.cityName;
+        btn.onClick.AddListener(() => popup.discardDisease(city, cardNode, player));
+    }
+
+    public void Init(Player playerList, PopUpScript popup, CardNode cardNode, Player player)
+    {
+        name = "Parvietot speletaju " + (playerList.playerId + 1) + " uz jebkuru pilsetu";
+        Button btn = GetComponent<Button>();
+
+        buttonText.text = "Parvietot speletaju " + (playerList.playerId + 1) + " uz jebkuru pilsetu";
+        btn.onClick.AddListener(() => popup.airLift2(playerList, cardNode, player));
     }
 }

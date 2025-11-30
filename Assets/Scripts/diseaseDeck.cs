@@ -30,9 +30,9 @@ public class DiseaseDeck : MonoBehaviour
 
         shuffle(infectionDeck);
 
-        for(int i = 3;i > 0;i--)
+        for(int i = 3; i > 0 ; i--)
         {
-            for(int j = 0;j > 3;j++)
+            for(int j = 0; j < 3; j++)
             {
                 infectCities(i);
             }
@@ -119,5 +119,10 @@ public class DiseaseDeck : MonoBehaviour
                 closeCity.addCubs(1);
             }
         }
+    }
+
+    public void discardDiseaseFromDeck(CityData cityToRemove)
+    {
+        usedInfectionDeck.Remove(cityToRemove);
     }
 }
