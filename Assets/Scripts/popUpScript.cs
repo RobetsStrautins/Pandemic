@@ -6,8 +6,8 @@ public class PopUpScript : MonoBehaviour
 {
     public void exitPopUp()
     {
-        PlayerCardInfoManager.Instance.hideInfo();
-        CardInfoManager.Instance.hideInfo();
+        PlayerPopUpButtonManager.Instance.hideInfo();
+        PopUpButtonManager.Instance.hideInfo();
         CureInfoManager.Instance.hideInfo();
     }
 
@@ -83,7 +83,7 @@ public class PopUpScript : MonoBehaviour
     public void flyToResearchStation(CityData city)
     {
         exitPopUp();
-        CardInfoManager.Instance.showReserchOpcions(city);
+        PopUpButtonManager.Instance.showReserchOpcions(city);
     }
 
     public void trasportTo(CityData city)
@@ -128,7 +128,7 @@ public class PopUpScript : MonoBehaviour
     {
         exitPopUp();
 
-        CardInfoManager.Instance.showAllOpcionsDiscardDisease(myNode, player);
+        PopUpButtonManager.Instance.showAllOpcionsDiscardDisease(myNode, player);
     }
 
     public void discardDisease(CityData CityToRemove, CardNode myNode, Player player)
@@ -152,7 +152,7 @@ public class PopUpScript : MonoBehaviour
     { 
         exitPopUp();
 
-        CardInfoManager.Instance.showAllPlayers(myNode, player);
+        PopUpButtonManager.Instance.showAllPlayers(myNode, player);
     }
 
     public void airLift2(Player playerList, CardNode myNode, Player player)
@@ -167,12 +167,11 @@ public class PopUpScript : MonoBehaviour
         exitPopUp();
     }
 
-
     public void endTurnButton()
     {
-        if (Mainscript.main.playerTurnCount == 0 && PlayerCardBack.playerTookCards)
+        if (Mainscript.main.playerTurnCount == 0 && PickUpCard.playerTookCards)
         {
-            PlayerCardBack.playerTookCards = false;
+            PickUpCard.playerTookCards = false;
             Mainscript.main.nextTurn();
         }
     }

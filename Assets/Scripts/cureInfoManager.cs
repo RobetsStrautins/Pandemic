@@ -26,7 +26,7 @@ public class CureInfoManager : MonoBehaviour
     {
         Player player = Mainscript.main.getActivePlayer();
 
-        CardInfoManager.isPopupOpen = true;
+        PopUpButtonManager.isPopupOpen = true;
 
         GameObject cardObj;
         PlayerCityCardInPopUp playerCityCardInPopUp;
@@ -74,7 +74,7 @@ public class CureInfoManager : MonoBehaviour
     {
         
         panel.SetActive(false);
-        CardInfoManager.isPopupOpen = false;
+        PopUpButtonManager.isPopupOpen = false;
 
         foreach (GameObject obj in buttonList)
         {

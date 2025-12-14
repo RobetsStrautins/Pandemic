@@ -16,11 +16,6 @@ public class PlayerCardSpawnerScript : MonoBehaviour
         Instance = this;
     }
 
-    public void givePlayerCard(Player player)
-    {
-        PlayerDeck.Instance.Draw(player);
-    }
-
     public void showPlayersHand(Player player)
     {
         clearPlayerHand();

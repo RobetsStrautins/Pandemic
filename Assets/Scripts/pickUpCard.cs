@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCardBack : MonoBehaviour
+public class PickUpCard : MonoBehaviour
 {
 
     public static bool playerTookCards = false;
@@ -17,8 +17,8 @@ public class PlayerCardBack : MonoBehaviour
         //if(Mainscript.main.playerTurnComplite() && !playerTookCards)
         {
             Player player = Mainscript.main.getActivePlayer();
-            PlayerCardSpawnerScript.Instance.givePlayerCard(player);
-            PlayerCardSpawnerScript.Instance.givePlayerCard(player);
+            PlayerDeck.Instance.Draw(player);
+            PlayerDeck.Instance.Draw(player);
             PlayerCardSpawnerScript.Instance.showPlayersHand(player);
 
             playerTookCards = true;

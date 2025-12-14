@@ -32,7 +32,7 @@ public class PlayerCityCard : MonoBehaviour
             return;
         }
 
-        CardInfoManager.Instance.showInfoWhenCardPressed(this, Mainscript.main.getActivePlayer());
+        PopUpButtonManager.Instance.showInfoWhenCardPressed(this, Mainscript.main.getActivePlayer());
 
     }
 }

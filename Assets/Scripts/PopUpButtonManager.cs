@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
-public class CardInfoManager : MonoBehaviour
+
+public class PopUpButtonManager : MonoBehaviour
 {
     public GameObject panel;
     public Text titleText;
@@ -11,7 +13,7 @@ public class CardInfoManager : MonoBehaviour
 
     public PopUpScript popupScript;
 
-    public static CardInfoManager Instance;
+    public static PopUpButtonManager Instance;
     public static bool isPopupOpen = false;
 
     private List<GameObject> buttonList = new List<GameObject>();
@@ -26,9 +28,6 @@ public class CardInfoManager : MonoBehaviour
     {
         isPopupOpen = true;
 
-        GameObject cardObj;
-        PopUpButton newButton;
-
         if (card.myNode.data.Type != CardType.City)
         {
            return; 
@@ -36,42 +35,27 @@ public class CardInfoManager : MonoBehaviour
 
         if (player.city == card.cardsCityData)
         {
-            cardObj = Instantiate(button, popUp.transform);
-            newButton = cardObj.GetComponentInChildren<PopUpButton>();
-            newButton.Init("flyAnywhere", card, popupScript);
-            buttonList.Add(cardObj);
+            CreateButton("Lidot no " + card.cardsCityData.cityName, () => popupScript.flyAnywhere(card));
 
             if (!card.cardsCityData.hasResearchStation())
             {
-                cardObj = Instantiate(button, popUp.transform);
-                newButton = cardObj.GetComponentInChildren<PopUpButton>();
-                newButton.Init("makeRearchStation", card, popupScript);
-                buttonList.Add(cardObj);
+                CreateButton("Uztaisīt mājiņu", () => popupScript.makeRearchStation(card));
             }
 
-            foreach (Player playerInList in Mainscript.main.playersList)
-            {            
-                if (player != playerInList && playerInList.city == card.cardsCityData)
+            foreach (Player p in Mainscript.main.playersList)
+            {
+                if (p != player && p.city == card.cardsCityData)
                 {
-                    cardObj = Instantiate(button, popUp.transform);
-                    newButton = cardObj.GetComponentInChildren<PopUpButton>();
-                    newButton.Init("giveCard", card, popupScript, playerInList);
-                    buttonList.Add(cardObj);
+                    CreateButton("Iedot karti spēlētājam " + (p.playerId + 1), () => popupScript.giveCard(card, p));
                 }
             }
         }
         else
         {
-            cardObj = Instantiate(button, popUp.transform);
-            newButton = cardObj.GetComponentInChildren<PopUpButton>();
-            newButton.Init("flyTo", card, popupScript);
-            buttonList.Add(cardObj);
+            CreateButton("Lidot uz " + card.cardsCityData.cityName, () => popupScript.flyTo(card));
         }
 
-        cardObj = Instantiate(button, popUp.transform);
-        newButton = cardObj.GetComponentInChildren<PopUpButton>();
-        newButton.Init("removeCard", card, popupScript);
-        buttonList.Add(cardObj);
+        CreateButton("Nomest karti", () => popupScript.removeCard(card.myNode));
 
         titleText.text = card.cardsCityData.cityName;
         panel.SetActive(true);
@@ -82,18 +66,26 @@ public class CardInfoManager : MonoBehaviour
     {
         isPopupOpen = true;
 
-        GameObject cardObj;
-        PopUpButton newButton;
+        switch (bonusCardType)
+        {
+            case BonusCardType.KlusaNakts:
+                CreateButton("Izmantot " + title, () => popupScript.quietNight(node, player));
+                break;
 
-        cardObj = Instantiate(button, popUp.transform);
-        newButton = cardObj.GetComponentInChildren<PopUpButton>();
-        newButton.Init("useCard", title, bonusCardType, node, popupScript, player);
-        buttonList.Add(cardObj);
+            case BonusCardType.PopulacijasPretosanas:
+                CreateButton("Izmantot " + title, () => popupScript.resilientPopulation(node, player));
+                break;
 
-        cardObj = Instantiate(button, popUp.transform);
-        newButton = cardObj.GetComponentInChildren<PopUpButton>();
-        newButton.Init("removeCard", title, bonusCardType, node, popupScript, player);
-        buttonList.Add(cardObj);
+            case BonusCardType.ValdibasSubsidija:
+                CreateButton("Izmantot " + title, () => popupScript.governmentGrant(node, player));
+                break;
+
+            case BonusCardType.GaisaTransportas:
+                CreateButton("Izmantot " + title, () => popupScript.airLift(node, player));
+                break;
+        }
+
+        CreateButton("Nomest karti", () => popupScript.removeCard(node));
 
         titleText.text = title;
         panel.SetActive(true);
@@ -104,47 +96,40 @@ public class CardInfoManager : MonoBehaviour
     {
         isPopupOpen = true;
 
-        GameObject cardObj;
-        PopUpButton newButton;
-
         string colorThatCanBeCured = countCardColors(player);
-        //Debug.Log("aaaadsa" + DiseaseMarkers.Instance.diseaseColorDict[colorThatCanBeCured].isCuredDisease);
+
         if (colorThatCanBeCured !=null && city.hasResearchStation())
         {
             if(!DiseaseMarkers.Instance.diseaseColorDict[colorThatCanBeCured].isCuredDisease)
             {
-                cardObj = Instantiate(button, popUp.transform);
-                newButton = cardObj.GetComponentInChildren<PopUpButton>();
-                newButton.Init("cureDisease " + colorThatCanBeCured, city, popupScript);
-                buttonList.Add(cardObj);
+                CreateButton("Izarstet slimibu " + colorThatCanBeCured, () => popupScript.cureDiseasePopUp(colorThatCanBeCured));
             }
         }
         
         if (city.hasResearchStation() && Mainscript.main.researchStationOnMap.Count >= 2)
         {
-            cardObj = Instantiate(button, popUp.transform);
-            newButton = cardObj.GetComponentInChildren<PopUpButton>();
-            newButton.Init("flyToResearchStation", city, popupScript);
-            buttonList.Add(cardObj);
+            CreateButton("Lidot starp stacijam" + colorThatCanBeCured, () => popupScript.flyToResearchStation(city));
         }
 
-
         int cubs = city.getCubs();
+
         if (cubs >= 1 && DiseaseMarkers.Instance.diseaseColorDict[city.color].isCuredDisease)
         {
-            cardObj = Instantiate(button, popUp.transform);
-            newButton = cardObj.GetComponentInChildren<PopUpButton>();
-            newButton.Init("Remove all cubs", city, popupScript);
-            buttonList.Add(cardObj);
+            CreateButton("Nonemt visus kubicinus", () => popupScript.clearAllCubs(city));
         }
         else
         {
             for (int i = 1; i <= cubs; i++)
             {
-                cardObj = Instantiate(button, popUp.transform);
-                newButton = cardObj.GetComponentInChildren<PopUpButton>();
-                newButton.Init("Remove " + i + " cubs", city, popupScript);
-                buttonList.Add(cardObj);
+                int cubeCount = i;
+                if(i > Mainscript.main.playerTurnCount)
+                {
+                    CreateButton($"Nonemt {i} kubicinus", () => popupScript.clearCubs(city, cubeCount), false);
+                }
+                else
+                {
+                    CreateButton($"Nonemt {i} kubicinus", () => popupScript.clearCubs(city, cubeCount));
+                }
             }  
         }
 
@@ -157,9 +142,6 @@ public class CardInfoManager : MonoBehaviour
     {
         isPopupOpen = true;
 
-        GameObject cardObj;
-        PopUpButton newButton;
-
         if (cardNode.data.Type == CardType.City)
         {
             PlayerCityCardData card = cardNode.data as PlayerCityCardData;
@@ -169,10 +151,7 @@ public class CardInfoManager : MonoBehaviour
             {            
                 if (player != playerInList && playerInList.city == cardsCityData)
                 {
-                    cardObj = Instantiate(button, popUp.transform);
-                    newButton = cardObj.GetComponentInChildren<PopUpButton>();
-                    newButton.Init("takeCard", cardsCityData.cityName, cardNode, popupScript, playerInList);
-                    buttonList.Add(cardObj);
+                    CreateButton($"Paņemt {cardsCityData.cityName} karti no {player.playerId+1}", () => popupScript.takeCard(cardNode, playerInList));
                 }
             }
 
@@ -183,7 +162,7 @@ public class CardInfoManager : MonoBehaviour
 
         if (buttonList.Count != 0)
         {
-            PlayerCardInfoManager.Instance.hideInfo();
+            PlayerPopUpButtonManager.Instance.hideInfo();
         }
         else
         {
@@ -195,17 +174,11 @@ public class CardInfoManager : MonoBehaviour
     {
         isPopupOpen = true;
 
-        GameObject cardObj;
-        PopUpButton newButton;
-
         foreach (CityData city in Mainscript.main.researchStationOnMap)
         {
             if (!(pressedcity == city))
             {
-                cardObj = Instantiate(button, popUp.transform);
-                newButton = cardObj.GetComponentInChildren<PopUpButton>();
-                newButton.Init("trasport", city, popupScript);
-                buttonList.Add(cardObj);
+                CreateButton(city.cityName, () => popupScript.trasportTo(city));
             }
         }
         
@@ -218,39 +191,36 @@ public class CardInfoManager : MonoBehaviour
     {
         isPopupOpen = true;
 
-        GameObject cardObj;
-        PopUpButton newButton;
-
         foreach (CityData city in DiseaseDeck.Instance.usedInfectionDeck)
         {
-            cardObj = Instantiate(button, popUp.transform);
-            newButton = cardObj.GetComponentInChildren<PopUpButton>();
-            newButton.Init(city, popupScript, cardNode, player);
-            buttonList.Add(cardObj);
+            CreateButton(city.cityName, () => popupScript.discardDisease(city, cardNode, player));
         }
         
         titleText.text = "Kuru karti iznemt";
         panel.SetActive(true);
         StartCoroutine(scrollToTop());
     }
+
     public void showAllPlayers(CardNode cardNode, Player player)
     {
         isPopupOpen = true;
 
-        GameObject cardObj;
-        PopUpButton newButton;
-
-        foreach (Player playerlist in Mainscript.main.playersList)
+        foreach (Player playerList in Mainscript.main.playersList)
         {
-            cardObj = Instantiate(button, popUp.transform);
-            newButton = cardObj.GetComponentInChildren<PopUpButton>();
-            newButton.Init(playerlist, popupScript, cardNode, player);
-            buttonList.Add(cardObj);
+            CreateButton("Parvietot speletaju " + (playerList.playerId + 1) + " uz jebkuru pilsetu", () => popupScript.airLift2(playerList, cardNode, player));
         }
         
-        titleText.text = "Kuru karti iznemt";
+        titleText.text = "Kuru cilveku parcel";
         panel.SetActive(true);
         StartCoroutine(scrollToTop());
+    }
+
+    void CreateButton(string text, Action onClick, bool interactable = true)
+    {
+        GameObject obj = Instantiate(button, popUp.transform);
+        PopUpButtonAction newButton = obj.GetComponentInChildren<PopUpButtonAction>();
+        newButton.Init(text, onClick, interactable);
+        buttonList.Add(obj);
     }
 
     public void hideInfo()

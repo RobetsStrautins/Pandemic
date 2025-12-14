@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameOverScript : MonoBehaviour
+public class GameEnd : MonoBehaviour
 {
-    public static GameOverScript Instance;
+    public static GameEnd Instance;
 
     public GameObject panel;
     public Text text;

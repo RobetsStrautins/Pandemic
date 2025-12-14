@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DiseaseDeck : MonoBehaviour
+public class DiseaseDeck : MonoBehaviour // Lai stradatu Awake
 {
     public static DiseaseDeck Instance;
 
@@ -92,7 +92,6 @@ public class DiseaseDeck : MonoBehaviour
 
         infectionRateIndex++;
         Mainscript.main.updateInfectionRateCount(infectionRateList[infectionRateIndex]);
-        
     }
 
     public void outBreak(CityData outBreakCity)
@@ -103,7 +102,7 @@ public class DiseaseDeck : MonoBehaviour
         if(OutBreakCount >= 8)
         {
             Debug.Log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-            GameOverScript.Instance.GameLost();
+            GameEnd.Instance.GameLost();
         }
 
         if(!CitiesOutBreakHappend.Contains(outBreakCity))

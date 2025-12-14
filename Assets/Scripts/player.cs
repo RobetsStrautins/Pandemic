@@ -26,7 +26,6 @@ public class Player : MonoBehaviour
         {
             sr.color = playerColor;
         }
-
     }
 
     public void canMoveToCity(CityData pressedCity)
@@ -45,4 +44,5 @@ public class Player : MonoBehaviour
         transform.position = new Vector3(city.Xcord, city.Ycord, -1);
         Mainscript.main.playerTurnCount -= 1;
     }
+
 }

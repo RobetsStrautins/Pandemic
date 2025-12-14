@@ -31,7 +31,7 @@ public class playerBonesCard : MonoBehaviour
             return;
         }
 
-        CardInfoManager.Instance.showInfoWhenBonusCardPressed(title.text, bonusCardType, myNode, Mainscript.main.getActivePlayer());
+        PopUpButtonManager.Instance.showInfoWhenBonusCardPressed(title.text, bonusCardType, myNode, Mainscript.main.getActivePlayer());
 
     }
 }

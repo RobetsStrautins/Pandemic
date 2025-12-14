@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Unity.VisualScripting;
 
-public class PlayerCardInfoManager : MonoBehaviour
+public class PlayerPopUpButtonManager : MonoBehaviour
 {
     public GameObject panel;
     public Text titleText;
@@ -12,7 +12,7 @@ public class PlayerCardInfoManager : MonoBehaviour
     public GameObject playerPopUpCityCards;
     public GameObject playerPopUpBonesCards;
     public PopUpScript popupScript;
-    public static PlayerCardInfoManager Instance;
+    public static PlayerPopUpButtonManager Instance;
 
     private List<GameObject> buttonList = new List<GameObject>();
 
@@ -24,7 +24,7 @@ public class PlayerCardInfoManager : MonoBehaviour
 
     public void showPlayerCardFromPLayerTop(Player player)
     {
-        CardInfoManager.isPopupOpen = true;
+        PopUpButtonManager.isPopupOpen = true;
 
         GameObject cardObj;
         PlayerCityCardInPopUp playerCityCardInPopUp;
@@ -73,7 +73,7 @@ public class PlayerCardInfoManager : MonoBehaviour
     public void hideInfo()
     {
         panel.SetActive(false);
-        CardInfoManager.isPopupOpen = false;
+        PopUpButtonManager.isPopupOpen = false;
 
         foreach (GameObject obj in buttonList)
         {

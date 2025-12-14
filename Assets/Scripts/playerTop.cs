@@ -7,7 +7,6 @@ using UnityEngine.UIElements;
 public class PlayerTop : MonoBehaviour
 {
     public Text playerIdText;
-
     private Player player;
 
     public void Init(Player player)
@@ -32,7 +31,7 @@ public class PlayerTop : MonoBehaviour
 
         if (player != Mainscript.main.getActivePlayer())
         {
-            PlayerCardInfoManager.Instance.showPlayerCardFromPLayerTop(player);
+            PlayerPopUpButtonManager.Instance.showPlayerCardFromPLayerTop(player);
         }
     }
 }

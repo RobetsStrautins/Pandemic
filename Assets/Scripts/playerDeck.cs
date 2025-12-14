@@ -58,7 +58,7 @@ public class PlayerDeck : MonoBehaviour
     {
         if (deck.Count == 0)
         {
-            GameOverScript.Instance.GameLost();
+            GameEnd.Instance.GameLost();
             return;
         }
 

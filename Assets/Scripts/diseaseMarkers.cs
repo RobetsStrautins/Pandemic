@@ -57,7 +57,7 @@ public class DiseaseMarkers : MonoBehaviour
         if (cubeColorCount[color] > 24)
         {
             Debug.LogWarning("Lost, " + color + " cubs receh over 24");
-            GameOverScript.Instance.GameLost();
+            GameEnd.Instance.GameLost();
         }
 
     }

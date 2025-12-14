@@ -34,7 +34,7 @@ public class PlayerBonusCardInPopUp : MonoBehaviour
             return;
         }
 
-        PlayerCardInfoManager.Instance.hideInfo();
-        CardInfoManager.Instance.showInfoWhenBonusCardPressed(title.text, bonusCardType, myNode, playerWhoHasCard);
+        PlayerPopUpButtonManager.Instance.hideInfo();
+        PopUpButtonManager.Instance.showInfoWhenBonusCardPressed(title.text, bonusCardType, myNode, playerWhoHasCard);
     }
 }

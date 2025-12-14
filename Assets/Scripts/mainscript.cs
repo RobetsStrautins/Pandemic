@@ -42,6 +42,7 @@ public class Mainscript : MonoBehaviour
     void Start()
     {
         citySpawner.Setup();
+        new GameObject("DiseaseDeck").AddComponent<DiseaseDeck>();
         DiseaseDeck.Instance.Setup();
         PlayerDeck.Instance.SetupBeforeEpidemicCard();
         
@@ -56,7 +57,7 @@ public class Mainscript : MonoBehaviour
 
             for (int j = 0; j < 6 - playerCount;j++)
             {
-                PlayerCardSpawnerScript.Instance.givePlayerCard(activePlayer);
+                PlayerDeck.Instance.Draw(activePlayer);
             }
     
             GameObject spawnedPlayerTop = Instantiate(playerTop);
@@ -128,7 +129,7 @@ public class Mainscript : MonoBehaviour
         {
             if (pressedCity == activePlayer.city)
             {
-                CardInfoManager.Instance.showInfoWhenCityPressed(pressedCity, activePlayer);
+                PopUpButtonManager.Instance.showInfoWhenCityPressed(pressedCity, activePlayer);
             }
             if (!playerTurnComplite())
             {
@@ -174,7 +175,7 @@ public class Mainscript : MonoBehaviour
     
     public bool inMiddleOfAcion()
     {
-        if (CardInfoManager.isPopupOpen || waitingForCityClick)
+        if (PopUpButtonManager.isPopupOpen || waitingForCityClick)
         {
             return true;
         }

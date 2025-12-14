@@ -69,7 +69,7 @@ public class PlayerCityCardInPopUp : MonoBehaviour
 
     public void onCardClickedWhenSingleCard()
     {
-        CardInfoManager.Instance.showInfoWhenFromOtherPLayer(myNode, Mainscript.main.getActivePlayer());
+        PopUpButtonManager.Instance.showInfoWhenFromOtherPLayer(myNode, Mainscript.main.getActivePlayer());
     }
 
     public bool IsSelected => isSelected;

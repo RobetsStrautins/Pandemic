@@ -27,7 +27,6 @@ public class City : MonoBehaviour
 
         updateCubs();
         setUpcolor();
-
     }   
 
     public void updateCubs()

@@ -33,7 +33,7 @@ public class ConfirmButton : MonoBehaviour
 
             CureInfoManager.Instance.hideInfo();
 
-            GameOverScript.Instance.checkIfGameWon();
+            GameEnd.Instance.checkIfGameWon();
         }
         else
         {
