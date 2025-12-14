@@ -31,7 +31,7 @@ public class PlayerTop : MonoBehaviour
 
         if (player != Mainscript.main.getActivePlayer())
         {
-            PlayerPopUpButtonManager.Instance.showPlayerCardFromPLayerTop(player);
+            PopUpCardManager.Instance.showPlayerCardFromPLayerTop(player);
         }
     }
 }

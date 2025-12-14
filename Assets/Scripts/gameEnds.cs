@@ -18,7 +18,7 @@ public class GameEnd : MonoBehaviour
 
     public void checkIfGameWon()
     {
-        foreach (DiseaseColor Disease in DiseaseMarkers.Instance.diseaseColorDict.Values)
+        foreach (DiseaseColorMarker Disease in DiseaseMarkers.Instance.diseaseColorDict.Values)
         {
             if(!Disease.isCuredDisease)
             {

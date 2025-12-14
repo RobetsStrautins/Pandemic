@@ -31,7 +31,7 @@ public class ConfirmButton : MonoBehaviour
             Mainscript.main.playerTurnCount -= 1;
             Mainscript.main.updateMoveCount();
 
-            CureInfoManager.Instance.hideInfo();
+            PopUpCardManager.Instance.hideInfo();
 
             GameEnd.Instance.checkIfGameWon();
         }

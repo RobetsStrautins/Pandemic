@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DiseaseColor : MonoBehaviour
+public class DiseaseColorMarker : MonoBehaviour
 {
     public SpriteRenderer cure;
     public SpriteRenderer cureSilutet;

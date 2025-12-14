@@ -366,7 +366,6 @@ RectTransform:
   - {fileID: 412649217}
   - {fileID: 1401978834}
   - {fileID: 1555221446}
-  - {fileID: 963425851}
   m_Father: {fileID: 1181117794}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -841,6 +840,7 @@ MonoBehaviour:
     connectedCity: 
     cityObj: {fileID: 0}
   quietNight: 0
+  airLiftPlayer: {fileID: 0}
 --- !u!1 &435643268
 GameObject:
   m_ObjectHideFlags: 0
@@ -924,7 +924,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1160410997}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.9998057
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1512,57 +1512,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!1 &699736235
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 699736236}
-  - component: {fileID: 699736237}
-  m_Layer: 5
-  m_Name: diseaseDeck
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &699736236
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 699736235}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 80}
-  m_LocalScale: {x: 0.00925926, y: 0.00925926, z: 0.00925926}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1208874237}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &699736237
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 699736235}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04561deff59c2c44e8e8dfd74f6e3a23, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  infectionDeck: []
-  usedInfectionDeck: []
-  OutBreakCount: 0
 --- !u!1 &711798846
 GameObject:
   m_ObjectHideFlags: 0
@@ -1926,16 +1875,16 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963425850}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 84483139}
-  m_Father: {fileID: 135347464}
+  m_Father: {fileID: 1346346172}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 400, y: -180}
+  m_AnchoredPosition: {x: 400, y: -190}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &963425852
@@ -2375,7 +2324,7 @@ RectTransform:
   m_Father: {fileID: 392151485}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0.9998057}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2575,6 +2524,7 @@ MonoBehaviour:
   playerTurnCount: 4
   playersList: []
   waitingForCityClick: 0
+  waitingForCityClickAction: 
   researchStationOnMap: []
 --- !u!4 &1208874237
 Transform:
@@ -2594,7 +2544,6 @@ Transform:
   - {fileID: 428169267}
   - {fileID: 543962986}
   - {fileID: 871890974}
-  - {fileID: 699736236}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1334294240
@@ -2739,6 +2688,7 @@ RectTransform:
   - {fileID: 1853486419}
   - {fileID: 1704627911}
   - {fileID: 1899465066}
+  - {fileID: 963425851}
   m_Father: {fileID: 1181117794}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3140,7 +3090,6 @@ GameObject:
   - component: {fileID: 1428398894}
   - component: {fileID: 1428398895}
   - component: {fileID: 1428398896}
-  - component: {fileID: 1428398897}
   m_Layer: 0
   m_Name: popUpManager
   m_TagString: Untagged
@@ -3193,28 +3142,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panel: {fileID: 1346346171}
+  confirmButton: {fileID: 963425850}
+  closeButton: {fileID: 1704627910}
   titleText: {fileID: 1853486417}
   popUp: {fileID: 1899465066}
   playerPopUpCityCards: {fileID: 1795310009484395041, guid: 2d77885eb3eef04458ded849e8863414, type: 3}
   playerPopUpBonesCards: {fileID: 4744420675360385136, guid: 50b2d16d802dc8842a189cc083bb7ca0, type: 3}
-  popupScript: {fileID: 1181117795}
---- !u!114 &1428398897
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1428398892}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e06fc79d4175f814d81c768c0e93d6ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  panel: {fileID: 135347463}
-  titleText: {fileID: 412649218}
-  popUp: {fileID: 1555221446}
-  playerPanalCards: {fileID: 1795310009484395041, guid: 2d77885eb3eef04458ded849e8863414, type: 3}
-  popupScript: {fileID: 1181117795}
 --- !u!1 &1454100988
 GameObject:
   m_ObjectHideFlags: 0
@@ -3688,7 +3621,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2, y: -196}
+  m_AnchoredPosition: {x: 0, y: -190}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1704627912

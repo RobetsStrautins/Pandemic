@@ -6,9 +6,8 @@ public class PopUpScript : MonoBehaviour
 {
     public void exitPopUp()
     {
-        PlayerPopUpButtonManager.Instance.hideInfo();
+        PopUpCardManager.Instance.hideInfo();
         PopUpButtonManager.Instance.hideInfo();
-        CureInfoManager.Instance.hideInfo();
     }
 
     public void flyTo(PlayerCityCard card)
@@ -77,7 +76,7 @@ public class PopUpScript : MonoBehaviour
     {
         Debug.LogWarning("aaaaa" + color);
         exitPopUp();
-        CureInfoManager.Instance.pickCardsToCureDisease(color);
+        PopUpCardManager.Instance.pickCardsToCureDisease(color);
     }
 
     public void flyToResearchStation(CityData city)

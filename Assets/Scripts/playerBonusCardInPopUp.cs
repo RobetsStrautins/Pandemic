@@ -29,12 +29,7 @@ public class PlayerBonusCardInPopUp : MonoBehaviour
 
     public void onCardClicked()
     {
-        if (SelectionManager.Instance == null)
-        {
-            return;
-        }
-
-        PlayerPopUpButtonManager.Instance.hideInfo();
+        PopUpCardManager.Instance.hideInfo();
         PopUpButtonManager.Instance.showInfoWhenBonusCardPressed(title.text, bonusCardType, myNode, playerWhoHasCard);
     }
 }

@@ -10,7 +10,7 @@ public class DiseaseMarkers : MonoBehaviour
 
     private string[] colorList = { "Yellow", "Red", "Blue", "Black" };
 
-    public Dictionary<string, DiseaseColor> diseaseColorDict = new Dictionary<string, DiseaseColor>();
+    public Dictionary<string, DiseaseColorMarker> diseaseColorDict = new Dictionary<string, DiseaseColorMarker>();
 
     public Dictionary<string, int> cubeColorCount = new Dictionary<string,int>
     {
@@ -31,7 +31,7 @@ public class DiseaseMarkers : MonoBehaviour
         {
             GameObject newDisease = Instantiate(Disease, transform);
 
-            DiseaseColor colorScript = newDisease.GetComponent<DiseaseColor>();
+            DiseaseColorMarker colorScript = newDisease.GetComponent<DiseaseColorMarker>();
             colorScript.Init(colorList[i]);
 
             Vector3 spawnPos = transform.position + new Vector3(0, -i * 0.7f, 0);

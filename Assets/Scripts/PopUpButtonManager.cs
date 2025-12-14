@@ -162,7 +162,7 @@ public class PopUpButtonManager : MonoBehaviour
 
         if (buttonList.Count != 0)
         {
-            PlayerPopUpButtonManager.Instance.hideInfo();
+            PopUpCardManager.Instance.hideInfo();
         }
         else
         {
