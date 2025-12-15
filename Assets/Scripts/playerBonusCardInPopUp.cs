@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,28 +9,22 @@ public class PlayerBonusCardInPopUp : MonoBehaviour
     public CardNode myNode;
     public Text title;
     public Text description;
-    public BonusCardType bonusCardType;
-    Player playerWhoHasCard;
 
-    public void Init(CardNode cardNode, Player player)
+    public Button onClickButton;
+
+    public void Init(string text, Action onClick, CardNode cardNode)
     {
         myNode = cardNode;
-        playerWhoHasCard = player;
 
         BonusCardData bonusCard = myNode.data as BonusCardData;
-
-        bonusCardType = bonusCard.bonusType;
 
         name = bonusCard.title;
 
         title.text = bonusCard.title;
         description.text = bonusCard.description;
 
-    }
-
-    public void onCardClicked()
-    {
-        PopUpCardManager.Instance.hideInfo();
-        PopUpButtonManager.Instance.showInfoWhenBonusCardPressed(title.text, bonusCardType, myNode, playerWhoHasCard);
+        name = text + " button";
+        onClickButton.onClick.RemoveAllListeners();
+        onClickButton.onClick.AddListener(() => onClick.Invoke());
     }
 }

@@ -5,13 +5,11 @@ using UnityEngine;
 
 public class ConfirmButton : MonoBehaviour
 {
-    public SelectionManager selectionManager;
-
     public void onConfirmClicked()
     {
-        if (selectionManager.selectedCards.Count == 5)
+        if (SelectionManager.Instance.selectedCards.Count == 5)
         {
-            string color = selectionManager.selectedCards[0].cardsCityData.color;
+            string color = SelectionManager.Instance.selectedCards[0].cardsCityData.color;
 
             if (DiseaseMarkers.Instance.diseaseColorDict.ContainsKey(color))
             {
@@ -21,7 +19,7 @@ public class ConfirmButton : MonoBehaviour
 
             Player player = Mainscript.main.getActivePlayer();
 
-            foreach (var card in selectionManager.selectedCards)
+            foreach (var card in SelectionManager.Instance.selectedCards)
             {
                 player.playerCardList.removeCard(card.myNode);
             }

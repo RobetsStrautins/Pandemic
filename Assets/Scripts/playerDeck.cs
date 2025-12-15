@@ -31,9 +31,9 @@ public class PlayerDeck : MonoBehaviour
             deck.Add(new PlayerCityCardData(city));
         }
 
-        createBonuesCards();
+        //createBonuesCards();
 
-        shuffle(deck);
+        //shuffle(deck);
     }
 
     public void SetupAfterEpidemicCard()

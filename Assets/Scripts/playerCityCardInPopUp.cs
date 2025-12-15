@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,16 +11,20 @@ public class PlayerCityCardInPopUp : MonoBehaviour
     public Text cityLabel;
     public Image cardBackgroundColor;
 
+    public Button onClickButton;
+
     private bool isSelected = false;
     private Color baseColor;
     private Color selectedColor;
 
-    private bool multiCardSelect;
 
-    public void Init(CardNode cardNode , bool multi)
+    public void Init(string text, Action onClick, CardNode cardNode)
     {
         myNode = cardNode;
-        multiCardSelect = multi;
+        
+        name = text + " button";
+        onClickButton.onClick.RemoveAllListeners();
+        onClickButton.onClick.AddListener(() => onClick.Invoke());
 
         PlayerCityCardData card = myNode.data as PlayerCityCardData;
         cardsCityData = card.cityCard;
@@ -33,25 +38,9 @@ public class PlayerCityCardInPopUp : MonoBehaviour
         if (cityLabel != null)
             cityLabel.text = cardsCityData.cityName;
     }
+    
 
     public void onCardClicked()
-    {
-        if (SelectionManager.Instance == null)
-        {
-            return;
-        } 
-
-        if(multiCardSelect)
-        {
-            onCardClickedWhenMultipleCard();
-        }
-        else
-        {
-            onCardClickedWhenSingleCard();
-        }
-    }
-
-    public void onCardClickedWhenMultipleCard()
     {
         if (!isSelected && SelectionManager.Instance.CanSelectMore())
         {
@@ -65,11 +54,7 @@ public class PlayerCityCardInPopUp : MonoBehaviour
             SelectionManager.Instance.DeselectCard(this);
             cardBackgroundColor.color = baseColor;
         }
-    }
 
-    public void onCardClickedWhenSingleCard()
-    {
-        PopUpButtonManager.Instance.showInfoWhenFromOtherPLayer(myNode, Mainscript.main.getActivePlayer());
     }
 
     public bool IsSelected => isSelected;

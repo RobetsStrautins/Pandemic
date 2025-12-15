@@ -64,9 +64,8 @@ public class PopUpScript : MonoBehaviour
         exitPopUp();
     }
 
-    public void removeCard(CardNode myNode)
+    public void removeCard(CardNode myNode, Player player)
     {
-        Player player = Mainscript.main.getActivePlayer();
         player.playerCardList.removeCard(myNode);
 
         exitPopUp();
@@ -168,10 +167,32 @@ public class PopUpScript : MonoBehaviour
 
     public void endTurnButton()
     {
-        if (Mainscript.main.playerTurnCount == 0 && PickUpCard.playerTookCards)
+        Player player = Mainscript.main.getActivePlayer();
+        if(player.playerCardList.playerCardCount > 7)
         {
+            Debug.LogWarning("Speletajam ir par daudz kartis, nomest liekas kartis");
+            PopUpCardManager.Instance.maxCardLimit(player);
+        }
+        else if(PickUpCard.playerTookCards)
+        {
+            if(Mainscript.main.inMiddleOfAcion())
+            {
+                Debug.LogWarning("Esi vidu citai darbibai");
+                return;
+            }
+            
             PickUpCard.playerTookCards = false;
             Mainscript.main.nextTurn();
         }
+    }
+
+    public void closeButtonForButtonPanal()
+    {
+        PopUpButtonManager.Instance.hideInfo();
+    }
+
+    public void closeButtonForCardPanal()
+    {
+        PopUpCardManager.Instance.hideInfo();
     }
 }

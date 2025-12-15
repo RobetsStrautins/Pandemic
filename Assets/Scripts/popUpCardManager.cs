@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Unity.VisualScripting;
+using System;
 
 public class PopUpCardManager : MonoBehaviour
 {
@@ -12,8 +13,8 @@ public class PopUpCardManager : MonoBehaviour
     private RectTransform closeButtonRT;
     public Text titleText;
     public Transform popUp;
-    public GameObject playerPopUpCityCards;
-    public GameObject playerPopUpBonesCards;
+    public GameObject playerPopUpCityCardsPrefab;
+    public GameObject playerPopUpBonesCardsPrefab;
 
     public static PopUpCardManager Instance;
 
@@ -31,27 +32,19 @@ public class PopUpCardManager : MonoBehaviour
     {
         PopUpButtonManager.isPopupOpen = true;
 
-        GameObject cardObj;
-        PlayerCityCardInPopUp playerCityCardInPopUp;
-        PlayerBonusCardInPopUp playerBonusCardInPopUp;
-
         CardNode current = player.playerCardList.first;
 
         while (current != null)
         {
+            CardNode node = current;
             if (current.data.Type == CardType.City)
             {
-                cardObj = Instantiate(playerPopUpCityCards, popUp.transform);
-                playerCityCardInPopUp = cardObj.GetComponentInChildren<PlayerCityCardInPopUp>();
-                playerCityCardInPopUp.Init(current, false);
-                buttonList.Add(cardObj);
+                CreateCityCard("City", () => PopUpButtonManager.Instance.showInfoWhenFromOtherPLayer(node, Mainscript.main.getActivePlayer()), node);
             }
             else if (current.data.Type == CardType.Bonus)
             {
-                cardObj = Instantiate(playerPopUpBonesCards, popUp.transform);
-                playerBonusCardInPopUp = cardObj.GetComponentInChildren<PlayerBonusCardInPopUp>();
-                playerBonusCardInPopUp.Init(current, player);
-                buttonList.Add(cardObj);
+                var card = current.data as BonusCardData;
+                CreateBonusCard("Bonus", () => PopUpButtonManager.Instance.showInfoWhenBonusCardPressed(node, player), node);
             }
 
             current = current.next;
@@ -71,9 +64,6 @@ public class PopUpCardManager : MonoBehaviour
 
         PopUpButtonManager.isPopupOpen = true;
 
-        GameObject cardObj;
-        PlayerCityCardInPopUp playerCityCardInPopUp;
-
         CardNode current = player.playerCardList.first;
 
         while (current != null)
@@ -81,15 +71,15 @@ public class PopUpCardManager : MonoBehaviour
             if(current.data.Type == CardType.City)
             {
                 var currentCity = current.data as PlayerCityCardData;
+                CardNode node = current;
 
                 if(currentCity.cityCard.color == tempColor)
                 {
-                    cardObj = Instantiate(playerPopUpCityCards, popUp.transform);
-                    playerCityCardInPopUp = cardObj.GetComponentInChildren<PlayerCityCardInPopUp>();
-                    playerCityCardInPopUp.Init(current, true);
-                    buttonList.Add(cardObj);
+                    GameObject obj = Instantiate(playerPopUpCityCardsPrefab, popUp.transform);
+                    PlayerCityCardInPopUp newPlayerCityCardInPopUp = obj.GetComponentInChildren<PlayerCityCardInPopUp>();
+                    newPlayerCityCardInPopUp.Init("selecto karti", () => newPlayerCityCardInPopUp.onCardClicked(), node);
+                    buttonList.Add(obj);
                 }
- 
             }
             
             current = current.next;
@@ -102,7 +92,52 @@ public class PopUpCardManager : MonoBehaviour
         titleText.text = "Izvelies kartis kuras izmantot";
         panel.SetActive(true);
     }
-    
+
+    public void maxCardLimit(Player player)
+    {
+        PopUpButtonManager.isPopupOpen = true;
+
+        CardNode current = player.playerCardList.first;
+
+        while (current != null)
+        {
+            CardNode node = current;
+            if (current.data.Type == CardType.City)
+            {
+                CreateCityCard("City", () => PopUpButtonManager.Instance.showRemoveOpcion(node, player), node);
+            }
+            else if (current.data.Type == CardType.Bonus)
+            {
+                CreateBonusCard("Bonus", () => PopUpButtonManager.Instance.showRemoveOpcion(node, player), node);
+            }
+
+            current = current.next;
+        }
+
+        closeButtonRT.anchoredPosition = new Vector2(0, -190);
+        confirmButton.SetActive(false);
+
+        CardPos();
+        titleText.text = "Speletajam ir par daudz kartis, janomet karti";
+        panel.SetActive(true);
+    }
+
+    void CreateCityCard(string text, Action onClick, CardNode node)
+    {
+        GameObject obj = Instantiate(playerPopUpCityCardsPrefab, popUp.transform);
+        PlayerCityCardInPopUp newPlayerCityCardInPopUp = obj.GetComponentInChildren<PlayerCityCardInPopUp>();
+        newPlayerCityCardInPopUp.Init(text, onClick, node);
+        buttonList.Add(obj);
+    }
+
+    void CreateBonusCard(string text, Action onClick, CardNode node)
+    {
+        GameObject obj = Instantiate(playerPopUpBonesCardsPrefab, popUp.transform);
+        PlayerBonusCardInPopUp newPlayerBonusCardInPopUp = obj.GetComponentInChildren<PlayerBonusCardInPopUp>();
+        newPlayerBonusCardInPopUp.Init(text, onClick,node);
+        buttonList.Add(obj);
+    }
+
     private void CardPos()
     {
         float startX = -805;

@@ -8,14 +8,14 @@ using System.Diagnostics;
 public class PopUpButtonAction : MonoBehaviour
 {
     public Text buttonText;
-    public Button button;
+    public Button onClickButton;
 
     public void Init(string text, Action onClick, bool interactable)
     {
         name = text + " button";
         buttonText.text = text;
-        button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(() => onClick.Invoke());
-        button.interactable = interactable;
+        onClickButton.onClick.RemoveAllListeners();
+        onClickButton.onClick.AddListener(() => onClick.Invoke());
+        onClickButton.interactable = interactable;
     }
 }

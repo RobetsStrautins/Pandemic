@@ -89,9 +89,9 @@ GameObject:
   m_Component:
   - component: {fileID: 923504063110762224}
   - component: {fileID: 1403353305815531538}
-  - component: {fileID: 7642661052600560356}
   - component: {fileID: 781854064003904697}
   - component: {fileID: 6873688288096440640}
+  - component: {fileID: 7642661052600560356}
   m_Layer: 5
   m_Name: playerBonusCardPopUp
   m_TagString: Untagged
@@ -128,21 +128,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4744420675360385136}
   m_CullTransparentMesh: 1
---- !u!114 &7642661052600560356
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4744420675360385136}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 968c0e9c41d308248b75b10d1e5f57f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  title: {fileID: 5956115506139002213}
-  description: {fileID: 2289157664793480038}
-  bonusCardType: 0
 --- !u!114 &781854064003904697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,19 +201,23 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 781854064003904697}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7642661052600560356}
-        m_TargetAssemblyTypeName: PlayerBonusCardInPopUp, Assembly-CSharp
-        m_MethodName: onCardClicked
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+--- !u!114 &7642661052600560356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4744420675360385136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 968c0e9c41d308248b75b10d1e5f57f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  title: {fileID: 5956115506139002213}
+  description: {fileID: 2289157664793480038}
+  bonusCardType: 0
+  onClickButton: {fileID: 6873688288096440640}
 --- !u!1 &7744812925369765001
 GameObject:
   m_ObjectHideFlags: 0

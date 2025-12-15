@@ -9,7 +9,7 @@ public class PopUpButtonManager : MonoBehaviour
     public GameObject panel;
     public Text titleText;
     public Transform popUp;
-    public GameObject button;
+    public GameObject buttonPrefab;
 
     public PopUpScript popupScript;
 
@@ -55,39 +55,43 @@ public class PopUpButtonManager : MonoBehaviour
             CreateButton("Lidot uz " + card.cardsCityData.cityName, () => popupScript.flyTo(card));
         }
 
-        CreateButton("Nomest karti", () => popupScript.removeCard(card.myNode));
+        CreateButton("Nomest karti", () => popupScript.removeCard(card.myNode, player));
 
         titleText.text = card.cardsCityData.cityName;
         panel.SetActive(true);
         StartCoroutine(scrollToTop());
     }
 
-    public void showInfoWhenBonusCardPressed(string title, BonusCardType bonusCardType, CardNode node,  Player player)
+    public void showInfoWhenBonusCardPressed(CardNode node,  Player player)
     {
         isPopupOpen = true;
 
-        switch (bonusCardType)
+        var card = node.data as BonusCardData;
+        switch (card.bonusType)
         {
             case BonusCardType.KlusaNakts:
-                CreateButton("Izmantot " + title, () => popupScript.quietNight(node, player));
+                CreateButton("Izmantot " + card.title, () => popupScript.quietNight(node, player));
                 break;
 
             case BonusCardType.PopulacijasPretosanas:
-                CreateButton("Izmantot " + title, () => popupScript.resilientPopulation(node, player));
+                CreateButton("Izmantot " + card.title, () => popupScript.resilientPopulation(node, player));
                 break;
 
             case BonusCardType.ValdibasSubsidija:
-                CreateButton("Izmantot " + title, () => popupScript.governmentGrant(node, player));
+                CreateButton("Izmantot " + card.title, () => popupScript.governmentGrant(node, player));
                 break;
 
             case BonusCardType.GaisaTransportas:
-                CreateButton("Izmantot " + title, () => popupScript.airLift(node, player));
+                CreateButton("Izmantot " + card.title, () => popupScript.airLift(node, player));
                 break;
         }
 
-        CreateButton("Nomest karti", () => popupScript.removeCard(node));
+        if (player == Mainscript.main.getActivePlayer())
+        {
+            CreateButton("Nomest karti", () => popupScript.removeCard(node, player));
+        }
 
-        titleText.text = title;
+        titleText.text = card.title;
         panel.SetActive(true);
         StartCoroutine(scrollToTop());
     }
@@ -215,9 +219,49 @@ public class PopUpButtonManager : MonoBehaviour
         StartCoroutine(scrollToTop());
     }
 
+    public void showRemoveOpcion(CardNode node,  Player player)
+    {
+        isPopupOpen = true;
+
+        if(node.data.Type == CardType.City)
+        {
+            var card = node.data as PlayerCityCardData;
+            CreateButton("Nomest " + card.cityCard.cityName + " karti", () => popupScript.removeCard(node, player));
+            titleText.text = card.cityCard.cityName;
+        }
+        else if(node.data.Type == CardType.Bonus)
+        {
+            var card = node.data as BonusCardData;
+            CreateButton("Nomest " + card.Type.ToString() + " karti", () => popupScript.removeCard(node, player));
+            switch (card.bonusType)
+            {
+                case BonusCardType.KlusaNakts:
+                    CreateButton("Izmantot " + card.title, () => popupScript.quietNight(node, player));
+                    break;
+
+                case BonusCardType.PopulacijasPretosanas:
+                    CreateButton("Izmantot " + card.title, () => popupScript.resilientPopulation(node, player));
+                    break;
+
+                case BonusCardType.ValdibasSubsidija:
+                    CreateButton("Izmantot " + card.title, () => popupScript.governmentGrant(node, player));
+                    break;
+
+                case BonusCardType.GaisaTransportas:
+                    CreateButton("Izmantot " + card.title, () => popupScript.airLift(node, player));
+                    break;
+            }
+
+            titleText.text = card.title;
+        }
+        
+        panel.SetActive(true);
+        StartCoroutine(scrollToTop());
+    }
+
     void CreateButton(string text, Action onClick, bool interactable = true)
     {
-        GameObject obj = Instantiate(button, popUp.transform);
+        GameObject obj = Instantiate(buttonPrefab, popUp.transform);
         PopUpButtonAction newButton = obj.GetComponentInChildren<PopUpButtonAction>();
         newButton.Init(text, onClick, interactable);
         buttonList.Add(obj);

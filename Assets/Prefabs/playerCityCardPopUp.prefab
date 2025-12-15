@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6349251885481039029}
   - component: {fileID: 9148797687642480307}
-  - component: {fileID: 7861366998486525717}
   - component: {fileID: 8458418097227780692}
   - component: {fileID: 1780885248240521681}
+  - component: {fileID: 7861366998486525717}
   m_Layer: 5
   m_Name: playerCityCardPopUp
   m_TagString: Untagged
@@ -48,20 +48,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1795310009484395041}
   m_CullTransparentMesh: 1
---- !u!114 &7861366998486525717
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1795310009484395041}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99a284b10f872e645975d33fc2a64ba5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cityLabel: {fileID: 3271214808535363601}
-  cardBackgroundColor: {fileID: 8458418097227780692}
 --- !u!114 &8458418097227780692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,19 +121,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8458418097227780692}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7861366998486525717}
-        m_TargetAssemblyTypeName: PlayerCardInPopUp, Assembly-CSharp
-        m_MethodName: onCardClicked
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+--- !u!114 &7861366998486525717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1795310009484395041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a284b10f872e645975d33fc2a64ba5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardsCityData:
+    id: 0
+    cityName: 
+    Xcord: 0
+    Ycord: 0
+    color: 
+    unityColor: {r: 0, g: 0, b: 0, a: 0}
+    connectedCity: 
+    cityObj: {fileID: 0}
+  cityLabel: {fileID: 3271214808535363601}
+  cardBackgroundColor: {fileID: 8458418097227780692}
+  onClickButton: {fileID: 1780885248240521681}
 --- !u!1 &6854131715862946129
 GameObject:
   m_ObjectHideFlags: 0
