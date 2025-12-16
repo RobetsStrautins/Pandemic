@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class City : MonoBehaviour
+public class CityUi : MonoBehaviour
 {
     [SerializeField] private CityData cityData = new CityData();
     public Text cityLabel;
@@ -100,22 +100,22 @@ public class CityData
     private int cubs = 0;
     private bool researchStation = false;
 
-    public City cityObj;
+    public CityUi cityObj;
 
     public void addCubs(int newCubs)
     {
-        if(!DiseaseMarkers.Instance.diseaseColorDict[color].isExtinctDisease)
+        if(!DiseaseMarkers.diseaseColorDict[color].isExtinctDisease)
         {
             Debug.Log($"added {newCubs} cube to {cityName}");
             if (cubs + newCubs > 3)
             {
-                DiseaseMarkers.Instance.addColorCubes(color, 3 - cubs);
+                DiseaseMarkers.Instance.chengeColorCubes(color, 3 - cubs);
                 cubs = 3;
                 DiseaseDeck.Instance.outBreak(this);
             }
             else
             {
-                DiseaseMarkers.Instance.addColorCubes(color, newCubs);
+                DiseaseMarkers.Instance.chengeColorCubes(color, newCubs);
                 cubs += newCubs;
             }
             cityObj?.updateCubs();
@@ -125,7 +125,7 @@ public class CityData
     public void removeCubs(int removeCubs)
     {
         cubs -= removeCubs;
-        DiseaseMarkers.Instance.cubeColorCount[color] -= removeCubs;
+        DiseaseMarkers.Instance.chengeColorCubes(color, cubs);
         cityObj?.updateCubs();
     }
     
@@ -140,7 +140,7 @@ public class CityData
         researchStation = true;
         Mainscript.main.playerTurnCount -= 1;
         Mainscript.main.researchStationOnMap.Add(this);
-        Mainscript.main.updateMoveCount();
+        GameUI.Instance.updateMoveCount();
     }
 
     public bool hasResearchStation()

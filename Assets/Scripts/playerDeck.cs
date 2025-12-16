@@ -31,9 +31,9 @@ public class PlayerDeck : MonoBehaviour
             deck.Add(new PlayerCityCardData(city));
         }
 
-        //createBonuesCards();
+        createBonuesCards();
 
-        //shuffle(deck);
+        shuffle(deck);
     }
 
     public void SetupAfterEpidemicCard()
@@ -76,7 +76,7 @@ public class PlayerDeck : MonoBehaviour
         }
     }
 
-    public void shuffle(List<CardData> list)
+    private void shuffle(List<CardData> list)
     {
         int cardCount = list.Count;
         while (cardCount > 1)
@@ -113,10 +113,10 @@ public class PlayerDeck : MonoBehaviour
             "Pārvieto jebkuru kauliņu uz jebkuru pilsētu. Pārvietojot cita spēlētaju kauliņu, vispirms ir jāsaņem atļauja."
         ));
 
-        deck.Add(new BonusCardData(
-            BonusCardType.Prognoze,
-            "PROGNOZE",
-            "Pacel un aplūko 6 virsējas kārtis no infekcijas kāršu kaudzītes, pēc tam sakārto tās jebkādā secībā un noliec infekcijas kāršu kaudzītes virspusē."
-        ));
+        // deck.Add(new BonusCardData(
+        //     BonusCardType.Prognoze,
+        //     "PROGNOZE",
+        //     "Pacel un aplūko 6 virsējas kārtis no infekcijas kāršu kaudzītes, pēc tam sakārto tās jebkādā secībā un noliec infekcijas kāršu kaudzītes virspusē."
+        // ));
     }
 }

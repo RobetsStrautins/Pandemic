@@ -32,22 +32,19 @@ public class PopUpCardManager : MonoBehaviour
     {
         PopUpButtonManager.isPopupOpen = true;
 
-        CardNode current = player.playerCardList.first;
 
-        while (current != null)
+        foreach (CardData cardData in player.playerCardList.getAllCards())
         {
-            CardNode node = current;
-            if (current.data.Type == CardType.City)
+            CardData data = cardData;
+            if (data.Type == CardType.City)
             {
-                CreateCityCard("City", () => PopUpButtonManager.Instance.showInfoWhenFromOtherPLayer(node, Mainscript.main.getActivePlayer()), node);
+                CreateCityCard("City", () => PopUpButtonManager.Instance.showInfoWhenFromOtherPLayer(data, Mainscript.main.getActivePlayer()), data);
             }
-            else if (current.data.Type == CardType.Bonus)
+            else if (data.Type == CardType.Bonus)
             {
-                var card = current.data as BonusCardData;
-                CreateBonusCard("Bonus", () => PopUpButtonManager.Instance.showInfoWhenBonusCardPressed(node, player), node);
+                var card = data as BonusCardData;
+                CreateBonusCard("Bonus", () => PopUpButtonManager.Instance.showInfoWhenBonusCardPressed(data, player), data);
             }
-
-            current = current.next;
         }
 
         closeButtonRT.anchoredPosition = new Vector2(0, -190);
@@ -64,25 +61,22 @@ public class PopUpCardManager : MonoBehaviour
 
         PopUpButtonManager.isPopupOpen = true;
 
-        CardNode current = player.playerCardList.first;
-
-        while (current != null)
+        foreach (CardData cardData in player.playerCardList.getAllCards())
         {
-            if(current.data.Type == CardType.City)
+            if(cardData.Type == CardType.City)
             {
-                var currentCity = current.data as PlayerCityCardData;
-                CardNode node = current;
+                var currentCity = cardData as PlayerCityCardData;
+                CardData data = cardData;
 
                 if(currentCity.cityCard.color == tempColor)
                 {
                     GameObject obj = Instantiate(playerPopUpCityCardsPrefab, popUp.transform);
                     PlayerCityCardInPopUp newPlayerCityCardInPopUp = obj.GetComponentInChildren<PlayerCityCardInPopUp>();
-                    newPlayerCityCardInPopUp.Init("selecto karti", () => newPlayerCityCardInPopUp.onCardClicked(), node);
+                    newPlayerCityCardInPopUp.Init("selecto karti", () => newPlayerCityCardInPopUp.onCardClicked(), data);
                     buttonList.Add(obj);
                 }
             }
-            
-            current = current.next;
+
         }
 
         closeButtonRT.anchoredPosition = new Vector2(-400, -190);
@@ -97,21 +91,17 @@ public class PopUpCardManager : MonoBehaviour
     {
         PopUpButtonManager.isPopupOpen = true;
 
-        CardNode current = player.playerCardList.first;
-
-        while (current != null)
+        foreach (CardData cardData in player.playerCardList.getAllCards())
         {
-            CardNode node = current;
-            if (current.data.Type == CardType.City)
+            CardData data = cardData;
+            if (data.Type == CardType.City)
             {
-                CreateCityCard("City", () => PopUpButtonManager.Instance.showRemoveOpcion(node, player), node);
+                CreateCityCard("City", () => PopUpButtonManager.Instance.showRemoveOpcion(data, player), data);
             }
-            else if (current.data.Type == CardType.Bonus)
+            else if (data.Type == CardType.Bonus)
             {
-                CreateBonusCard("Bonus", () => PopUpButtonManager.Instance.showRemoveOpcion(node, player), node);
+                CreateBonusCard("Bonus", () => PopUpButtonManager.Instance.showRemoveOpcion(data, player), data);
             }
-
-            current = current.next;
         }
 
         closeButtonRT.anchoredPosition = new Vector2(0, -190);
@@ -122,19 +112,19 @@ public class PopUpCardManager : MonoBehaviour
         panel.SetActive(true);
     }
 
-    void CreateCityCard(string text, Action onClick, CardNode node)
+    void CreateCityCard(string text, Action onClick, CardData data)
     {
         GameObject obj = Instantiate(playerPopUpCityCardsPrefab, popUp.transform);
         PlayerCityCardInPopUp newPlayerCityCardInPopUp = obj.GetComponentInChildren<PlayerCityCardInPopUp>();
-        newPlayerCityCardInPopUp.Init(text, onClick, node);
+        newPlayerCityCardInPopUp.Init(text, onClick, data);
         buttonList.Add(obj);
     }
 
-    void CreateBonusCard(string text, Action onClick, CardNode node)
+    void CreateBonusCard(string text, Action onClick, CardData data)
     {
         GameObject obj = Instantiate(playerPopUpBonesCardsPrefab, popUp.transform);
         PlayerBonusCardInPopUp newPlayerBonusCardInPopUp = obj.GetComponentInChildren<PlayerBonusCardInPopUp>();
-        newPlayerBonusCardInPopUp.Init(text, onClick,node);
+        newPlayerBonusCardInPopUp.Init(text, onClick, data);
         buttonList.Add(obj);
     }
 

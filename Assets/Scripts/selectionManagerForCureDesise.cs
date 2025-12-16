@@ -4,9 +4,9 @@ using UnityEngine;
 public class SelectionManager : MonoBehaviour
 {
     public static SelectionManager Instance;
-    public int maxSelections = 5;
+    private int maxSelections = 5;
 
-    public List<PlayerCityCardInPopUp> selectedCards = new List<PlayerCityCardInPopUp>();
+    public static List<PlayerCityCardInPopUp> selectedCards = new List<PlayerCityCardInPopUp>();
 
     private void Awake()
     {

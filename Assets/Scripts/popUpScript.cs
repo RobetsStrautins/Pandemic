@@ -12,10 +12,10 @@ public class PopUpScript : MonoBehaviour
 
     public void flyTo(PlayerCityCard card)
     {
-        Mainscript.main.flytoCity(card.cardsCityData);
-
         Player player = Mainscript.main.getActivePlayer();
-        player.playerCardList.removeCard(card.myNode);
+
+        player.moveToCity(card.cardsCityData);
+        player.playerCardList.removeCard(card.cardData);
 
         exitPopUp();
     }
@@ -27,7 +27,7 @@ public class PopUpScript : MonoBehaviour
         Mainscript.main.waitingForCityClickAction = "FlyTo";
 
         Player player = Mainscript.main.getActivePlayer();
-        player.playerCardList.removeCard(card.myNode);
+        player.playerCardList.removeCard(card.cardData);
 
         exitPopUp();
     }
@@ -37,36 +37,36 @@ public class PopUpScript : MonoBehaviour
         card.cardsCityData.buildResearchStation();
 
         Player player = Mainscript.main.getActivePlayer();
-        player.playerCardList.removeCard(card.myNode);
+        player.playerCardList.removeCard(card.cardData);
 
         exitPopUp();
     }
 
     public void giveCard(PlayerCityCard card, Player playerToGiveCard)
     {
-        playerToGiveCard.playerCardList.newNodeCard(card.myNode.data);
+        playerToGiveCard.playerCardList.newNodeCard(card.cardData);
 
         Player player = Mainscript.main.getActivePlayer();
-        player.playerCardList.removeCard(card.myNode);
+        player.playerCardList.removeCard(card.cardData);
 
         exitPopUp();
     }
 
-    public void takeCard(CardNode cardNode, Player playerToTakeCard)
+    public void takeCard(CardData data, Player playerToTakeCard)
     {
-        playerToTakeCard.playerCardList.removeCard(cardNode);   
+        playerToTakeCard.playerCardList.removeCard(data);
 
         Player player = Mainscript.main.getActivePlayer();
-        player.playerCardList.newNodeCard(cardNode.data);
+        player.playerCardList.newNodeCard(data);
 
-        PlayerCardSpawnerScript.Instance.showPlayersHand(Mainscript.main.getActivePlayer());
+        PlayerHandUi.Instance.renderHand(Mainscript.main.getActivePlayer());
 
         exitPopUp();
     }
 
-    public void removeCard(CardNode myNode, Player player)
+    public void removeCard(CardData data, Player player)
     {
-        player.playerCardList.removeCard(myNode);
+        player.playerCardList.removeCard(data);
 
         exitPopUp();
     }
@@ -86,7 +86,8 @@ public class PopUpScript : MonoBehaviour
 
     public void trasportTo(CityData city)
     {
-        Mainscript.main.flytoCity(city);
+        Player player = Mainscript.main.getActivePlayer();
+        player.moveToCity(city);
 
         exitPopUp();
     }
@@ -96,7 +97,7 @@ public class PopUpScript : MonoBehaviour
         city.removeCubs(count);
 
         Mainscript.main.playerTurnCount -= count;
-        Mainscript.main.updateMoveCount();
+        GameUI.Instance.updateMoveCount();
 
         exitPopUp();
     }
@@ -107,53 +108,53 @@ public class PopUpScript : MonoBehaviour
         city.removeCubs(cubs);
 
         Mainscript.main.playerTurnCount --;
-        Mainscript.main.updateMoveCount();
+        GameUI.Instance.updateMoveCount();
 
         DiseaseMarkers.Instance.checkForExtinctDisease(city.color);
 
         exitPopUp();
     }
 
-    public void quietNight(CardNode myNode, Player player)
+    public void quietNight(CardData data, Player player)
     {
         PlayerDeck.Instance.quietNight = true;
 
-        player.playerCardList.removeCard(myNode);
+        player.playerCardList.removeCard(data);
         exitPopUp();
     }
 
-    public void resilientPopulation(CardNode myNode, Player player)
+    public void resilientPopulation(CardData data, Player player)
     {
         exitPopUp();
 
-        PopUpButtonManager.Instance.showAllOpcionsDiscardDisease(myNode, player);
+        PopUpButtonManager.Instance.showAllOpcionsDiscardDisease(data, player);
     }
 
-    public void discardDisease(CityData CityToRemove, CardNode myNode, Player player)
+    public void discardDisease(CityData CityToRemove, CardData data, Player player)
     {
-        player.playerCardList.removeCard(myNode);
+        player.playerCardList.removeCard(data);
         DiseaseDeck.Instance.discardDiseaseFromDeck(CityToRemove);
         exitPopUp();
     }
 
-    public void governmentGrant(CardNode myNode, Player player)
+    public void governmentGrant(CardData data, Player player)
     {
         Debug.Log("Nospied pilsetu");
         Mainscript.main.waitingForCityClick = true;
         Mainscript.main.waitingForCityClickAction = "BuildStation";
 
-        player.playerCardList.removeCard(myNode);
+        player.playerCardList.removeCard(data);
         exitPopUp();
     }
 
-    public void airLift(CardNode myNode, Player player)
+    public void airLift(CardData data, Player player)
     { 
         exitPopUp();
 
-        PopUpButtonManager.Instance.showAllPlayers(myNode, player);
+        PopUpButtonManager.Instance.showAllPlayers(data, player);
     }
 
-    public void airLift2(Player playerList, CardNode myNode, Player player)
+    public void airLift2(Player playerList, CardData data, Player player)
     {
         PlayerDeck.Instance.airLiftPlayer = playerList;
 
@@ -161,7 +162,7 @@ public class PopUpScript : MonoBehaviour
         Mainscript.main.waitingForCityClick = true;
         Mainscript.main.waitingForCityClickAction = "AirLift";
 
-        player.playerCardList.removeCard(myNode);
+        player.playerCardList.removeCard(data);
         exitPopUp();
     }
 

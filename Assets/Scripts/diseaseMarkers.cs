@@ -10,9 +10,9 @@ public class DiseaseMarkers : MonoBehaviour
 
     private string[] colorList = { "Yellow", "Red", "Blue", "Black" };
 
-    public Dictionary<string, DiseaseColorMarker> diseaseColorDict = new Dictionary<string, DiseaseColorMarker>();
+    public static Dictionary<string, DiseaseColorMarker> diseaseColorDict = new Dictionary<string, DiseaseColorMarker>();
 
-    public Dictionary<string, int> cubeColorCount = new Dictionary<string,int>
+    private Dictionary<string, int> cubeColorCount = new Dictionary<string,int>
     {
         { "Yellow", 0 },
         { "Red", 0 },
@@ -50,7 +50,7 @@ public class DiseaseMarkers : MonoBehaviour
         }
     }
 
-    public void addColorCubes(string color, int cubCount)
+    public void chengeColorCubes(string color, int cubCount)
     {
         cubeColorCount[color] += cubCount;
 

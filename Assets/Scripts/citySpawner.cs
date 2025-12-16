@@ -40,7 +40,7 @@ public class CitySpawner : MonoBehaviour
         {
             GameObject cityObj = Instantiate(city);
             cityObj.transform.parent = CityParent.transform;
-            cityObj.GetComponent<City>().Init(data);
+            cityObj.GetComponent<CityUi>().Init(data);
         }
 
         connectionParent = new GameObject("Connections");

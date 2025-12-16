@@ -5,16 +5,16 @@ using UnityEngine.UI;
 
 public class PlayerCityCard : MonoBehaviour
 {
-    public CardNode myNode;
+    public CardData cardData;
     public CityData cardsCityData;
     public Text cityLabel;
     public GameObject cardBackgroundColor;
     
-    public void Init(CardNode cardNode)
+    public void Init(CardData data)
     {
-        myNode = cardNode;
+        cardData = data;
 
-        PlayerCityCardData card = myNode.data as PlayerCityCardData;
+        PlayerCityCardData card = data as PlayerCityCardData;
         cardsCityData = card.cityCard;
 
         name = "Card " + cardsCityData.cityName;

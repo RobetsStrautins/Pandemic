@@ -6,17 +6,17 @@ using UnityEngine.UI;
 
 public class PlayerBonusCardInPopUp : MonoBehaviour
 {
-    public CardNode myNode;
+    public CardData cardData;
     public Text title;
     public Text description;
 
     public Button onClickButton;
 
-    public void Init(string text, Action onClick, CardNode cardNode)
+    public void Init(string text, Action onClick, CardData data)
     {
-        myNode = cardNode;
+        cardData = data;
 
-        BonusCardData bonusCard = myNode.data as BonusCardData;
+        BonusCardData bonusCard = data as BonusCardData;
 
         name = bonusCard.title;
 

@@ -28,7 +28,7 @@ public class PopUpButtonManager : MonoBehaviour
     {
         isPopupOpen = true;
 
-        if (card.myNode.data.Type != CardType.City)
+        if (card.cardData.Type != CardType.City)
         {
            return; 
         }
@@ -55,40 +55,40 @@ public class PopUpButtonManager : MonoBehaviour
             CreateButton("Lidot uz " + card.cardsCityData.cityName, () => popupScript.flyTo(card));
         }
 
-        CreateButton("Nomest karti", () => popupScript.removeCard(card.myNode, player));
+        CreateButton("Nomest karti", () => popupScript.removeCard(card.cardData, player));
 
         titleText.text = card.cardsCityData.cityName;
         panel.SetActive(true);
         StartCoroutine(scrollToTop());
     }
 
-    public void showInfoWhenBonusCardPressed(CardNode node,  Player player)
+    public void showInfoWhenBonusCardPressed(CardData data, Player player)
     {
         isPopupOpen = true;
 
-        var card = node.data as BonusCardData;
+        var card = data as BonusCardData;
         switch (card.bonusType)
         {
             case BonusCardType.KlusaNakts:
-                CreateButton("Izmantot " + card.title, () => popupScript.quietNight(node, player));
+                CreateButton("Izmantot " + card.title, () => popupScript.quietNight(data, player));
                 break;
 
             case BonusCardType.PopulacijasPretosanas:
-                CreateButton("Izmantot " + card.title, () => popupScript.resilientPopulation(node, player));
+                CreateButton("Izmantot " + card.title, () => popupScript.resilientPopulation(data, player));
                 break;
 
             case BonusCardType.ValdibasSubsidija:
-                CreateButton("Izmantot " + card.title, () => popupScript.governmentGrant(node, player));
+                CreateButton("Izmantot " + card.title, () => popupScript.governmentGrant(data, player));
                 break;
 
             case BonusCardType.GaisaTransportas:
-                CreateButton("Izmantot " + card.title, () => popupScript.airLift(node, player));
+                CreateButton("Izmantot " + card.title, () => popupScript.airLift(data, player));
                 break;
         }
 
         if (player == Mainscript.main.getActivePlayer())
         {
-            CreateButton("Nomest karti", () => popupScript.removeCard(node, player));
+            CreateButton("Nomest karti", () => popupScript.removeCard(data, player));
         }
 
         titleText.text = card.title;
@@ -104,7 +104,7 @@ public class PopUpButtonManager : MonoBehaviour
 
         if (colorThatCanBeCured !=null && city.hasResearchStation())
         {
-            if(!DiseaseMarkers.Instance.diseaseColorDict[colorThatCanBeCured].isCuredDisease)
+            if(!DiseaseMarkers.diseaseColorDict[colorThatCanBeCured].isCuredDisease)
             {
                 CreateButton("Izarstet slimibu " + colorThatCanBeCured, () => popupScript.cureDiseasePopUp(colorThatCanBeCured));
             }
@@ -117,7 +117,7 @@ public class PopUpButtonManager : MonoBehaviour
 
         int cubs = city.getCubs();
 
-        if (cubs >= 1 && DiseaseMarkers.Instance.diseaseColorDict[city.color].isCuredDisease)
+        if (cubs >= 1 && DiseaseMarkers.diseaseColorDict[city.color].isCuredDisease)
         {
             CreateButton("Nonemt visus kubicinus", () => popupScript.clearAllCubs(city));
         }
@@ -142,20 +142,20 @@ public class PopUpButtonManager : MonoBehaviour
         StartCoroutine(scrollToTop());
     }
 
-    public void showInfoWhenFromOtherPLayer(CardNode cardNode, Player player)
+    public void showInfoWhenFromOtherPLayer(CardData data, Player player)
     {
         isPopupOpen = true;
 
-        if (cardNode.data.Type == CardType.City)
+        if (data.Type == CardType.City)
         {
-            PlayerCityCardData card = cardNode.data as PlayerCityCardData;
+            PlayerCityCardData card = data as PlayerCityCardData;
             CityData cardsCityData = card.cityCard;
 
             foreach (Player playerInList in Mainscript.main.playersList)
             {            
                 if (player != playerInList && playerInList.city == cardsCityData)
                 {
-                    CreateButton($"Paņemt {cardsCityData.cityName} karti no {player.playerId+1}", () => popupScript.takeCard(cardNode, playerInList));
+                    CreateButton($"Paņemt {cardsCityData.cityName} karti no {player.playerId+1}", () => popupScript.takeCard(data, playerInList));
                 }
             }
 
@@ -191,13 +191,13 @@ public class PopUpButtonManager : MonoBehaviour
         StartCoroutine(scrollToTop());
     }
 
-    public void showAllOpcionsDiscardDisease(CardNode cardNode, Player player)
+    public void showAllOpcionsDiscardDisease(CardData data, Player player)
     {
         isPopupOpen = true;
 
         foreach (CityData city in DiseaseDeck.Instance.usedInfectionDeck)
         {
-            CreateButton(city.cityName, () => popupScript.discardDisease(city, cardNode, player));
+            CreateButton(city.cityName, () => popupScript.discardDisease(city, data, player));
         }
         
         titleText.text = "Kuru karti iznemt";
@@ -205,13 +205,13 @@ public class PopUpButtonManager : MonoBehaviour
         StartCoroutine(scrollToTop());
     }
 
-    public void showAllPlayers(CardNode cardNode, Player player)
+    public void showAllPlayers(CardData data, Player player)
     {
         isPopupOpen = true;
 
         foreach (Player playerList in Mainscript.main.playersList)
         {
-            CreateButton("Parvietot speletaju " + (playerList.playerId + 1) + " uz jebkuru pilsetu", () => popupScript.airLift2(playerList, cardNode, player));
+            CreateButton("Parvietot speletaju " + (playerList.playerId + 1) + " uz jebkuru pilsetu", () => popupScript.airLift2(playerList, data, player));
         }
         
         titleText.text = "Kuru cilveku parcel";
@@ -219,36 +219,36 @@ public class PopUpButtonManager : MonoBehaviour
         StartCoroutine(scrollToTop());
     }
 
-    public void showRemoveOpcion(CardNode node,  Player player)
+    public void showRemoveOpcion(CardData data,  Player player)
     {
         isPopupOpen = true;
 
-        if(node.data.Type == CardType.City)
+        if(data.Type == CardType.City)
         {
-            var card = node.data as PlayerCityCardData;
-            CreateButton("Nomest " + card.cityCard.cityName + " karti", () => popupScript.removeCard(node, player));
+            var card = data as PlayerCityCardData;
+            CreateButton("Nomest " + card.cityCard.cityName + " karti", () => popupScript.removeCard(data, player));
             titleText.text = card.cityCard.cityName;
         }
-        else if(node.data.Type == CardType.Bonus)
+        else if(data.Type == CardType.Bonus)
         {
-            var card = node.data as BonusCardData;
-            CreateButton("Nomest " + card.Type.ToString() + " karti", () => popupScript.removeCard(node, player));
+            var card = data as BonusCardData;
+            CreateButton("Nomest " + card.Type.ToString() + " karti", () => popupScript.removeCard(data, player));
             switch (card.bonusType)
             {
                 case BonusCardType.KlusaNakts:
-                    CreateButton("Izmantot " + card.title, () => popupScript.quietNight(node, player));
+                    CreateButton("Izmantot " + card.title, () => popupScript.quietNight(data, player));
                     break;
 
                 case BonusCardType.PopulacijasPretosanas:
-                    CreateButton("Izmantot " + card.title, () => popupScript.resilientPopulation(node, player));
+                    CreateButton("Izmantot " + card.title, () => popupScript.resilientPopulation(data, player));
                     break;
 
                 case BonusCardType.ValdibasSubsidija:
-                    CreateButton("Izmantot " + card.title, () => popupScript.governmentGrant(node, player));
+                    CreateButton("Izmantot " + card.title, () => popupScript.governmentGrant(data, player));
                     break;
 
                 case BonusCardType.GaisaTransportas:
-                    CreateButton("Izmantot " + card.title, () => popupScript.airLift(node, player));
+                    CreateButton("Izmantot " + card.title, () => popupScript.airLift(data, player));
                     break;
             }
 
@@ -289,21 +289,16 @@ public class PopUpButtonManager : MonoBehaviour
             { "Blue", 0 }
         };
 
-        CardNode current = player.playerCardList.first;
-
-        while (current != null)
+        foreach (CardData cardData in player.playerCardList.getAllCards())
         {
-            if(current.data.Type == CardType.City)
+            if (cardData.Type == CardType.City)
             {
-                var currentCity = current.data as PlayerCityCardData;
-
-                if (colorCounts.ContainsKey(currentCity.cityCard.color))
+                var cityCard = cardData as PlayerCityCardData;
+                if (colorCounts.ContainsKey(cityCard.cityCard.color))
                 {
-                    colorCounts[currentCity.cityCard.color]++;
-                }  
+                    colorCounts[cityCard.cityCard.color]++;
+                }
             }
-
-            current = current.next;
         }
 
         foreach (var color in colorCounts)

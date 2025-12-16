@@ -7,27 +7,27 @@ public class ConfirmButton : MonoBehaviour
 {
     public void onConfirmClicked()
     {
-        if (SelectionManager.Instance.selectedCards.Count == 5)
+        if (SelectionManager.selectedCards.Count == 5)
         {
-            string color = SelectionManager.Instance.selectedCards[0].cardsCityData.color;
+            string color = SelectionManager.selectedCards[0].cardsCityData.color;
 
-            if (DiseaseMarkers.Instance.diseaseColorDict.ContainsKey(color))
+            if (DiseaseMarkers.diseaseColorDict.ContainsKey(color))
             {
-                DiseaseMarkers.Instance.diseaseColorDict[color].curedDisease();
+                DiseaseMarkers.diseaseColorDict[color].curedDisease();
                 DiseaseMarkers.Instance.checkForExtinctDisease(color);
             }
 
             Player player = Mainscript.main.getActivePlayer();
 
-            foreach (var card in SelectionManager.Instance.selectedCards)
+            foreach (var card in SelectionManager.selectedCards)
             {
-                player.playerCardList.removeCard(card.myNode);
+                player.playerCardList.removeCard(card.cardData);
             }
 
-            PlayerCardSpawnerScript.Instance.showPlayersHand(player);
+            PlayerHandUi.Instance.renderHand(player);
 
             Mainscript.main.playerTurnCount -= 1;
-            Mainscript.main.updateMoveCount();
+            GameUI.Instance.updateMoveCount();
 
             PopUpCardManager.Instance.hideInfo();
 

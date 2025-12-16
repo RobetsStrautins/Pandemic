@@ -5,17 +5,16 @@ using UnityEngine.UI;
 
 public class playerBonesCard : MonoBehaviour
 {
-    public CardNode myNode;
+    public CardData cardData;
     public Text title;
     public Text description;
     public BonusCardType bonusCardType;
 
-    public void Init(CardNode cardNode)
+    public void Init(CardData data)
     {
-        myNode = cardNode;
+        cardData = data;
 
-        BonusCardData bonusCard = myNode.data as BonusCardData;
-
+        BonusCardData bonusCard = data as BonusCardData;
         bonusCardType = bonusCard.bonusType;
 
         name = bonusCard.title;
@@ -31,7 +30,7 @@ public class playerBonesCard : MonoBehaviour
             return;
         }
 
-        PopUpButtonManager.Instance.showInfoWhenBonusCardPressed(myNode, Mainscript.main.getActivePlayer());
+        PopUpButtonManager.Instance.showInfoWhenBonusCardPressed(cardData, Mainscript.main.getActivePlayer());
 
     }
 }

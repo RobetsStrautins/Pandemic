@@ -6,11 +6,11 @@ public class DiseaseDeck : MonoBehaviour // Lai stradatu Awake
 {
     public static DiseaseDeck Instance;
 
-    public List<CityData> infectionDeck = new List<CityData>();
+    private List<CityData> infectionDeck = new List<CityData>();
     public List<CityData> usedInfectionDeck = new List<CityData>();
 
     private List<CityData>  CitiesOutBreakHappend = new();
-    public int OutBreakCount = 0;
+    private int OutBreakCount = 0;
     private int infectionRateIndex = 0;
     private int[] infectionRateList = {2,2,2,3,3,4,4};
 
@@ -91,13 +91,13 @@ public class DiseaseDeck : MonoBehaviour // Lai stradatu Awake
         usedInfectionDeck.Clear();
 
         infectionRateIndex++;
-        Mainscript.main.updateInfectionRateCount(infectionRateList[infectionRateIndex]);
+        GameUI.Instance.updateInfectionRateCount(infectionRateList[infectionRateIndex]);
     }
 
     public void outBreak(CityData outBreakCity)
     {
         OutBreakCount++;
-        Mainscript.main.updateOutBreakCount(OutBreakCount);
+        GameUI.Instance.updateOutBreakCount(OutBreakCount);
 
         if(OutBreakCount >= 8)
         {

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,17 +11,8 @@ public class Mainscript : MonoBehaviour
 
     public CitySpawner citySpawner;
 
-    public GameObject player;
-    public GameObject playerTop;
-
-    [SerializeField]
-    private Text moveCount;
-    [SerializeField]
-    private Text whatPlayerTurn;
-    [SerializeField]
-    private Text outBreakCountText;
-    [SerializeField]
-    private Text infectionRateCountText;
+    public GameObject playerPrefab;
+    public GameObject playerTopPrefab;
 
     public int playerTurnCount;
 
@@ -48,7 +40,7 @@ public class Mainscript : MonoBehaviour
         
         for (int i = 0; i < playerCount; i++)
         {
-            GameObject spawnedPlayer = Instantiate(player);
+            GameObject spawnedPlayer = Instantiate(playerPrefab);
             activePlayer = spawnedPlayer.GetComponent<Player>();
             activePlayer.playerColor = UnityEngine.Random.ColorHSV(0f, 1f, 0.8f, 1f, 0.8f, 1f);
             activePlayer.name = "Speletaijs" + (i + 1);
@@ -60,24 +52,22 @@ public class Mainscript : MonoBehaviour
                 PlayerDeck.Instance.Draw(activePlayer);
             }
     
-            GameObject spawnedPlayerTop = Instantiate(playerTop);
+            GameObject spawnedPlayerTop = Instantiate(playerTopPrefab);
             PlayerTop newPlayerTop = spawnedPlayerTop.GetComponent<PlayerTop>();
             newPlayerTop.Init(activePlayer);
 
         }
 
-        //PlayerDeck.Instance.SetupAfterEpidemicCard();
+        PlayerDeck.Instance.SetupAfterEpidemicCard();
 
         activePlayer = playersList[0];
-        PlayerCardSpawnerScript.Instance.showPlayersHand(activePlayer);
+        PlayerHandUi.Instance.renderHand(activePlayer);
 
         CityData startingCity = CitySpawner.cityMap[3];//sakuma pilseta ar majinu
         startingCity.buildResearchStation();
 
         playerTurnCount = 4;///vajag 4
-        updateMoveCount();
-        updateOutBreakCount(0);
-        updateInfectionRateCount(2);
+        GameUI.Instance.Setup();
     }
 
     public Player getActivePlayer()
@@ -85,7 +75,7 @@ public class Mainscript : MonoBehaviour
         return activePlayer;
     }
 
-    public bool playerTurnComplite()
+    private bool playerTurnComplite()
     {
         if (playerTurnCount == 0)
         {
@@ -96,13 +86,7 @@ public class Mainscript : MonoBehaviour
         return false;
     }
 
-    public void flytoCity(CityData tempCity)
-    {
-        activePlayer.moveToCity(tempCity);
-        updateMoveCount();
-    }
-
-    public void activePlayerMoveCitys(CityData pressedCity )
+    public void activePlayerMoveCitys(CityData pressedCity)
     {
         if (waitingForCityClick)
         {
@@ -136,12 +120,12 @@ public class Mainscript : MonoBehaviour
                 activePlayer.canMoveToCity(pressedCity);
             }
         }
-        updateMoveCount();
+        GameUI.Instance.updateMoveCount();
     }
 
     public void nextTurn()
     {
-        PlayerCardSpawnerScript.Instance.clearPlayerHand();
+        PlayerHandUi.Instance.clearPlayerHand();
 
         if (!PlayerDeck.Instance.quietNight)
         {
@@ -151,26 +135,10 @@ public class Mainscript : MonoBehaviour
         currentPlayerIndex = (currentPlayerIndex + 1) % playerCount;
         activePlayer = playersList[currentPlayerIndex];
 
-        PlayerCardSpawnerScript.Instance.showPlayersHand(activePlayer);
+        PlayerHandUi.Instance.renderHand(activePlayer);
 
         playerTurnCount = 4;//vajag 4
-        updateMoveCount();
-    }
-
-    public void updateMoveCount()
-    {
-        whatPlayerTurn.text = "Player " + (activePlayer.playerId+1) + " turn";
-        moveCount.text = playerTurnCount.ToString() + "/4";
-    }
-
-    public void updateOutBreakCount(int outBreakCount)
-    {
-        outBreakCountText.text = "Out Breaks: " + outBreakCount;
-    }
-
-    public void updateInfectionRateCount(int infectionRateCount)
-    {
-        infectionRateCountText.text = "Infection rate: " + infectionRateCount;
+        GameUI.Instance.updateMoveCount();
     }
     
     public bool inMiddleOfAcion()

@@ -12,7 +12,6 @@ public class Player : MonoBehaviour
     public PlayerCardList playerCardList = new PlayerCardList();
     public Color playerColor;
 
-
     void Start()
     {
         if (CitySpawner.cityMap.ContainsKey(startingCityId))

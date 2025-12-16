@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class PlayerCityCardInPopUp : MonoBehaviour
 {
-    public CardNode myNode;
+    public CardData cardData;
     public CityData cardsCityData;
     public Text cityLabel;
     public Image cardBackgroundColor;
@@ -18,15 +18,15 @@ public class PlayerCityCardInPopUp : MonoBehaviour
     private Color selectedColor;
 
 
-    public void Init(string text, Action onClick, CardNode cardNode)
+    public void Init(string text, Action onClick, CardData data)
     {
-        myNode = cardNode;
+        cardData = data;
         
         name = text + " button";
         onClickButton.onClick.RemoveAllListeners();
         onClickButton.onClick.AddListener(() => onClick.Invoke());
 
-        PlayerCityCardData card = myNode.data as PlayerCityCardData;
+        PlayerCityCardData card = data as PlayerCityCardData;
         cardsCityData = card.cityCard;
 
         name = "Card " + cardsCityData.cityName;

@@ -1257,8 +1257,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffd32ce9304aea5448b695edf3158b2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSelections: 5
-  selectedCards: []
 --- !u!1 &580874141
 GameObject:
   m_ObjectHideFlags: 0
@@ -1690,8 +1688,9 @@ GameObject:
   m_Component:
   - component: {fileID: 871890974}
   - component: {fileID: 871890975}
+  - component: {fileID: 871890976}
   m_Layer: 0
-  m_Name: gameOverScript
+  m_Name: UiScripts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1726,6 +1725,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panel: {fileID: 1454100988}
   text: {fileID: 462451712}
+--- !u!114 &871890976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 871890973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4734fda3959d9c64bab8809b345630db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveCount: {fileID: 2018478116}
+  whatPlayerTurn: {fileID: 1806116271}
+  outBreakCountText: {fileID: 1399591679}
+  infectionRateCountText: {fileID: 1919015729}
 --- !u!1 &904945169
 GameObject:
   m_ObjectHideFlags: 0
@@ -1993,7 +2008,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 205c5aeeb1212ce439c2402afd444adf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectionManager: {fileID: 543962987}
 --- !u!1 &1000212003
 GameObject:
   m_ObjectHideFlags: 0
@@ -2515,12 +2529,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   citySpawner: {fileID: 711798847}
-  player: {fileID: 6895538866950325300, guid: f1963caca5e081043ba749deb363fd68, type: 3}
-  playerTop: {fileID: 4702310660468562345, guid: 163bac67659a02e43a21c196aebfb879, type: 3}
-  moveCount: {fileID: 2018478116}
-  whatPlayerTurn: {fileID: 1806116271}
-  outBreakCountText: {fileID: 1399591679}
-  infectionRateCountText: {fileID: 1919015729}
+  playerPrefab: {fileID: 6895538866950325300, guid: f1963caca5e081043ba749deb363fd68, type: 3}
+  playerTopPrefab: {fileID: 4702310660468562345, guid: 163bac67659a02e43a21c196aebfb879, type: 3}
   playerTurnCount: 4
   playersList: []
   waitingForCityClick: 0
