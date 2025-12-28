@@ -104,18 +104,18 @@ public class CityData
 
     public void addCubs(int newCubs)
     {
-        if(!DiseaseMarkers.diseaseColorDict[color].isExtinctDisease)
+        if(DiseaseMarkers.Instance?.getDiseaseProgress(color) != DiseaseColorProgress.DiseaseEradicated)
         {
             Debug.Log($"added {newCubs} cube to {cityName}");
             if (cubs + newCubs > 3)
             {
-                DiseaseMarkers.Instance.chengeColorCubes(color, 3 - cubs);
+                DiseaseMarkers.Instance?.chengeColorCubes(color, 3 - cubs);
                 cubs = 3;
-                DiseaseDeck.Instance.outBreak(this);
+                DiseaseDeck.outBreak(this);
             }
             else
             {
-                DiseaseMarkers.Instance.chengeColorCubes(color, newCubs);
+                DiseaseMarkers.Instance?.chengeColorCubes(color, newCubs);
                 cubs += newCubs;
             }
             cityObj?.updateCubs();

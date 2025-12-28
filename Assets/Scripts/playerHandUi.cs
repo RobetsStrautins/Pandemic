@@ -42,7 +42,7 @@ public class PlayerHandUi : MonoBehaviour
             {
                 GameObject cardObj = Instantiate(playerBonesCardPrefab);
                 cardObj.transform.parent = playerCardParent.transform;
-                playerBonesCard newCard = cardObj.GetComponent<playerBonesCard>();
+                PlayerBonesCard newCard = cardObj.GetComponent<PlayerBonesCard>();
                 newCard.Init(cardData);
 
                 cardObj.transform.localPosition = new Vector3(firstCardCordX + 1.8f * i, firstCardCordY, 0f);

@@ -9,14 +9,12 @@ public class Mainscript : MonoBehaviour
 {
     public static Mainscript main;
 
-    public CitySpawner citySpawner;
-
     public GameObject playerPrefab;
     public GameObject playerTopPrefab;
 
     public int playerTurnCount;
 
-    private int playerCount = 2;
+    private int playerCount = 4;
     public List<Player> playersList = new List<Player>();
     private int currentPlayerIndex = 0;
     private Player activePlayer;
@@ -33,23 +31,32 @@ public class Mainscript : MonoBehaviour
 
     void Start()
     {
-        citySpawner.Setup();
-        new GameObject("DiseaseDeck").AddComponent<DiseaseDeck>();
-        DiseaseDeck.Instance.Setup();
-        PlayerDeck.Instance.SetupBeforeEpidemicCard();
+        CitySpawner.Instance.Setup();
+        DiseaseDeck.Setup();
+        PlayerDeck.SetupBeforeEpidemicCard();
         
+        PlayerRole[] roles =
+        {
+            PlayerRole.Medic,
+            PlayerRole.Scientist,
+            PlayerRole.Dispatcher,
+            PlayerRole.Researcher
+        };
+
+
         for (int i = 0; i < playerCount; i++)
         {
             GameObject spawnedPlayer = Instantiate(playerPrefab);
             activePlayer = spawnedPlayer.GetComponent<Player>();
-            activePlayer.playerColor = UnityEngine.Random.ColorHSV(0f, 1f, 0.8f, 1f, 0.8f, 1f);
-            activePlayer.name = "Speletaijs" + (i + 1);
+            activePlayer.playerRole = roles[i];
+            activePlayer.name = "Player " + (i + 1);
             activePlayer.playerId = i;
+            
             playersList.Add(activePlayer);
 
             for (int j = 0; j < 6 - playerCount;j++)
             {
-                PlayerDeck.Instance.Draw(activePlayer);
+                PlayerDeck.Draw(activePlayer);
             }
     
             GameObject spawnedPlayerTop = Instantiate(playerTopPrefab);
@@ -58,7 +65,7 @@ public class Mainscript : MonoBehaviour
 
         }
 
-        PlayerDeck.Instance.SetupAfterEpidemicCard();
+        PlayerDeck.SetupAfterEpidemicCard();
 
         activePlayer = playersList[0];
         PlayerHandUi.Instance.renderHand(activePlayer);
@@ -103,7 +110,7 @@ public class Mainscript : MonoBehaviour
 
                 case "AirLift":
                     playerTurnCount++;
-                    PlayerDeck.Instance.airLiftPlayer.moveToCity(pressedCity);
+                    PlayerDeck.airLiftPlayer.moveToCity(pressedCity);
                     break;
             }
             waitingForCityClick = false;
@@ -113,11 +120,11 @@ public class Mainscript : MonoBehaviour
         {
             if (pressedCity == activePlayer.city)
             {
-                PopUpButtonManager.Instance.showInfoWhenCityPressed(pressedCity, activePlayer);
+                PopUpButtonManager.Instance.showInfoWhenMyCityPressed(pressedCity, activePlayer);
             }
             if (!playerTurnComplite())
             {
-                activePlayer.canMoveToCity(pressedCity);
+                activePlayer.moveToCityIfConnected(pressedCity);
             }
         }
         GameUI.Instance.updateMoveCount();
@@ -127,9 +134,9 @@ public class Mainscript : MonoBehaviour
     {
         PlayerHandUi.Instance.clearPlayerHand();
 
-        if (!PlayerDeck.Instance.quietNight)
+        if (!PlayerDeck.quietNight)
         {
-            DiseaseDeck.Instance.infectCityCount();// infice pilsetas starp gajieniem
+            DiseaseDeck.infectCityCount();// infice pilsetas starp gajieniem
         }
 
         currentPlayerIndex = (currentPlayerIndex + 1) % playerCount;
@@ -150,4 +157,12 @@ public class Mainscript : MonoBehaviour
 
         return false;
     }
+}
+
+public enum PlayerRole
+{
+    Medic,
+    Scientist,
+    Dispatcher,
+    Researcher
 }

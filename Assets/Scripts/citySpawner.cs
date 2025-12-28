@@ -5,11 +5,16 @@ using UnityEngine;
 
 public class CitySpawner : MonoBehaviour
 {
+    public static CitySpawner Instance;
     public GameObject city;
     public GameObject connectionParent;
     public GameObject CityParent;
     public static Dictionary<int, CityData> cityMap = new Dictionary<int, CityData>();//c++ map
 
+    void Awake()
+    {
+        Instance = this;
+    }
     public void Setup()
     {
         TextAsset jsonFile = Resources.Load<TextAsset>("cities");//dabut pilsetas

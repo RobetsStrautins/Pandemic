@@ -2,24 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DiseaseDeck : MonoBehaviour // Lai stradatu Awake
+public static class DiseaseDeck
 {
-    public static DiseaseDeck Instance;
+    private static List<CityData> infectionDeck = new List<CityData>();
+    public static List<CityData> usedInfectionDeck = new List<CityData>();
 
-    private List<CityData> infectionDeck = new List<CityData>();
-    public List<CityData> usedInfectionDeck = new List<CityData>();
+    public static IReadOnlyList<CityData> testInfectionDeck => infectionDeck;
+    public static IReadOnlyList<CityData> testUsedInfectionDeck => usedInfectionDeck;
 
-    private List<CityData>  CitiesOutBreakHappend = new();
-    private int OutBreakCount = 0;
-    private int infectionRateIndex = 0;
-    private int[] infectionRateList = {2,2,2,3,3,4,4};
+    private static List<CityData> CitiesOutBreakHappend = new();
+    private static int OutBreakCount = 0;
+    private static int infectionRateIndex = 0;
+    private static int[] infectionRateList = {2,2,2,3,3,4,4};
 
-    void Awake()
-    {
-        Instance = this;
-    }
-
-    public void Setup()
+    public static void Setup()
     {
         infectionDeck.Clear();
 
@@ -39,7 +35,7 @@ public class DiseaseDeck : MonoBehaviour // Lai stradatu Awake
         }
     }
 
-    private void shuffle(List<CityData> list)
+    private static void shuffle(List<CityData> list)
     {
         int cardCount = list.Count;
 
@@ -51,7 +47,7 @@ public class DiseaseDeck : MonoBehaviour // Lai stradatu Awake
         }
     }
 
-    public void infectCities(int cubeCount)
+    public static void infectCities(int cubeCount)
     {
         CityData infectedCity = infectionDeck[0];
 
@@ -63,7 +59,7 @@ public class DiseaseDeck : MonoBehaviour // Lai stradatu Awake
         infectionDeck.Remove(infectionDeck[0]);
     }
 
-    public void infectCityCount()
+    public static void infectCityCount()
     {
         for (int i = 0; i < infectionRateList[infectionRateIndex]; i++)
         {
@@ -71,7 +67,7 @@ public class DiseaseDeck : MonoBehaviour // Lai stradatu Awake
         }
     }
 
-    public void epidemic()
+    public static void epidemic()
     {
 
         Debug.LogWarning("aaaa epidemija");
@@ -94,7 +90,7 @@ public class DiseaseDeck : MonoBehaviour // Lai stradatu Awake
         GameUI.Instance.updateInfectionRateCount(infectionRateList[infectionRateIndex]);
     }
 
-    public void outBreak(CityData outBreakCity)
+    public static void outBreak(CityData outBreakCity)
     {
         OutBreakCount++;
         GameUI.Instance.updateOutBreakCount(OutBreakCount);
@@ -102,7 +98,7 @@ public class DiseaseDeck : MonoBehaviour // Lai stradatu Awake
         if(OutBreakCount >= 8)
         {
             Debug.Log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-            GameEnd.Instance.GameLost();
+            GameUI.Instance.gameLost();
         }
 
         if(!CitiesOutBreakHappend.Contains(outBreakCity))
@@ -118,10 +114,5 @@ public class DiseaseDeck : MonoBehaviour // Lai stradatu Awake
                 closeCity.addCubs(1);
             }
         }
-    }
-
-    public void discardDiseaseFromDeck(CityData cityToRemove)
-    {
-        usedInfectionDeck.Remove(cityToRemove);
     }
 }

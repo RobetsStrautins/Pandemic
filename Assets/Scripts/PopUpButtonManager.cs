@@ -96,7 +96,7 @@ public class PopUpButtonManager : MonoBehaviour
         StartCoroutine(scrollToTop());
     }
 
-    public void showInfoWhenCityPressed(CityData city, Player player)
+    public void showInfoWhenMyCityPressed(CityData city, Player player)
     {
         isPopupOpen = true;
 
@@ -104,7 +104,7 @@ public class PopUpButtonManager : MonoBehaviour
 
         if (colorThatCanBeCured !=null && city.hasResearchStation())
         {
-            if(!DiseaseMarkers.diseaseColorDict[colorThatCanBeCured].isCuredDisease)
+            if(DiseaseMarkers.Instance.getDiseaseProgress(colorThatCanBeCured) == DiseaseColorProgress.NotCured)
             {
                 CreateButton("Izarstet slimibu " + colorThatCanBeCured, () => popupScript.cureDiseasePopUp(colorThatCanBeCured));
             }
@@ -117,7 +117,7 @@ public class PopUpButtonManager : MonoBehaviour
 
         int cubs = city.getCubs();
 
-        if (cubs >= 1 && DiseaseMarkers.diseaseColorDict[city.color].isCuredDisease)
+        if (cubs >= 1 && DiseaseMarkers.Instance.getDiseaseProgress(colorThatCanBeCured) != DiseaseColorProgress.NotCured)
         {
             CreateButton("Nonemt visus kubicinus", () => popupScript.clearAllCubs(city));
         }
@@ -174,7 +174,7 @@ public class PopUpButtonManager : MonoBehaviour
         }
     }
     
-    public void showReserchOpcions(CityData pressedcity)
+    public void showCitysWithReserchStation(CityData pressedcity)
     {
         isPopupOpen = true;
 
@@ -191,11 +191,11 @@ public class PopUpButtonManager : MonoBehaviour
         StartCoroutine(scrollToTop());
     }
 
-    public void showAllOpcionsDiscardDisease(CardData data, Player player)
+    public void showAllDiscardDiseaseCards(CardData data, Player player)
     {
         isPopupOpen = true;
 
-        foreach (CityData city in DiseaseDeck.Instance.usedInfectionDeck)
+        foreach (CityData city in DiseaseDeck.usedInfectionDeck)
         {
             CreateButton(city.cityName, () => popupScript.discardDisease(city, data, player));
         }

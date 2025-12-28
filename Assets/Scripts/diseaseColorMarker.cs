@@ -9,9 +9,6 @@ public class DiseaseColorMarker : MonoBehaviour
 
     public GameObject cross;
 
-    public bool isCuredDisease = false;
-    public bool isExtinctDisease = false;
-
     public void Init(string cureColor)
     {
         name = cureColor + " marker";
@@ -21,7 +18,6 @@ public class DiseaseColorMarker : MonoBehaviour
         siluetColor.a = 100f / 255f;
         cureSilutet.color = siluetColor;
         cross.SetActive(false);
-
     }
 
     public void curedDisease()
@@ -31,13 +27,13 @@ public class DiseaseColorMarker : MonoBehaviour
         cureSilutet.color = siluetColor;
 
         cure.gameObject.SetActive(false);
-        isCuredDisease = true;
+        DiseaseMarkers.Instance.updateDiseaseProgress(cureSilutet.color.ToString(), DiseaseColorProgress.Cured);
     }
 
     public void extinctDisease()
     {
         cross.SetActive(true);
-        isExtinctDisease = true;
+        DiseaseMarkers.Instance.updateDiseaseProgress(cureSilutet.color.ToString(), DiseaseColorProgress.DiseaseEradicated);
     }
 
     private Color stringToColor(string strin)

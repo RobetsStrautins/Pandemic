@@ -31,7 +31,7 @@ public class ConfirmButton : MonoBehaviour
 
             PopUpCardManager.Instance.hideInfo();
 
-            GameEnd.Instance.checkIfGameWon();
+            GameUI.Instance.checkIfGameWon();
         }
         else
         {

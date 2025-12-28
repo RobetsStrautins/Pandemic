@@ -81,7 +81,7 @@ public class PopUpScript : MonoBehaviour
     public void flyToResearchStation(CityData city)
     {
         exitPopUp();
-        PopUpButtonManager.Instance.showReserchOpcions(city);
+        PopUpButtonManager.Instance.showCitysWithReserchStation(city);
     }
 
     public void trasportTo(CityData city)
@@ -117,7 +117,7 @@ public class PopUpScript : MonoBehaviour
 
     public void quietNight(CardData data, Player player)
     {
-        PlayerDeck.Instance.quietNight = true;
+        PlayerDeck.quietNight = true;
 
         player.playerCardList.removeCard(data);
         exitPopUp();
@@ -127,13 +127,13 @@ public class PopUpScript : MonoBehaviour
     {
         exitPopUp();
 
-        PopUpButtonManager.Instance.showAllOpcionsDiscardDisease(data, player);
+        PopUpButtonManager.Instance.showAllDiscardDiseaseCards(data, player);
     }
 
     public void discardDisease(CityData CityToRemove, CardData data, Player player)
     {
         player.playerCardList.removeCard(data);
-        DiseaseDeck.Instance.discardDiseaseFromDeck(CityToRemove);
+        PlayerDeck.discardDiseaseFromDeck(CityToRemove);
         exitPopUp();
     }
 
@@ -156,7 +156,7 @@ public class PopUpScript : MonoBehaviour
 
     public void airLift2(Player playerList, CardData data, Player player)
     {
-        PlayerDeck.Instance.airLiftPlayer = playerList;
+        PlayerDeck.airLiftPlayer = playerList;
 
         Debug.Log("Nospied pilsetu");
         Mainscript.main.waitingForCityClick = true;

@@ -755,7 +755,6 @@ GameObject:
   m_Component:
   - component: {fileID: 428169267}
   - component: {fileID: 428169268}
-  - component: {fileID: 428169269}
   m_Layer: 0
   m_Name: playerDeck
   m_TagString: Untagged
@@ -792,55 +791,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCityCardPrefab: {fileID: 7461730535434611236, guid: 09b5428fb0de0a047895ce9c66869a3f, type: 3}
   playerBonesCardPrefab: {fileID: 7461730535434611236, guid: ca482fc49b4fa414a89430e854c13178, type: 3}
---- !u!114 &428169269
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 428169266}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b36aaefb6fc9f340b06cf8a0cb7925f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  epidemicCardCount: 6
-  infectionDeck: []
-  usedInfectionDeck:
-  - id: 0
-    cityName: 
-    Xcord: 0
-    Ycord: 0
-    color: 
-    unityColor: {r: 0, g: 0, b: 0, a: 0}
-    connectedCity: 
-    cityObj: {fileID: 0}
-  - id: 0
-    cityName: 
-    Xcord: 0
-    Ycord: 0
-    color: 
-    unityColor: {r: 0, g: 0, b: 0, a: 0}
-    connectedCity: 
-    cityObj: {fileID: 0}
-  - id: 0
-    cityName: 
-    Xcord: 0
-    Ycord: 0
-    color: 
-    unityColor: {r: 0, g: 0, b: 0, a: 0}
-    connectedCity: 
-    cityObj: {fileID: 0}
-  - id: 0
-    cityName: 
-    Xcord: 0
-    Ycord: 0
-    color: 
-    unityColor: {r: 0, g: 0, b: 0, a: 0}
-    connectedCity: 
-    cityObj: {fileID: 0}
-  quietNight: 0
-  airLiftPlayer: {fileID: 0}
 --- !u!1 &435643268
 GameObject:
   m_ObjectHideFlags: 0
@@ -1213,50 +1163,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &543962985
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 543962986}
-  - component: {fileID: 543962987}
-  m_Layer: 0
-  m_Name: SelectionScript
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &543962986
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 543962985}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1208874237}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &543962987
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 543962985}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffd32ce9304aea5448b695edf3158b2c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &580874141
 GameObject:
   m_ObjectHideFlags: 0
@@ -1687,7 +1593,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 871890974}
-  - component: {fileID: 871890975}
   - component: {fileID: 871890976}
   m_Layer: 0
   m_Name: UiScripts
@@ -1711,20 +1616,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1208874237}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &871890975
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 871890973}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44c02c283311dd642b8f436f146f2889, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  panel: {fileID: 1454100988}
-  text: {fileID: 462451712}
 --- !u!114 &871890976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1741,6 +1632,8 @@ MonoBehaviour:
   whatPlayerTurn: {fileID: 1806116271}
   outBreakCountText: {fileID: 1399591679}
   infectionRateCountText: {fileID: 1919015729}
+  gameOverPanel: {fileID: 1454100988}
+  gameEndText: {fileID: 462451712}
 --- !u!1 &904945169
 GameObject:
   m_ObjectHideFlags: 0
@@ -2528,7 +2421,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 124cfb234d6ea604ca6638ca0c22b0cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  citySpawner: {fileID: 711798847}
   playerPrefab: {fileID: 6895538866950325300, guid: f1963caca5e081043ba749deb363fd68, type: 3}
   playerTopPrefab: {fileID: 4702310660468562345, guid: 163bac67659a02e43a21c196aebfb879, type: 3}
   playerTurnCount: 4
@@ -2552,7 +2444,6 @@ Transform:
   - {fileID: 711798848}
   - {fileID: 1428398894}
   - {fileID: 428169267}
-  - {fileID: 543962986}
   - {fileID: 871890974}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

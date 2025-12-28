@@ -12,12 +12,20 @@ public class DiseaseMarkers : MonoBehaviour
 
     public static Dictionary<string, DiseaseColorMarker> diseaseColorDict = new Dictionary<string, DiseaseColorMarker>();
 
-    private Dictionary<string, int> cubeColorCount = new Dictionary<string,int>
+    private static Dictionary<string, int> cubeColorCount = new Dictionary<string,int>
     {
         { "Yellow", 0 },
         { "Red", 0 },
         { "Blue", 0 },
         { "Black", 0 }
+    };
+
+    private static Dictionary<string, DiseaseColorProgress> diseaseProgress = new Dictionary<string, DiseaseColorProgress>
+    {
+        { "Yellow", DiseaseColorProgress.NotCured },
+        { "Red", DiseaseColorProgress.NotCured },
+        { "Blue", DiseaseColorProgress.NotCured },
+        { "Black", DiseaseColorProgress.NotCured }
     };
 
     public void Awake()
@@ -57,8 +65,29 @@ public class DiseaseMarkers : MonoBehaviour
         if (cubeColorCount[color] > 24)
         {
             Debug.LogWarning("Lost, " + color + " cubs receh over 24");
-            GameEnd.Instance.GameLost();
+            GameUI.Instance.gameLost();
         }
-
     }
+
+    public void updateDiseaseProgress(string color, DiseaseColorProgress progress)
+    {
+        diseaseProgress[color] = progress;
+    }
+
+    public DiseaseColorProgress getDiseaseProgress(string color)
+    {
+        return diseaseProgress[color];
+    }
+
+    public IEnumerable<DiseaseColorProgress> getAllDiseaseProgress()
+    {
+        return diseaseProgress.Values;
+    }
+}
+
+public enum DiseaseColorProgress
+{
+    NotCured,
+    Cured,
+    DiseaseEradicated
 }

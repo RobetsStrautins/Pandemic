@@ -42,16 +42,16 @@ public class PlayerCityCardInPopUp : MonoBehaviour
 
     public void onCardClicked()
     {
-        if (!isSelected && SelectionManager.Instance.CanSelectMore())
+        if (!isSelected && SelectionManager.CanSelectMore())
         {
             isSelected = true;
-            SelectionManager.Instance.SelectCard(this);
+            SelectionManager.SelectCard(this);
             cardBackgroundColor.color = selectedColor;
         }
         else if (isSelected)
         {
             isSelected = false;
-            SelectionManager.Instance.DeselectCard(this);
+            SelectionManager.DeselectCard(this);
             cardBackgroundColor.color = baseColor;
         }
 

@@ -1,27 +1,19 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerDeck : MonoBehaviour
+public static class PlayerDeck
 {
-    public static PlayerDeck Instance;
+    public static int epidemicCardCount = 4;
 
-    public int epidemicCardCount = 4;
+    private static List<CardData> deck = new List<CardData>();
+    private static List<CardData> usedDeck = new List<CardData>();
 
-    public List<CardData> deck = new List<CardData>();
-    public List<CardData> usedDeck = new List<CardData>();
+    public static IReadOnlyList<CardData> testDeck => deck;
+    public static IReadOnlyList<CardData> testUsedDeck => usedDeck;
+    public static bool quietNight = false;
+    public static Player airLiftPlayer;
 
-    public List<CityData> infectionDeck = new List<CityData>();
-    public List<CityData> usedInfectionDeck = new List<CityData>();
-
-    public bool quietNight = false;
-    public Player airLiftPlayer;
-    void Awake()
-    {
-        Instance = this;
-    }
-
-    public void SetupBeforeEpidemicCard()
+    public static void SetupBeforeEpidemicCard()
     {
         deck.Clear();
         usedDeck.Clear();
@@ -31,12 +23,12 @@ public class PlayerDeck : MonoBehaviour
             deck.Add(new PlayerCityCardData(city));
         }
 
-        createBonuesCards();
+        createBonusCards();
 
         shuffle(deck);
     }
 
-    public void SetupAfterEpidemicCard()
+    public static void SetupAfterEpidemicCard()
     {
         int baseStackSize = deck.Count / epidemicCardCount;
         int extraCards = deck.Count % epidemicCardCount;
@@ -54,11 +46,11 @@ public class PlayerDeck : MonoBehaviour
         }
     }
 
-    public void Draw(Player player)
+    public static void Draw(Player player)
     {
         if (deck.Count == 0)
         {
-            GameEnd.Instance.GameLost();
+            GameUI.Instance.gameLost();
             return;
         }
 
@@ -66,7 +58,7 @@ public class PlayerDeck : MonoBehaviour
         {
             usedDeck.Add(deck[0]);
             deck.Remove(deck[0]);
-            DiseaseDeck.Instance.epidemic();
+            DiseaseDeck.epidemic();
         }
         else
         {
@@ -76,7 +68,7 @@ public class PlayerDeck : MonoBehaviour
         }
     }
 
-    private void shuffle(List<CardData> list)
+    private static void shuffle(List<CardData> list)
     {
         int cardCount = list.Count;
         while (cardCount > 1)
@@ -87,7 +79,7 @@ public class PlayerDeck : MonoBehaviour
         }
     }
 
-    private void createBonuesCards()
+    private static void createBonusCards()
     {
         deck.Add(new BonusCardData(
             BonusCardType.ValdibasSubsidija,
@@ -112,11 +104,10 @@ public class PlayerDeck : MonoBehaviour
             "GAISA TRANSPORTAS",
             "Pārvieto jebkuru kauliņu uz jebkuru pilsētu. Pārvietojot cita spēlētaju kauliņu, vispirms ir jāsaņem atļauja."
         ));
+    }
 
-        // deck.Add(new BonusCardData(
-        //     BonusCardType.Prognoze,
-        //     "PROGNOZE",
-        //     "Pacel un aplūko 6 virsējas kārtis no infekcijas kāršu kaudzītes, pēc tam sakārto tās jebkādā secībā un noliec infekcijas kāršu kaudzītes virspusē."
-        // ));
+    public static void discardDiseaseFromDeck(CityData cityToRemove)
+    {
+        DiseaseDeck.usedInfectionDeck.Remove(cityToRemove);
     }
 }

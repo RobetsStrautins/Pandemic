@@ -1,19 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SelectionManager : MonoBehaviour
+public static class SelectionManager 
 {
-    public static SelectionManager Instance;
-    private int maxSelections = 5;
+    private static int maxSelections = 5;
 
     public static List<PlayerCityCardInPopUp> selectedCards = new List<PlayerCityCardInPopUp>();
 
-    private void Awake()
-    {
-        Instance = this;
-    }
-
-    public void SelectCard(PlayerCityCardInPopUp card)
+    public static void SelectCard(PlayerCityCardInPopUp card)
     {
         if (!selectedCards.Contains(card))
         {
@@ -21,12 +15,12 @@ public class SelectionManager : MonoBehaviour
         }
     }
 
-    public void DeselectCard(PlayerCityCardInPopUp card)
+    public static void DeselectCard(PlayerCityCardInPopUp card)
     {
         selectedCards.Remove(card);
     }
 
-    public bool CanSelectMore()
+    public static bool CanSelectMore()
     {
         return selectedCards.Count < maxSelections;
     }

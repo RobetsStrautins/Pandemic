@@ -13,9 +13,12 @@ public class GameUI : MonoBehaviour
     [SerializeField] private Text infectionRateCountText;
 
 
+    public GameObject gameOverPanel;
+    public Text gameEndText;
     void Awake()
     {
         Instance = this;
+        gameOverPanel.SetActive(false);
     }
 
     public void Setup()
@@ -39,5 +42,26 @@ public class GameUI : MonoBehaviour
     public void updateInfectionRateCount(int infectionRateCount)
     {
         infectionRateCountText.text = "Infection rate: " + infectionRateCount;
+    }
+
+    public void checkIfGameWon()
+    {
+        foreach (DiseaseColorProgress progress in DiseaseMarkers.Instance.getAllDiseaseProgress())
+        {
+            if (progress == DiseaseColorProgress.NotCured)
+            {
+                return;
+            }
+        }
+
+        gameOverPanel.SetActive(true);
+        gameEndText.text = "You won";
+    }
+
+    public void gameLost()
+    {
+        gameOverPanel.SetActive(true);
+        gameEndText.text = "You Lost";
+        Mainscript.main.waitingForCityClick = true;
     }
 }

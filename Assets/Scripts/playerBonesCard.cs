@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class playerBonesCard : MonoBehaviour
+public class PlayerBonesCard : MonoBehaviour
 {
     public CardData cardData;
     public Text title;

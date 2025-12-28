@@ -17,8 +17,8 @@ public class PickUpCard : MonoBehaviour
         if(!playerTookCards)
         {
             Player player = Mainscript.main.getActivePlayer();
-            PlayerDeck.Instance.Draw(player);
-            PlayerDeck.Instance.Draw(player);
+            PlayerDeck.Draw(player);
+            PlayerDeck.Draw(player);
             PlayerHandUi.Instance.renderHand(player);
 
             Mainscript.main.playerTurnCount = 0;
