@@ -26,6 +26,11 @@ public class PopUpButtonManager : MonoBehaviour
 
     public void showInfoWhenCardPressed(PlayerCityCard card, Player player)//izarstet,lidota ar maju,nonemt cubicinu
     {
+        if (Mainscript.main.playerTurnCount == 0)
+        {
+           return; 
+        }
+
         isPopupOpen = true;
 
         if (card.cardData.Type != CardType.City)
@@ -33,7 +38,19 @@ public class PopUpButtonManager : MonoBehaviour
            return; 
         }
 
-        if (player.city == card.cardsCityData)
+        if(player.playerRole == PlayerRole.OperationsExpert && player.city.hasResearchStation())
+        {
+            CreateButton("Lidot uz jebkuru pilsetu (Operaciju specialists)", () => popupScript.flyAnywhere(card));
+
+            foreach (Player p in Mainscript.main.playersList)
+            {
+                if (p != player && p.city == card.cardsCityData)
+                {
+                    CreateButton("Iedot karti spēlētājam " + (p.playerId + 1), () => popupScript.giveCard(card, p));
+                }
+            }
+        }
+        else if (player.city == card.cardsCityData)
         {
             CreateButton("Lidot no " + card.cardsCityData.cityName, () => popupScript.flyAnywhere(card));
 
@@ -64,6 +81,7 @@ public class PopUpButtonManager : MonoBehaviour
 
     public void showInfoWhenBonusCardPressed(CardData data, Player player)
     {
+
         isPopupOpen = true;
 
         var card = data as BonusCardData;
@@ -98,11 +116,16 @@ public class PopUpButtonManager : MonoBehaviour
 
     public void showInfoWhenMyCityPressed(CityData city, Player player)
     {
+        if (Mainscript.main.playerTurnCount == 0)
+        {
+           return; 
+        }
+
         isPopupOpen = true;
 
         string colorThatCanBeCured = countCardColors(player);
 
-        if (colorThatCanBeCured !=null && city.hasResearchStation())
+        if (colorThatCanBeCured != null && city.hasResearchStation())
         {
             if(DiseaseMarkers.Instance.getDiseaseProgress(colorThatCanBeCured) == DiseaseColorProgress.NotCured)
             {
@@ -112,12 +135,12 @@ public class PopUpButtonManager : MonoBehaviour
         
         if (city.hasResearchStation() && Mainscript.main.researchStationOnMap.Count >= 2)
         {
-            CreateButton("Lidot starp stacijam" + colorThatCanBeCured, () => popupScript.flyToResearchStation(city));
+            CreateButton("Lidot starp stacijam", () => popupScript.flyToResearchStation(city));
         }
 
         int cubs = city.getCubs();
 
-        if (cubs >= 1 && DiseaseMarkers.Instance.getDiseaseProgress(colorThatCanBeCured) != DiseaseColorProgress.NotCured)
+        if (cubs >= 1 && (DiseaseMarkers.Instance?.getDiseaseProgress(city.color) != DiseaseColorProgress.NotCured || player.playerRole == PlayerRole.Medic))
         {
             CreateButton("Nonemt visus kubicinus", () => popupScript.clearAllCubs(city));
         }
@@ -136,14 +159,25 @@ public class PopUpButtonManager : MonoBehaviour
                 }
             }  
         }
+        
+        if(player.playerRole == PlayerRole.OperationsExpert && !city.hasResearchStation())
+        {
+            CreateButton("Uztaisīt mājiņu (Operaciju specialists)", () => city.buildResearchStation());
+        }
+
 
         titleText.text = "Ko darit " + city.cityName;
         panel.SetActive(true);
         StartCoroutine(scrollToTop());
     }
 
-    public void showInfoWhenFromOtherPLayer(CardData data, Player player)
+    public void showInfoWhenCityCardsFromOtherPlayer(CardData data, Player playerThatWasPressed)
     {
+        if (Mainscript.main.playerTurnCount == 0)
+        {
+           return; 
+        }
+
         isPopupOpen = true;
 
         if (data.Type == CardType.City)
@@ -151,12 +185,15 @@ public class PopUpButtonManager : MonoBehaviour
             PlayerCityCardData card = data as PlayerCityCardData;
             CityData cardsCityData = card.cityCard;
 
-            foreach (Player playerInList in Mainscript.main.playersList)
-            {            
-                if (player != playerInList && playerInList.city == cardsCityData)
-                {
-                    CreateButton($"Paņemt {cardsCityData.cityName} karti no {player.playerId+1}", () => popupScript.takeCard(data, playerInList));
-                }
+            Player activePlayer = Mainscript.main.getActivePlayer();
+
+            if (activePlayer.city == cardsCityData)//abi atrodas viena pilseta)
+            {
+                CreateButton($"Paņemt {cardsCityData.cityName} karti no {playerThatWasPressed.playerId+1} speletaja", () => popupScript.takeCard(data, playerThatWasPressed));
+            }
+            else if (playerThatWasPressed.playerRole == PlayerRole.Researcher || activePlayer.playerRole == PlayerRole.Researcher)//Researcher ability
+            {
+                CreateButton($"Paņemt {cardsCityData.cityName} karti no {playerThatWasPressed.playerId+1} speletaja (Petnieks)", () => popupScript.takeCard(data, playerThatWasPressed));
             }
 
             titleText.text = cardsCityData.cityName;
@@ -283,11 +320,18 @@ public class PopUpButtonManager : MonoBehaviour
     {
         var colorCounts = new Dictionary<string, int>
         {
-            { "Red", 0 },
             { "Yellow", 0 },
-            { "Black", 0 },
-            { "Blue", 0 }
+            { "Red", 0 },
+            { "Blue", 0 },
+            { "Black", 0 }
         };
+
+        int neededCardCount = 5;
+
+        if (player.playerRole == PlayerRole.Scientist)
+        {
+            neededCardCount = 4;
+        }
 
         foreach (CardData cardData in player.playerCardList.getAllCards())
         {
@@ -303,7 +347,7 @@ public class PopUpButtonManager : MonoBehaviour
 
         foreach (var color in colorCounts)
         {
-            if (color.Value >= 5)
+            if (color.Value >= neededCardCount)
             {
                 return color.Key;   
             }

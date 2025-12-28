@@ -32,13 +32,12 @@ public class PopUpCardManager : MonoBehaviour
     {
         PopUpButtonManager.isPopupOpen = true;
 
-
         foreach (CardData cardData in player.playerCardList.getAllCards())
         {
             CardData data = cardData;
             if (data.Type == CardType.City)
             {
-                CreateCityCard("City", () => PopUpButtonManager.Instance.showInfoWhenFromOtherPLayer(data, Mainscript.main.getActivePlayer()), data);
+                CreateCityCard("City", () => PopUpButtonManager.Instance.showInfoWhenCityCardsFromOtherPlayer(data, player), data);
             }
             else if (data.Type == CardType.Bonus)
             {

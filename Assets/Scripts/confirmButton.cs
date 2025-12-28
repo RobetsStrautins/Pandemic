@@ -7,7 +7,15 @@ public class ConfirmButton : MonoBehaviour
 {
     public void onConfirmClicked()
     {
-        if (SelectionManager.selectedCards.Count == 5)
+        int neededCardCount = 5;
+
+        Player player = Mainscript.main.getActivePlayer();
+        if (player.playerRole == PlayerRole.Scientist)
+        {
+            neededCardCount = 4;
+        }
+
+        if (SelectionManager.selectedCards.Count == neededCardCount)
         {
             string color = SelectionManager.selectedCards[0].cardsCityData.color;
 
@@ -16,8 +24,6 @@ public class ConfirmButton : MonoBehaviour
                 DiseaseMarkers.diseaseColorDict[color].curedDisease();
                 DiseaseMarkers.Instance.checkForExtinctDisease(color);
             }
-
-            Player player = Mainscript.main.getActivePlayer();
 
             foreach (var card in SelectionManager.selectedCards)
             {
@@ -32,10 +38,15 @@ public class ConfirmButton : MonoBehaviour
             PopUpCardManager.Instance.hideInfo();
 
             GameUI.Instance.checkIfGameWon();
+
+            foreach (var playerInList in Mainscript.main.playersList)
+            {
+                playerInList.removeCubsFromCurrentCity();
+            }
         }
         else
         {
-            Debug.LogWarning("Need to select 5 cards");
+            Debug.LogWarning("Need to select 5 cards or 4 if Scientist to cure disease");
         }
     }
 }

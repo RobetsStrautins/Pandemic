@@ -28,6 +28,12 @@ public class GameUI : MonoBehaviour
         updateInfectionRateCount(2);
     }
 
+    public void usedAction()
+    {
+        Mainscript.main.playerTurnCount --;
+        updateMoveCount();
+    }
+    
     public void updateMoveCount()
     {
         whatPlayerTurn.text = "Player " + (Mainscript.main.getActivePlayer().playerId+1) + " turn";

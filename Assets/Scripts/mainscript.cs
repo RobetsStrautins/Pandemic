@@ -32,25 +32,28 @@ public class Mainscript : MonoBehaviour
     void Start()
     {
         CitySpawner.Instance.Setup();
-        DiseaseDeck.Setup();
         PlayerDeck.SetupBeforeEpidemicCard();
         
-        PlayerRole[] roles =
+        List<PlayerRole> roles = new List<PlayerRole>
         {
             PlayerRole.Medic,
             PlayerRole.Scientist,
-            PlayerRole.Dispatcher,
-            PlayerRole.Researcher
+            PlayerRole.QuarantineSpecialist,
+            PlayerRole.Researcher,
+            PlayerRole.OperationsExpert
         };
-
 
         for (int i = 0; i < playerCount; i++)
         {
             GameObject spawnedPlayer = Instantiate(playerPrefab);
             activePlayer = spawnedPlayer.GetComponent<Player>();
-            activePlayer.playerRole = roles[i];
+
+            int radnomRole = UnityEngine.Random.Range(0, roles.Count);
+            activePlayer.playerRole = roles[radnomRole];///roles iedalijums
+            roles.RemoveAt(radnomRole);
             activePlayer.name = "Player " + (i + 1);
             activePlayer.playerId = i;
+            activePlayer.Init();
             
             playersList.Add(activePlayer);
 
@@ -62,9 +65,9 @@ public class Mainscript : MonoBehaviour
             GameObject spawnedPlayerTop = Instantiate(playerTopPrefab);
             PlayerTop newPlayerTop = spawnedPlayerTop.GetComponent<PlayerTop>();
             newPlayerTop.Init(activePlayer);
-
         }
 
+        DiseaseDeck.Setup();
         PlayerDeck.SetupAfterEpidemicCard();
 
         activePlayer = playersList[0];
@@ -157,12 +160,33 @@ public class Mainscript : MonoBehaviour
 
         return false;
     }
+
+    public void putCitysUnderQuarantine(Player player)//QuarantineSpecialist ability
+    {
+        foreach (var city in CitySpawner.cityMap.Values)
+        {
+            city.cityIsUnderQuarantine = false;
+        }
+
+        if (player.playerRole == PlayerRole.QuarantineSpecialist)
+        {
+            CityData currentCity = player.city;
+            currentCity.cityIsUnderQuarantine = true;
+
+            foreach (var connectedCityId in currentCity.connectedCity)
+            {
+                CityData connectedCity = CitySpawner.cityMap[connectedCityId];
+                connectedCity.cityIsUnderQuarantine = true;
+            }
+        }
+    }
 }
 
 public enum PlayerRole
 {
     Medic,
     Scientist,
-    Dispatcher,
-    Researcher
+    QuarantineSpecialist,
+    Researcher,
+    OperationsExpert
 }

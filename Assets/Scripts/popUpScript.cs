@@ -16,6 +16,7 @@ public class PopUpScript : MonoBehaviour
 
         player.moveToCity(card.cardsCityData);
         player.playerCardList.removeCard(card.cardData);
+        GameUI.Instance.usedAction();
 
         exitPopUp();
     }
@@ -38,7 +39,7 @@ public class PopUpScript : MonoBehaviour
 
         Player player = Mainscript.main.getActivePlayer();
         player.playerCardList.removeCard(card.cardData);
-
+        
         exitPopUp();
     }
 
@@ -49,6 +50,8 @@ public class PopUpScript : MonoBehaviour
         Player player = Mainscript.main.getActivePlayer();
         player.playerCardList.removeCard(card.cardData);
 
+        GameUI.Instance.usedAction();
+
         exitPopUp();
     }
 
@@ -58,6 +61,8 @@ public class PopUpScript : MonoBehaviour
 
         Player player = Mainscript.main.getActivePlayer();
         player.playerCardList.newNodeCard(data);
+
+        GameUI.Instance.usedAction();
 
         PlayerHandUi.Instance.renderHand(Mainscript.main.getActivePlayer());
 
@@ -185,6 +190,8 @@ public class PopUpScript : MonoBehaviour
             PickUpCard.playerTookCards = false;
             Mainscript.main.nextTurn();
         }
+
+
     }
 
     public void closeButtonForButtonPanal()

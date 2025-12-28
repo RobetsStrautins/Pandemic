@@ -100,11 +100,12 @@ public class CityData
     private int cubs = 0;
     private bool researchStation = false;
 
+    public bool cityIsUnderQuarantine = false;
     public CityUi cityObj;
 
     public void addCubs(int newCubs)
     {
-        if(DiseaseMarkers.Instance?.getDiseaseProgress(color) != DiseaseColorProgress.DiseaseEradicated)
+        if(DiseaseMarkers.Instance?.getDiseaseProgress(color) != DiseaseColorProgress.DiseaseEradicated && !cityIsUnderQuarantine)
         {
             Debug.Log($"added {newCubs} cube to {cityName}");
             if (cubs + newCubs > 3)
@@ -141,6 +142,7 @@ public class CityData
         Mainscript.main.playerTurnCount -= 1;
         Mainscript.main.researchStationOnMap.Add(this);
         GameUI.Instance.updateMoveCount();
+        PopUpButtonManager.Instance.hideInfo();
     }
 
     public bool hasResearchStation()

@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     private float playerXOffset = 0;
     private float playerYOffset = 0;
 
-    void Start()
+    public void Init()
     {
         switch (playerId)
         {
@@ -51,8 +51,13 @@ public class Player : MonoBehaviour
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
         if (sr != null)
         {
-            sr.color = GetColorForRole(playerRole);
-            playerColor = sr.color;
+            playerColor = GetColorForRole(playerRole);
+            sr.color = playerColor;
+        }
+
+        if (playerRole == PlayerRole.QuarantineSpecialist)
+        {
+            Mainscript.main.putCitysUnderQuarantine(this);
         }
     }
 
@@ -63,6 +68,7 @@ public class Player : MonoBehaviour
             city = pressedCity;
             transform.position = new Vector3(city.Xcord + playerXOffset, city.Ycord + playerYOffset, -1);
             Mainscript.main.playerTurnCount -= 1;
+            removeCubsFromCurrentCity();
         }
     }
 
@@ -71,6 +77,15 @@ public class Player : MonoBehaviour
         city = pressedCity;
         transform.position = new Vector3(city.Xcord + playerXOffset, city.Ycord + playerYOffset, -1);
         Mainscript.main.playerTurnCount -= 1;
+        removeCubsFromCurrentCity();
+    }
+
+    public void removeCubsFromCurrentCity()//medic special ability
+    {
+        if (playerRole == PlayerRole.Medic && DiseaseMarkers.Instance.getDiseaseProgress(city.color) == DiseaseColorProgress.Cured)
+        {
+            city.removeCubs(city.getCubs());
+        }
     }
 
     private Color GetColorForRole(PlayerRole role)
@@ -79,8 +94,9 @@ public class Player : MonoBehaviour
         {
             PlayerRole.Medic => new Color(1f, 0.5f, 0f),
             PlayerRole.Scientist => Color.white,
-            PlayerRole.Dispatcher => Color.magenta,
+            PlayerRole.QuarantineSpecialist => new Color(0f, 0.5f, 0f),
             PlayerRole.Researcher => new Color(0.6f, 0.3f, 0.1f),
+            PlayerRole.OperationsExpert => Color.green,
             _ => Color.gray
         };
     }

@@ -25,6 +25,11 @@ public class PickUpCard : MonoBehaviour
             GameUI.Instance.updateMoveCount();
 
             playerTookCards = true;
+            if (player.playerRole == PlayerRole.QuarantineSpecialist)
+            {
+                Mainscript.main.putCitysUnderQuarantine(player);
+            }
         }
     }
+
 }
