@@ -66,7 +66,7 @@ public class PopUpCardManager : MonoBehaviour
             {
                 var currentCity = cardData as PlayerCityCardData;
                 CardData data = cardData;
-
+                SelectionManager.selectedCards.Clear();
                 if(currentCity.cityCard.color == tempColor)
                 {
                     GameObject obj = Instantiate(playerPopUpCityCardsPrefab, popUp.transform);
