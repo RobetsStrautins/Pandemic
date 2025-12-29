@@ -12,7 +12,6 @@ public class GameUI : MonoBehaviour
     [SerializeField] private Text outBreakCountText;
     [SerializeField] private Text infectionRateCountText;
 
-
     public GameObject gameOverPanel;
     public Text gameEndText;
     void Awake()
@@ -64,10 +63,10 @@ public class GameUI : MonoBehaviour
         gameEndText.text = "You won";
     }
 
-    public void gameLost()
+    public void gameLost(string reason)
     {
         gameOverPanel.SetActive(true);
-        gameEndText.text = "You Lost";
+        gameEndText.text = "You Lost \n" + reason;
         Mainscript.main.waitingForCityClick = true;
     }
 }

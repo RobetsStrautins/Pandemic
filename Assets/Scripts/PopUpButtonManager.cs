@@ -65,6 +65,10 @@ public class PopUpButtonManager : MonoBehaviour
                 {
                     CreateButton("Iedot karti spēlētājam " + (p.playerId + 1), () => popupScript.giveCard(card, p));
                 }
+                else if (player.playerRole == PlayerRole.Researcher )//Researcher ability
+                {
+                    CreateButton("Iedot karti spēlētājam " + (p.playerId + 1) + " (Petnieks)", () => popupScript.giveCard(card, p));
+                }
             }
         }
         else

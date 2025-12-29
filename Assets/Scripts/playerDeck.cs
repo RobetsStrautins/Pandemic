@@ -53,7 +53,7 @@ public static class PlayerDeck
     {
         if (deck.Count == 0)
         {
-            GameUI.Instance.gameLost();
+            GameUI.Instance.gameLost("(Beidzas kartis)");
             return;
         }
 

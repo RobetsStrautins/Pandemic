@@ -97,8 +97,7 @@ public static class DiseaseDeck
 
         if(OutBreakCount >= 8)
         {
-            Debug.Log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-            GameUI.Instance.gameLost();
+            GameUI.Instance.gameLost(("Uzliesmojumi sasniedza 8"));
         }
 
         if(!CitiesOutBreakHappend.Contains(outBreakCity))
