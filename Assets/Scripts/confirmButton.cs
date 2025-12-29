@@ -37,8 +37,6 @@ public class ConfirmButton : MonoBehaviour
 
             PopUpCardManager.Instance.hideInfo();
 
-            GameUI.Instance.checkIfGameWon();
-
             foreach (var playerInList in Mainscript.main.playersList)
             {
                 playerInList.removeCubsFromCurrentCity();

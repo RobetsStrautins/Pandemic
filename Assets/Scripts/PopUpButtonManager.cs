@@ -24,7 +24,7 @@ public class PopUpButtonManager : MonoBehaviour
         panel.SetActive(false);
     }
 
-    public void showInfoWhenCardPressed(PlayerCityCard card, Player player)//izarstet,lidota ar maju,nonemt cubicinu
+    public void showInfoWhenCardPressed(PlayerCityCard card, Player activePlayer)//izarstet,lidota ar maju,nonemt cubicinu
     {
         if (Mainscript.main.playerTurnCount == 0)
         {
@@ -38,19 +38,11 @@ public class PopUpButtonManager : MonoBehaviour
            return; 
         }
 
-        if(player.playerRole == PlayerRole.OperationsExpert && player.city.hasResearchStation())
+        if(activePlayer.playerRole == PlayerRole.OperationsExpert && activePlayer.city.hasResearchStation())
         {
             CreateButton("Lidot uz jebkuru pilsetu (Operaciju specialists)", () => popupScript.flyAnywhere(card));
-
-            foreach (Player p in Mainscript.main.playersList)
-            {
-                if (p != player && p.city == card.cardsCityData)
-                {
-                    CreateButton("Iedot karti spēlētājam " + (p.playerId + 1), () => popupScript.giveCard(card, p));
-                }
-            }
         }
-        else if (player.city == card.cardsCityData)
+        else if (activePlayer.city == card.cardsCityData)
         {
             CreateButton("Lidot no " + card.cardsCityData.cityName, () => popupScript.flyAnywhere(card));
 
@@ -58,25 +50,29 @@ public class PopUpButtonManager : MonoBehaviour
             {
                 CreateButton("Uztaisīt mājiņu", () => popupScript.makeRearchStation(card));
             }
-
-            foreach (Player p in Mainscript.main.playersList)
-            {
-                if (p != player && p.city == card.cardsCityData)
-                {
-                    CreateButton("Iedot karti spēlētājam " + (p.playerId + 1), () => popupScript.giveCard(card, p));
-                }
-                else if (player.playerRole == PlayerRole.Researcher )//Researcher ability
-                {
-                    CreateButton("Iedot karti spēlētājam " + (p.playerId + 1) + " (Petnieks)", () => popupScript.giveCard(card, p));
-                }
-            }
         }
         else
         {
             CreateButton("Lidot uz " + card.cardsCityData.cityName, () => popupScript.flyTo(card));
         }
 
-        CreateButton("Nomest karti", () => popupScript.removeCard(card.cardData, player));
+        foreach (Player playerInList in Mainscript.main.playersList)
+        {
+            if(activePlayer.city == playerInList.city && playerInList != activePlayer)
+            {
+                if (playerInList.city == card.cardsCityData)
+                {
+                    CreateButton("Iedot karti spēlētājam " + (playerInList.playerId + 1), () => popupScript.giveCard(card, playerInList));
+                }
+                else if (activePlayer.playerRole == PlayerRole.Researcher || playerInList.playerRole == PlayerRole.Researcher)
+                {
+                    CreateButton("Iedot karti spēlētājam " + (playerInList.playerId + 1) + " (Petnieks)", () => popupScript.giveCard(card, playerInList));
+                }
+            }
+
+        }
+
+        CreateButton("Nomest karti", () => popupScript.removeCard(card.cardData, activePlayer));
 
         titleText.text = card.cardsCityData.cityName;
         panel.SetActive(true);

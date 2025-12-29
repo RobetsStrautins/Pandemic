@@ -46,8 +46,10 @@ public class DiseaseMarkers : MonoBehaviour
             newDisease.transform.position = spawnPos;
 
             diseaseColorDict[colorList[i]] = colorScript;
-
         }
+        diseaseColorDict["Yellow"].curedDisease();
+        diseaseColorDict["Red"].curedDisease();
+        diseaseColorDict["Black"].curedDisease();
     }
 
     public void checkForExtinctDisease(string color)
@@ -64,7 +66,6 @@ public class DiseaseMarkers : MonoBehaviour
 
         if (cubeColorCount[color] > 24)
         {
-            Debug.LogWarning("Lost, " + color + " cubs receh over 24");
             GameUI.Instance.gameLost(color + " kubicini parsniedza 24");
         }
     }

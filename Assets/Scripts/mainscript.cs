@@ -14,7 +14,7 @@ public class Mainscript : MonoBehaviour
 
     public int playerTurnCount;
 
-    private int playerCount = 2;
+    private int playerCount;
     public List<Player> playersList = new List<Player>();
     private int currentPlayerIndex = 0;
     private Player activePlayer;

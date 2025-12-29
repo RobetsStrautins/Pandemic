@@ -4,7 +4,7 @@ using UnityEngine;
 public static class PlayerDeck
 {
     public static int epidemicCardCount = 4;
-    public static int playerCount = 2;
+    public static int playerCount = 4;
 
     private static List<CardData> deck = new List<CardData>();
     private static List<CardData> usedDeck = new List<CardData>();
@@ -28,7 +28,7 @@ public static class PlayerDeck
 
         createBonusCards();
 
-        shuffle(deck);
+        //shuffle(deck);
     }
 
     public static void SetupAfterEpidemicCard()
