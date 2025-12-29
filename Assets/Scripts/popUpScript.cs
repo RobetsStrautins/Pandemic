@@ -190,8 +190,6 @@ public class PopUpScript : MonoBehaviour
             PickUpCard.playerTookCards = false;
             Mainscript.main.nextTurn();
         }
-
-
     }
 
     public void closeButtonForButtonPanal()

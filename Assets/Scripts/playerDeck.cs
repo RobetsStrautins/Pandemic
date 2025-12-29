@@ -4,6 +4,7 @@ using UnityEngine;
 public static class PlayerDeck
 {
     public static int epidemicCardCount = 4;
+    public static int playerCount = 2;
 
     private static List<CardData> deck = new List<CardData>();
     private static List<CardData> usedDeck = new List<CardData>();
@@ -17,6 +18,8 @@ public static class PlayerDeck
     {
         deck.Clear();
         usedDeck.Clear();
+
+        Debug.Log(epidemicCardCount);
 
         foreach (var city in CitySpawner.cityMap.Values)
         {

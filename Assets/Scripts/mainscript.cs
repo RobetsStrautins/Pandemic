@@ -14,7 +14,7 @@ public class Mainscript : MonoBehaviour
 
     public int playerTurnCount;
 
-    private int playerCount = 4;
+    private int playerCount = 2;
     public List<Player> playersList = new List<Player>();
     private int currentPlayerIndex = 0;
     private Player activePlayer;
@@ -31,6 +31,8 @@ public class Mainscript : MonoBehaviour
 
     void Start()
     {
+        playerCount = PlayerDeck.playerCount;
+
         CitySpawner.Instance.Setup();
         PlayerDeck.SetupBeforeEpidemicCard();
         
