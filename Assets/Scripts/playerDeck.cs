@@ -18,9 +18,7 @@ public static class PlayerDeck
     {
         deck.Clear();
         usedDeck.Clear();
-
-        Debug.Log(epidemicCardCount);
-
+        
         foreach (var city in CitySpawner.cityMap.Values)
         {
             deck.Add(new PlayerCityCardData(city));
@@ -28,7 +26,7 @@ public static class PlayerDeck
 
         createBonusCards();
 
-        //shuffle(deck);
+        shuffle(deck);
     }
 
     public static void SetupAfterEpidemicCard()
