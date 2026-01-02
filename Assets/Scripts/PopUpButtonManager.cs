@@ -6,14 +6,14 @@ using UnityEngine.UI;
 
 public class PopUpButtonManager : MonoBehaviour
 {
+    public static PopUpButtonManager Instance;
+
     public GameObject panel;
     public Text titleText;
     public Transform popUp;
     public GameObject buttonPrefab;
 
     public PopUpScript popupScript;
-
-    public static PopUpButtonManager Instance;
     public static bool isPopupOpen = false;
 
     private List<GameObject> buttonList = new List<GameObject>();
@@ -138,24 +138,24 @@ public class PopUpButtonManager : MonoBehaviour
             CreateButton("Lidot starp stacijam", () => popupScript.flyToResearchStation(city));
         }
 
-        int cubs = city.getCubs();
+        int cubes = city.getCubes();
 
-        if (cubs >= 1 && (DiseaseMarkers.Instance?.getDiseaseProgress(city.color) != DiseaseColorProgress.NotCured || player.playerRole == PlayerRole.Medic))
+        if (cubes >= 1 && (DiseaseMarkers.Instance?.getDiseaseProgress(city.color) != DiseaseColorProgress.NotCured || player.playerRole == PlayerRole.Medic))
         {
-            CreateButton("Nonemt visus kubicinus", () => popupScript.clearAllCubs(city));
+            CreateButton("Nonemt visus kubicinus", () => popupScript.clearAllCubes(city));
         }
         else
         {
-            for (int i = 1; i <= cubs; i++)
+            for (int i = 1; i <= cubes; i++)
             {
                 int cubeCount = i;
                 if(i > Mainscript.main.playerTurnCount)
                 {
-                    CreateButton($"Nonemt {i} kubicinus", () => popupScript.clearCubs(city, cubeCount), false);
+                    CreateButton($"Nonemt {i} kubicinus", () => popupScript.clearCubes(city, cubeCount), false);
                 }
                 else
                 {
-                    CreateButton($"Nonemt {i} kubicinus", () => popupScript.clearCubs(city, cubeCount));
+                    CreateButton($"Nonemt {i} kubicinus", () => popupScript.clearCubes(city, cubeCount));
                 }
             }  
         }

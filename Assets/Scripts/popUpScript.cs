@@ -97,9 +97,9 @@ public class PopUpScript : MonoBehaviour
         exitPopUp();
     }
 
-    public void clearCubs(CityData city, int count)
+    public void clearCubes(CityData city, int count)
     {
-        city.removeCubs(count);
+        city.removeCubes(count);
 
         Mainscript.main.playerTurnCount -= count;
         GameUI.Instance.updateMoveCount();
@@ -107,10 +107,10 @@ public class PopUpScript : MonoBehaviour
         exitPopUp();
     }
 
-    public void clearAllCubs(CityData city)
+    public void clearAllCubes(CityData city)
     {
-        int cubs = city.getCubs();
-        city.removeCubs(cubs);
+        int cubes = city.getCubes();
+        city.removeCubes(cubes);
 
         Mainscript.main.playerTurnCount --;
         GameUI.Instance.updateMoveCount();
@@ -138,7 +138,7 @@ public class PopUpScript : MonoBehaviour
     public void discardDisease(CityData CityToRemove, CardData data, Player player)
     {
         player.playerCardList.removeCard(data);
-        PlayerDeck.discardDiseaseFromDeck(CityToRemove);
+        DiseaseDeck.discardDiseaseFromDeck(CityToRemove);
         exitPopUp();
     }
 

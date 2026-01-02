@@ -8,14 +8,11 @@ public class PlayerBonesCard : MonoBehaviour
     public CardData cardData;
     public Text title;
     public Text description;
-    public BonusCardType bonusCardType;
-
     public void Init(CardData data)
     {
         cardData = data;
 
         BonusCardData bonusCard = data as BonusCardData;
-        bonusCardType = bonusCard.bonusType;
 
         name = bonusCard.title;
 

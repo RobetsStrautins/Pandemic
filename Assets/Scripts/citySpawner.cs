@@ -15,6 +15,7 @@ public class CitySpawner : MonoBehaviour
     {
         Instance = this;
     }
+    
     public void Setup()
     {
         TextAsset jsonFile = Resources.Load<TextAsset>("cities");//dabut pilsetas

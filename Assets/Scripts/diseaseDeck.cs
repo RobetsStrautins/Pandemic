@@ -51,7 +51,7 @@ public static class DiseaseDeck
     {
         CityData infectedCity = infectionDeck[0];
 
-        infectedCity.addCubs(cubeCount);
+        infectedCity.addCubes(cubeCount);
         
         CitiesOutBreakHappend.Clear();
         
@@ -75,7 +75,7 @@ public static class DiseaseDeck
         int temp = infectionDeck.Count-1;
         CityData lastCity = infectionDeck[temp];
 
-        lastCity.addCubs(3);
+        lastCity.addCubes(3);
         CitiesOutBreakHappend.Clear();
 
         usedInfectionDeck.Add(infectionDeck[temp]);
@@ -110,8 +110,13 @@ public static class DiseaseDeck
             CityData closeCity = CitySpawner.cityMap[cityId];
             if (!CitiesOutBreakHappend.Contains(closeCity))
             {
-                closeCity.addCubs(1);
+                closeCity.addCubes(1);
             }
         }
+    }
+
+    public static void discardDiseaseFromDeck(CityData cityToRemove)
+    {
+        usedInfectionDeck.Remove(cityToRemove);
     }
 }

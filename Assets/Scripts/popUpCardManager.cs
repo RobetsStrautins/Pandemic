@@ -7,6 +7,7 @@ using System;
 
 public class PopUpCardManager : MonoBehaviour
 {
+    public static PopUpCardManager Instance;
     public GameObject panel;
     public GameObject confirmButton;
     public GameObject closeButton;
@@ -15,8 +16,6 @@ public class PopUpCardManager : MonoBehaviour
     public Transform popUp;
     public GameObject playerPopUpCityCardsPrefab;
     public GameObject playerPopUpBonesCardsPrefab;
-
-    public static PopUpCardManager Instance;
 
     private List<GameObject> buttonList = new List<GameObject>();
 

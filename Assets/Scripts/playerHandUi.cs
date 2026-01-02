@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class PlayerHandUi : MonoBehaviour
 {
-    public GameObject playerCityCardPrefab;
+    public static PlayerHandUi Instance;
 
+    public GameObject playerCityCardPrefab;
     public GameObject playerBonesCardPrefab;
     private GameObject playerCardParent;
-
-    public static PlayerHandUi Instance;
 
     public void Awake()
     {

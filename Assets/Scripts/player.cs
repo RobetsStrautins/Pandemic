@@ -51,7 +51,7 @@ public class Player : MonoBehaviour
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
         if (sr != null)
         {
-            playerColor = GetColorForRole(playerRole);
+            playerColor = getColorForRole(playerRole);
             sr.color = playerColor;
         }
 
@@ -68,7 +68,7 @@ public class Player : MonoBehaviour
             city = pressedCity;
             transform.position = new Vector3(city.Xcord + playerXOffset, city.Ycord + playerYOffset, -1);
             Mainscript.main.playerTurnCount -= 1;
-            removeCubsFromCurrentCity();
+            removeCubesFromCurrentCity();
         }
     }
 
@@ -77,18 +77,18 @@ public class Player : MonoBehaviour
         city = pressedCity;
         transform.position = new Vector3(city.Xcord + playerXOffset, city.Ycord + playerYOffset, -1);
         Mainscript.main.playerTurnCount -= 1;
-        removeCubsFromCurrentCity();
+        removeCubesFromCurrentCity();
     }
 
-    public void removeCubsFromCurrentCity()//medic special ability
+    public void removeCubesFromCurrentCity()//medic special ability
     {
         if (playerRole == PlayerRole.Medic && DiseaseMarkers.Instance.getDiseaseProgress(city.color) == DiseaseColorProgress.Cured)
         {
-            city.removeCubs(city.getCubs());
+            city.removeCubes(city.getCubes());
         }
     }
 
-    private Color GetColorForRole(PlayerRole role)
+    private Color getColorForRole(PlayerRole role)
     {
         return role switch
         {

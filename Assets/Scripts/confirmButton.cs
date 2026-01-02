@@ -39,7 +39,7 @@ public class ConfirmButton : MonoBehaviour
 
             foreach (var playerInList in Mainscript.main.playersList)
             {
-                playerInList.removeCubsFromCurrentCity();
+                playerInList.removeCubesFromCurrentCity();
             }
         }
         else

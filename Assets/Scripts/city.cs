@@ -25,17 +25,17 @@ public class CityUi : MonoBehaviour
 
         cityData.unityColor = stringToColor(cityData.color);
 
-        updateCubs();
-        setUpcolor();
+        updateCubes();
+        setUpColor();
     }   
 
-    public void updateCubs()
+    public void updateCubes()
     {
-        int cubs = cityData.getCubs();
+        int cubes = cityData.getCubes();
 
         for (int i = 0; i < resourceCubes.Length; i++)
         {
-            resourceCubes[i].SetActive(i < cubs);
+            resourceCubes[i].SetActive(i < cubes);
         }
     }
 
@@ -49,7 +49,7 @@ public class CityUi : MonoBehaviour
         Mainscript.main.activePlayerMoveCitys(cityData);
     }
 
-    private void setUpcolor() 
+    private void setUpColor() 
     {
         Transform point = transform.Find("Point");
         SpriteRenderer pointRender = point.GetComponent<SpriteRenderer>();
@@ -97,42 +97,42 @@ public class CityData
     public string color;
     public Color unityColor;
     public List<int> connectedCity = new List<int>();
-    private int cubs = 0;
+    private int cubes = 0;
     private bool researchStation = false;
 
     public bool cityIsUnderQuarantine = false;
     public CityUi cityObj;
 
-    public void addCubs(int newCubs)
+    public void addCubes(int newCubes)
     {
         if(DiseaseMarkers.Instance?.getDiseaseProgress(color) != DiseaseColorProgress.DiseaseEradicated && !cityIsUnderQuarantine)
         {
-            Debug.Log($"added {newCubs} cube to {cityName}");
-            if (cubs + newCubs > 3)
+            Debug.Log($"added {newCubes} cube to {cityName}");
+            if (cubes + newCubes > 3)
             {
-                DiseaseMarkers.Instance?.chengeColorCubes(color, 3 - cubs);
-                cubs = 3;
+                DiseaseMarkers.Instance?.chengeColorCubes(color, 3 - cubes);
+                cubes = 3;
                 DiseaseDeck.outBreak(this);
             }
             else
             {
-                DiseaseMarkers.Instance?.chengeColorCubes(color, newCubs);
-                cubs += newCubs;
+                DiseaseMarkers.Instance?.chengeColorCubes(color, newCubes);
+                cubes += newCubes;
             }
-            cityObj?.updateCubs();
+            cityObj?.updateCubes();
         }
     }
 
-    public void removeCubs(int removeCubs)
+    public void removeCubes(int removeCubes)
     {
-        cubs -= removeCubs;
-        DiseaseMarkers.Instance.chengeColorCubes(color, cubs);
-        cityObj?.updateCubs();
+        cubes -= removeCubes;
+        DiseaseMarkers.Instance.chengeColorCubes(color, cubes);
+        cityObj?.updateCubes();
     }
     
-    public int getCubs()
+    public int getCubes()
     {
-        return cubs;
+        return cubes;
     }
 
     public void buildResearchStation()

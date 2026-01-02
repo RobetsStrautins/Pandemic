@@ -61,7 +61,7 @@ public class Mainscript : MonoBehaviour
 
             for (int j = 0; j < 6 - playerCount;j++)
             {
-                PlayerDeck.Draw(activePlayer);
+                PlayerDeck.draw(activePlayer);
             }
     
             GameObject spawnedPlayerTop = Instantiate(playerTopPrefab);
@@ -190,5 +190,7 @@ public enum PlayerRole
     Scientist,
     QuarantineSpecialist,
     Researcher,
-    OperationsExpert
+    OperationsExpert,
+    ContingencyPlanner,
+    Dispitcher,
 }

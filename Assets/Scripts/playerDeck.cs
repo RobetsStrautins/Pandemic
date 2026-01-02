@@ -47,7 +47,7 @@ public static class PlayerDeck
         }
     }
 
-    public static void Draw(Player player)
+    public static void draw(Player player)
     {
         if (deck.Count == 0)
         {
@@ -105,10 +105,5 @@ public static class PlayerDeck
             "GAISA TRANSPORTAS",
             "Pārvieto jebkuru kauliņu uz jebkuru pilsētu. Pārvietojot cita spēlētaju kauliņu, vispirms ir jāsaņem atļauja."
         ));
-    }
-
-    public static void discardDiseaseFromDeck(CityData cityToRemove)
-    {
-        DiseaseDeck.usedInfectionDeck.Remove(cityToRemove);
     }
 }

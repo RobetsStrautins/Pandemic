@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PickUpCard : MonoBehaviour
 {
-
     public static bool playerTookCards = false;
 
     void OnMouseDown()
@@ -17,8 +16,8 @@ public class PickUpCard : MonoBehaviour
         if(!playerTookCards)
         {
             Player player = Mainscript.main.getActivePlayer();
-            PlayerDeck.Draw(player);
-            PlayerDeck.Draw(player);
+            PlayerDeck.draw(player);
+            PlayerDeck.draw(player);
             PlayerHandUi.Instance.renderHand(player);
 
             Mainscript.main.playerTurnCount = 0;
