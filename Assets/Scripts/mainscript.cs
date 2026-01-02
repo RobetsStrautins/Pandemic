@@ -141,7 +141,7 @@ public class Mainscript : MonoBehaviour
 
         if (!PlayerDeck.quietNight)
         {
-            DiseaseDeck.infectCityCount();// infice pilsetas starp gajieniem
+            DiseaseDeck.infectPhase();// infice pilsetas starp gajieniem
         }
 
         currentPlayerIndex = (currentPlayerIndex + 1) % playerCount;
@@ -181,6 +181,24 @@ public class Mainscript : MonoBehaviour
                 connectedCity.cityIsUnderQuarantine = true;
             }
         }
+    }
+
+    public Color stringToColor(string s)
+    {
+        string str = s.ToLower();
+        switch (str)
+        {
+            case "blue":
+                return new Color(0f, 0f, 1f, 1f);
+            case "red":
+                return new Color(1f, 0f, 0f, 1f);
+            case "yellow":
+                return new Color(1f, 47f / 51f, 0.015686275f, 1f);
+            case "black":
+                return new Color(0f, 0f, 0f, 1f);
+        }
+        Debug.Log("nav krasa" + str);
+        return new Color(1f, 1f, 1f, 1f);
     }
 }
 

@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class CityUi : MonoBehaviour
 {
-    [SerializeField] private CityData cityData = new CityData();
+    [SerializeField] private CityData cityData;
     public Text cityLabel;
     public GameObject[] resourceCubes;
-    public GameObject rStation;
+    public GameObject researchStation;
 
     public void Init(CityData data)
     {
@@ -23,7 +23,7 @@ public class CityUi : MonoBehaviour
             cityLabel.text = cityData.cityName;
         }
 
-        cityData.unityColor = stringToColor(cityData.color);
+        cityData.unityColor = Mainscript.main.stringToColor(cityData.color);
 
         updateCubes();
         setUpColor();
@@ -57,28 +57,10 @@ public class CityUi : MonoBehaviour
         pointRender.color = cityData.unityColor;
         cubeColor(cityData.unityColor);
     }
-    
-    private Color stringToColor(string strin)
-    {
-        string str = strin.ToLower();
-        switch (str)
-        {
-            case "blue":
-                return new Color(0f, 0f, 1f, 1f);
-            case "red":
-                return new Color(1f, 0f, 0f, 1f);
-            case "yellow":
-                return new Color(1f, 47f / 51f, 0.015686275f, 1f);
-            case "black":
-                return new Color(0f, 0f, 0f, 1f);
-        }
-        Debug.Log("nav krasa" + str);
-        return new Color(1f, 1f, 1f, 1f);
-    }
         
     private void cubeColor(Color colorValue)
     {
-        for(int i=1; i<4;i++)
+        for(int i = 1; i < 4; i++)
         {
             Transform cube = transform.Find("Cube " + i);
             Renderer cubeRenderer = cube.GetComponent<Renderer>();
@@ -137,11 +119,10 @@ public class CityData
 
     public void buildResearchStation()
     {
-        cityObj.rStation.SetActive(true);
+        cityObj.researchStation.SetActive(true);
         researchStation = true;
-        Mainscript.main.playerTurnCount -= 1;
+        GameUI.Instance.usedAction();
         Mainscript.main.researchStationOnMap.Add(this);
-        GameUI.Instance.updateMoveCount();
         PopUpButtonManager.Instance.hideInfo();
     }
 

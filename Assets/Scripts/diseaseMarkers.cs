@@ -47,9 +47,6 @@ public class DiseaseMarkers : MonoBehaviour
 
             diseaseColorDict[colorList[i]] = colorScript;
         }
-        diseaseColorDict["Yellow"].curedDisease();
-        diseaseColorDict["Red"].curedDisease();
-        diseaseColorDict["Black"].curedDisease();
     }
 
     public void checkForExtinctDisease(string color)

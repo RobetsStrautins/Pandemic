@@ -5,17 +5,17 @@ using UnityEngine;
 public enum CardType
 {
     City,
-    Bonus,
+    Event,
     Epidemic
 }
 
-public enum BonusCardType
+public enum EventCardType
 {
-    ValdibasSubsidija,
-    KlusaNakts,
-    PopulacijasPretosanas,
-    GaisaTransportas,
-    Prognoze
+    GovernmentGrant,
+    QuietNight,
+    ResilientPopulation,
+    Airlift,
+    Forecast,
 }
 
 [System.Serializable]
@@ -41,15 +41,15 @@ public class PlayerCityCardData : CardData
 }
 
 [System.Serializable]
-public class BonusCardData : CardData
+public class EventCardData : CardData
 {
     public string title;
     public string description;
-    public BonusCardType bonusType;
+    public EventCardType eventType;
 
-    public BonusCardData(BonusCardType type, string title, string description): base(CardType.Bonus)
+    public EventCardData(EventCardType type, string title, string description): base(CardType.Event)
     {
-        bonusType = type;
+        eventType = type;
         this.title = title;
         this.description = description;
     }
@@ -58,10 +58,5 @@ public class BonusCardData : CardData
 [System.Serializable]
 public class EpidemicCardData : CardData
 {
-    public string eventName;
-
-    public EpidemicCardData(string name) : base(CardType.Epidemic)
-    {
-        eventName = name;
-    }
+    public EpidemicCardData() : base(CardType.Epidemic) {  }
 }

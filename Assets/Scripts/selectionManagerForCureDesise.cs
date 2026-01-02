@@ -7,7 +7,7 @@ public static class SelectionManager
 
     public static List<PlayerCityCardInPopUp> selectedCards = new List<PlayerCityCardInPopUp>();
 
-    public static void SelectCard(PlayerCityCardInPopUp card)
+    public static void selectCard(PlayerCityCardInPopUp card)
     {
         if (!selectedCards.Contains(card))
         {
@@ -15,12 +15,12 @@ public static class SelectionManager
         }
     }
 
-    public static void DeselectCard(PlayerCityCardInPopUp card)
+    public static void deselectCard(PlayerCityCardInPopUp card)
     {
         selectedCards.Remove(card);
     }
 
-    public static bool CanSelectMore()
+    public static bool canSelectMore()
     {
         return selectedCards.Count < maxSelections;
     }

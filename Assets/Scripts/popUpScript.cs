@@ -112,8 +112,7 @@ public class PopUpScript : MonoBehaviour
         int cubes = city.getCubes();
         city.removeCubes(cubes);
 
-        Mainscript.main.playerTurnCount --;
-        GameUI.Instance.updateMoveCount();
+        GameUI.Instance.usedAction();
 
         DiseaseMarkers.Instance.checkForExtinctDisease(city.color);
 
@@ -138,7 +137,7 @@ public class PopUpScript : MonoBehaviour
     public void discardDisease(CityData CityToRemove, CardData data, Player player)
     {
         player.playerCardList.removeCard(data);
-        DiseaseDeck.discardDiseaseFromDeck(CityToRemove);
+        DiseaseDeck.usedInfectionDeck.Remove(CityToRemove);
         exitPopUp();
     }
 
@@ -200,5 +199,47 @@ public class PopUpScript : MonoBehaviour
     public void closeButtonForCardPanal()
     {
         PopUpCardManager.Instance.hideInfo();
+    }
+
+    public void confirmButton()
+    {
+        int neededCardCount = 5;
+
+        Player player = Mainscript.main.getActivePlayer();
+        if (player.playerRole == PlayerRole.Scientist)
+        {
+            neededCardCount = 4;
+        }
+
+        if (SelectionManager.selectedCards.Count == neededCardCount)
+        {
+            string color = SelectionManager.selectedCards[0].cardsCityData.color;
+
+            if (DiseaseMarkers.diseaseColorDict.ContainsKey(color))
+            {
+                DiseaseMarkers.diseaseColorDict[color].curedDisease();
+                DiseaseMarkers.Instance.checkForExtinctDisease(color);
+            }
+
+            foreach (var card in SelectionManager.selectedCards)
+            {
+                player.playerCardList.removeCard(card.cardData);
+            }
+
+            PlayerHandUi.Instance.renderHand(player);
+
+            GameUI.Instance.usedAction();
+
+            PopUpCardManager.Instance.hideInfo();
+
+            foreach (var playerInList in Mainscript.main.playersList)
+            {
+                playerInList.removeCubesFromCurrentCity();
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Need to select 5 cards or 4 if Scientist to cure disease");
+        }
     }
 }

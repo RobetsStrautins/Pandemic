@@ -12,12 +12,12 @@ public class PlayerBonesCard : MonoBehaviour
     {
         cardData = data;
 
-        BonusCardData bonusCard = data as BonusCardData;
+        EventCardData eventCard = data as EventCardData;
 
-        name = bonusCard.title;
+        name = eventCard.title;
 
-        title.text = bonusCard.title;
-        description.text = bonusCard.description;
+        title.text = eventCard.title;
+        description.text = eventCard.description;
     }
 
     private void OnMouseDown()
@@ -27,7 +27,7 @@ public class PlayerBonesCard : MonoBehaviour
             return;
         }
 
-        PopUpButtonManager.Instance.showInfoWhenBonusCardPressed(cardData, Mainscript.main.getActivePlayer());
+        PopUpButtonManager.Instance.showInfoWhenEventCardPressed(cardData, Mainscript.main.getActivePlayer());
 
     }
 }

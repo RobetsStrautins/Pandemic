@@ -14,16 +14,16 @@ public class DiseaseColorMarker : MonoBehaviour
     {
         name = cureColor + " marker";
         diseaseColor = cureColor;
-        cure.color = stringToColor(cureColor);
+        cure.color = Mainscript.main.stringToColor(cureColor);
 
-        Color siluetColor = stringToColor(cureColor);
+        Color siluetColor = Mainscript.main.stringToColor(cureColor);
         siluetColor.a = 100f / 255f;
         cureSilutet.color = siluetColor;
         cross.SetActive(false);
     }
 
-        public void curedDisease()
-        {
+    public void curedDisease()
+    {
         Color siluetColor = cureSilutet.color;
         siluetColor.a = 1;
         cureSilutet.color = siluetColor;
@@ -33,29 +33,11 @@ public class DiseaseColorMarker : MonoBehaviour
         DiseaseMarkers.Instance.updateDiseaseProgress(diseaseColor, DiseaseColorProgress.Cured);
 
         GameUI.Instance.checkIfGameWon();
-        }
+    }
 
     public void extinctDisease()
     {
         cross.SetActive(true);
         DiseaseMarkers.Instance.updateDiseaseProgress(diseaseColor, DiseaseColorProgress.DiseaseEradicated);
-    }
-
-    private Color stringToColor(string strin)
-    {
-        string str = strin.ToLower();
-        switch (str)
-        {
-            case "blue":
-                return new Color(0f, 0f, 1f, 1f);
-            case "red":
-                return new Color(1f, 0f, 0f, 1f);
-            case "yellow":
-                return new Color(1f, 47f / 51f, 0.015686275f, 1f);
-            case "black":
-                return new Color(0f, 0f, 0f, 1f);
-        }
-        Debug.Log("nav krasa" + str);
-        return new Color(1f, 1f, 1f, 1f);
     }
 }

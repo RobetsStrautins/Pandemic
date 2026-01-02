@@ -7,11 +7,9 @@ public static class DiseaseDeck
     private static List<CityData> infectionDeck = new List<CityData>();
     public static List<CityData> usedInfectionDeck = new List<CityData>();
 
-    public static IReadOnlyList<CityData> testInfectionDeck => infectionDeck;
-    public static IReadOnlyList<CityData> testUsedInfectionDeck => usedInfectionDeck;
+    private static List<CityData> citiesOutBreakHappend = new List<CityData>();
+    private static int outBreakCount = 0;
 
-    private static List<CityData> CitiesOutBreakHappend = new();
-    private static int OutBreakCount = 0;
     private static int infectionRateIndex = 0;
     private static int[] infectionRateList = {2,2,2,3,3,4,4};
 
@@ -47,19 +45,19 @@ public static class DiseaseDeck
         }
     }
 
-    public static void infectCities(int cubeCount)
+    private static void infectCities(int cubeCount)
     {
         CityData infectedCity = infectionDeck[0];
 
         infectedCity.addCubes(cubeCount);
         
-        CitiesOutBreakHappend.Clear();
+        citiesOutBreakHappend.Clear();
         
         usedInfectionDeck.Add(infectionDeck[0]);
         infectionDeck.Remove(infectionDeck[0]);
     }
 
-    public static void infectCityCount()
+    public static void infectPhase()
     {
         for (int i = 0; i < infectionRateList[infectionRateIndex]; i++)
         {
@@ -76,7 +74,7 @@ public static class DiseaseDeck
         CityData lastCity = infectionDeck[temp];
 
         lastCity.addCubes(3);
-        CitiesOutBreakHappend.Clear();
+        citiesOutBreakHappend.Clear();
 
         usedInfectionDeck.Add(infectionDeck[temp]);
         infectionDeck.Remove(infectionDeck[temp]);
@@ -92,31 +90,26 @@ public static class DiseaseDeck
 
     public static void outBreak(CityData outBreakCity)
     {
-        OutBreakCount++;
-        GameUI.Instance.updateOutBreakCount(OutBreakCount);
+        outBreakCount++;
+        GameUI.Instance.updateOutBreakCount(outBreakCount);
 
-        if(OutBreakCount >= 8)
+        if(outBreakCount >= 8)
         {
             GameUI.Instance.gameLost(("Uzliesmojumi sasniedza 8"));
         }
 
-        if(!CitiesOutBreakHappend.Contains(outBreakCity))
+        if(!citiesOutBreakHappend.Contains(outBreakCity))
         {
-            CitiesOutBreakHappend.Add(outBreakCity);
+            citiesOutBreakHappend.Add(outBreakCity);
         }
         
         foreach (int cityId in outBreakCity.connectedCity)
         {
             CityData closeCity = CitySpawner.cityMap[cityId];
-            if (!CitiesOutBreakHappend.Contains(closeCity))
+            if (!citiesOutBreakHappend.Contains(closeCity))
             {
                 closeCity.addCubes(1);
             }
         }
-    }
-
-    public static void discardDiseaseFromDeck(CityData cityToRemove)
-    {
-        usedInfectionDeck.Remove(cityToRemove);
     }
 }

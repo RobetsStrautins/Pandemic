@@ -24,7 +24,7 @@ public static class PlayerDeck
             deck.Add(new PlayerCityCardData(city));
         }
 
-        createBonusCards();
+        createEventCards();
 
         shuffle(deck);
     }
@@ -41,7 +41,7 @@ public static class PlayerDeck
 
             int insertIndex = Random.Range(currentIndex, currentIndex + stackSize + 1);
 
-            deck.Insert(insertIndex, new EpidemicCardData("Epidemic"));
+            deck.Insert(insertIndex, new EpidemicCardData());
 
             currentIndex += stackSize + 1;
         }
@@ -80,28 +80,28 @@ public static class PlayerDeck
         }
     }
 
-    private static void createBonusCards()
+    private static void createEventCards()
     {
-        deck.Add(new BonusCardData(
-            BonusCardType.ValdibasSubsidija,
+        deck.Add(new EventCardData(
+            EventCardType.GovernmentGrant,
             "VALDĪBAS SUBSĪDIJA",
             "Ieliec izpētes staciju jebkurā pilsētā (nav nepieciešama plisētas kārts)."
         ));
 
-        deck.Add(new BonusCardData(
-            BonusCardType.KlusaNakts,
+        deck.Add(new EventCardData(
+            EventCardType.QuietNight,
             "KLUSA NAKTS",
             "Tiek izlaists nākamais “Inficē pilsētas” solis (netiek atvērtas infekciju kārtis)."
         ));
 
-        deck.Add(new BonusCardData(
-            BonusCardType.PopulacijasPretosanas,
+        deck.Add(new EventCardData(
+            EventCardType.ResilientPopulation,
             "POPULĀCIJAS PRETOŠANĀS",
             "Izņem no spēles vienu infekcijas kārti, kas atrodas izlietoto infekcijas kāršu kaudzē. Šo kārti drīkst izspēlēt starp soļiem “Inficēt” un “Pastiprināties” epidēmijas laikā."
         ));
 
-        deck.Add(new BonusCardData(
-            BonusCardType.GaisaTransportas,
+        deck.Add(new EventCardData(
+            EventCardType.Airlift,
             "GAISA TRANSPORTAS",
             "Pārvieto jebkuru kauliņu uz jebkuru pilsētu. Pārvietojot cita spēlētaju kauliņu, vispirms ir jāsaņem atļauja."
         ));

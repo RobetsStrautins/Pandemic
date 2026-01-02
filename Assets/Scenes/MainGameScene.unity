@@ -1447,7 +1447,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   city: {fileID: 2600418127226929491, guid: f9797387ecdae1742b4e3b6616be4406, type: 3}
   connectionParent: {fileID: 0}
-  CityParent: {fileID: 0}
+  cityParent: {fileID: 0}
 --- !u!4 &711798848
 Transform:
   m_ObjectHideFlags: 0
@@ -1839,9 +1839,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 963425855}
-        m_TargetAssemblyTypeName: ConfirmButton, Assembly-CSharp
-        m_MethodName: onConfirmClicked
+      - m_Target: {fileID: 1181117795}
+        m_TargetAssemblyTypeName: PopUpScript, Game
+        m_MethodName: confirmButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -67,7 +67,7 @@ public class Player : MonoBehaviour
         {
             city = pressedCity;
             transform.position = new Vector3(city.Xcord + playerXOffset, city.Ycord + playerYOffset, -1);
-            Mainscript.main.playerTurnCount -= 1;
+            GameUI.Instance.usedAction();
             removeCubesFromCurrentCity();
         }
     }
@@ -76,7 +76,7 @@ public class Player : MonoBehaviour
     {
         city = pressedCity;
         transform.position = new Vector3(city.Xcord + playerXOffset, city.Ycord + playerYOffset, -1);
-        Mainscript.main.playerTurnCount -= 1;
+       GameUI.Instance.usedAction();
         removeCubesFromCurrentCity();
     }
 

@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 6873688288096440640}
   - component: {fileID: 7642661052600560356}
   m_Layer: 5
-  m_Name: playerBonusCardPopUp
+  m_Name: playerEventCardPopUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -216,7 +216,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: {fileID: 5956115506139002213}
   description: {fileID: 2289157664793480038}
-  bonusCardType: 0
   onClickButton: {fileID: 6873688288096440640}
 --- !u!1 &7744812925369765001
 GameObject:

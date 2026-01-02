@@ -37,7 +37,7 @@ public class PlayerHandUi : MonoBehaviour
 
                 cardObj.transform.localPosition = new Vector3(firstCardCordX + 1.8f * i, firstCardCordY, 0f);
             }
-            else if(cardData.Type == CardType.Bonus)
+            else if(cardData.Type == CardType.Event)
             {
                 GameObject cardObj = Instantiate(playerBonesCardPrefab);
                 cardObj.transform.parent = playerCardParent.transform;

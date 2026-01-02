@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerBonusCardInPopUp : MonoBehaviour
+public class PlayerEventCardInPopUp : MonoBehaviour
 {
     public CardData cardData;
     public Text title;
@@ -16,12 +16,12 @@ public class PlayerBonusCardInPopUp : MonoBehaviour
     {
         cardData = data;
 
-        BonusCardData bonusCard = data as BonusCardData;
+        EventCardData eventCard = data as EventCardData;
 
-        name = bonusCard.title;
+        name = eventCard.title;
 
-        title.text = bonusCard.title;
-        description.text = bonusCard.description;
+        title.text = eventCard.title;
+        description.text = eventCard.description;
 
         name = text + " button";
         onClickButton.onClick.RemoveAllListeners();

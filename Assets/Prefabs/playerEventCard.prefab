@@ -357,7 +357,7 @@ GameObject:
   - component: {fileID: 4920647153654085218}
   - component: {fileID: 8532587298049313568}
   m_Layer: 0
-  m_Name: playerBonesCard
+  m_Name: playerEventCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -440,7 +440,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: {fileID: 6030812828263353554}
   description: {fileID: 5805029149883268251}
-  bonusCardType: 0
 --- !u!1 &8716294819782291691
 GameObject:
   m_ObjectHideFlags: 0

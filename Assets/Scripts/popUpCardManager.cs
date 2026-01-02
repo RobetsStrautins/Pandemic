@@ -27,7 +27,7 @@ public class PopUpCardManager : MonoBehaviour
         closeButtonRT = closeButton.GetComponent<RectTransform>();
     }
 
-    public void showPlayerCardFromPLayerTop(Player player)
+    public void showPlayerCardFromPlayerTop(Player player)
     {
         PopUpButtonManager.isPopupOpen = true;
 
@@ -38,10 +38,10 @@ public class PopUpCardManager : MonoBehaviour
             {
                 CreateCityCard("City", () => PopUpButtonManager.Instance.showInfoWhenCityCardsFromOtherPlayer(data, player), data);
             }
-            else if (data.Type == CardType.Bonus)
+            else if (data.Type == CardType.Event)
             {
-                var card = data as BonusCardData;
-                CreateBonusCard("Bonus", () => PopUpButtonManager.Instance.showInfoWhenBonusCardPressed(data, player), data);
+                var card = data as EventCardData;
+                CreateEventCard("Event", () => PopUpButtonManager.Instance.showInfoWhenEventCardPressed(data, player), data);
             }
         }
 
@@ -70,7 +70,7 @@ public class PopUpCardManager : MonoBehaviour
                 {
                     GameObject obj = Instantiate(playerPopUpCityCardsPrefab, popUp.transform);
                     PlayerCityCardInPopUp newPlayerCityCardInPopUp = obj.GetComponentInChildren<PlayerCityCardInPopUp>();
-                    newPlayerCityCardInPopUp.Init("selecto karti", () => newPlayerCityCardInPopUp.onCardClicked(), data);
+                    newPlayerCityCardInPopUp.Init("selecto karti", () => newPlayerCityCardInPopUp.selectCard(), data);
                     buttonList.Add(obj);
                 }
             }
@@ -96,9 +96,9 @@ public class PopUpCardManager : MonoBehaviour
             {
                 CreateCityCard("City", () => PopUpButtonManager.Instance.showRemoveOpcion(data, player), data);
             }
-            else if (data.Type == CardType.Bonus)
+            else if (data.Type == CardType.Event)
             {
-                CreateBonusCard("Bonus", () => PopUpButtonManager.Instance.showRemoveOpcion(data, player), data);
+                CreateEventCard("Event", () => PopUpButtonManager.Instance.showRemoveOpcion(data, player), data);
             }
         }
 
@@ -110,7 +110,7 @@ public class PopUpCardManager : MonoBehaviour
         panel.SetActive(true);
     }
 
-    void CreateCityCard(string text, Action onClick, CardData data)
+    private void CreateCityCard(string text, Action onClick, CardData data)
     {
         GameObject obj = Instantiate(playerPopUpCityCardsPrefab, popUp.transform);
         PlayerCityCardInPopUp newPlayerCityCardInPopUp = obj.GetComponentInChildren<PlayerCityCardInPopUp>();
@@ -118,11 +118,11 @@ public class PopUpCardManager : MonoBehaviour
         buttonList.Add(obj);
     }
 
-    void CreateBonusCard(string text, Action onClick, CardData data)
+    private void CreateEventCard(string text, Action onClick, CardData data)
     {
         GameObject obj = Instantiate(playerPopUpBonesCardsPrefab, popUp.transform);
-        PlayerBonusCardInPopUp newPlayerBonusCardInPopUp = obj.GetComponentInChildren<PlayerBonusCardInPopUp>();
-        newPlayerBonusCardInPopUp.Init(text, onClick, data);
+        PlayerEventCardInPopUp newPlayerEventCardInPopUp = obj.GetComponentInChildren<PlayerEventCardInPopUp>();
+        newPlayerEventCardInPopUp.Init(text, onClick, data);
         buttonList.Add(obj);
     }
 

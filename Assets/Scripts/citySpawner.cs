@@ -8,7 +8,7 @@ public class CitySpawner : MonoBehaviour
     public static CitySpawner Instance;
     public GameObject city;
     public GameObject connectionParent;
-    public GameObject CityParent;
+    public GameObject cityParent;
     public static Dictionary<int, CityData> cityMap = new Dictionary<int, CityData>();//c++ map
 
     void Awake()
@@ -41,11 +41,11 @@ public class CitySpawner : MonoBehaviour
             }
         }
 
-        CityParent = new GameObject("Cities");
+        cityParent = new GameObject("Cities");
         foreach (CityData data in world.cities)// uztaiasa pilsetas ui
         {
             GameObject cityObj = Instantiate(city);
-            cityObj.transform.parent = CityParent.transform;
+            cityObj.transform.parent = cityParent.transform;
             cityObj.GetComponent<CityUi>().Init(data);
         }
 
@@ -62,23 +62,23 @@ public class CitySpawner : MonoBehaviour
             {
                 city1Cords = new Vector3(city1.Xcord, city1.Ycord, 20);
                 city2Cords = new Vector3(-11, city2.Ycord, 20);
-                DrawConnection(city1Cords, city2Cords, lineObj);
+                drawConnection(city1Cords, city2Cords, lineObj);
 
                 GameObject lineObj2 = new GameObject("Connection " + city1.id + " " + city2.id); 
                 city1Cords = new Vector3(10, city1.Ycord, 20);
                 city2Cords = new Vector3(city2.Xcord, city2.Ycord, 20);
-                DrawConnection(city1Cords, city2Cords, lineObj2);
+                drawConnection(city1Cords, city2Cords, lineObj2);
                 
                 continue;
             }
             
             city1Cords = new Vector3(city1.Xcord, city1.Ycord, 20);
             city2Cords = new Vector3(city2.Xcord, city2.Ycord, 20);
-            DrawConnection(city1Cords, city2Cords, lineObj);
+            drawConnection(city1Cords, city2Cords, lineObj);
         }
     }
 
-    void DrawConnection(Vector3 start, Vector3 end, GameObject lineObj)
+    private void drawConnection(Vector3 start, Vector3 end, GameObject lineObj)
     {
         lineObj.transform.parent = connectionParent.transform;
 

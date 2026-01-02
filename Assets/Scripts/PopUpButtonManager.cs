@@ -18,7 +18,7 @@ public class PopUpButtonManager : MonoBehaviour
 
     private List<GameObject> buttonList = new List<GameObject>();
 
-    private void Awake()
+    void Awake()
     {
         Instance = this;
         panel.SetActive(false);
@@ -79,27 +79,27 @@ public class PopUpButtonManager : MonoBehaviour
         StartCoroutine(scrollToTop());
     }
 
-    public void showInfoWhenBonusCardPressed(CardData data, Player player)
+    public void showInfoWhenEventCardPressed(CardData data, Player player)
     {
 
         isPopupOpen = true;
 
-        var card = data as BonusCardData;
-        switch (card.bonusType)
+        var card = data as EventCardData;
+        switch (card.eventType)
         {
-            case BonusCardType.KlusaNakts:
+            case EventCardType.QuietNight:
                 CreateButton("Izmantot " + card.title, () => popupScript.quietNight(data, player));
                 break;
 
-            case BonusCardType.PopulacijasPretosanas:
+            case EventCardType.ResilientPopulation:
                 CreateButton("Izmantot " + card.title, () => popupScript.resilientPopulation(data, player));
                 break;
 
-            case BonusCardType.ValdibasSubsidija:
+            case EventCardType.GovernmentGrant:
                 CreateButton("Izmantot " + card.title, () => popupScript.governmentGrant(data, player));
                 break;
 
-            case BonusCardType.GaisaTransportas:
+            case EventCardType.Airlift:
                 CreateButton("Izmantot " + card.title, () => popupScript.airLift(data, player));
                 break;
         }
@@ -266,25 +266,25 @@ public class PopUpButtonManager : MonoBehaviour
             CreateButton("Nomest " + card.cityCard.cityName + " karti", () => popupScript.removeCard(data, player));
             titleText.text = card.cityCard.cityName;
         }
-        else if(data.Type == CardType.Bonus)
+        else if(data.Type == CardType.Event)
         {
-            var card = data as BonusCardData;
+            var card = data as EventCardData;
             CreateButton("Nomest " + card.Type.ToString() + " karti", () => popupScript.removeCard(data, player));
-            switch (card.bonusType)
+            switch (card.eventType)
             {
-                case BonusCardType.KlusaNakts:
+                case EventCardType.QuietNight:
                     CreateButton("Izmantot " + card.title, () => popupScript.quietNight(data, player));
                     break;
 
-                case BonusCardType.PopulacijasPretosanas:
+                case EventCardType.ResilientPopulation:
                     CreateButton("Izmantot " + card.title, () => popupScript.resilientPopulation(data, player));
                     break;
 
-                case BonusCardType.ValdibasSubsidija:
+                case EventCardType.GovernmentGrant:
                     CreateButton("Izmantot " + card.title, () => popupScript.governmentGrant(data, player));
                     break;
 
-                case BonusCardType.GaisaTransportas:
+                case EventCardType.Airlift:
                     CreateButton("Izmantot " + card.title, () => popupScript.airLift(data, player));
                     break;
             }
@@ -296,7 +296,7 @@ public class PopUpButtonManager : MonoBehaviour
         StartCoroutine(scrollToTop());
     }
 
-    void CreateButton(string text, Action onClick, bool interactable = true)
+    private void CreateButton(string text, Action onClick, bool interactable = true)
     {
         GameObject obj = Instantiate(buttonPrefab, popUp.transform);
         PopUpButtonAction newButton = obj.GetComponentInChildren<PopUpButtonAction>();

@@ -324,13 +324,14 @@ MonoBehaviour:
     color: 
     unityColor: {r: 0, g: 0, b: 0, a: 0}
     connectedCity: 
+    cityIsUnderQuarantine: 0
     cityObj: {fileID: 0}
   cityLabel: {fileID: 7699618122694366946}
   resourceCubes:
   - {fileID: 5489345825079372256}
   - {fileID: 8228103906338718632}
   - {fileID: 5074105137315475032}
-  rStation: {fileID: 3209459399781874741}
+  researchStation: {fileID: 3209459399781874741}
 --- !u!58 &7299962240802374418
 CircleCollider2D:
   m_ObjectHideFlags: 0
