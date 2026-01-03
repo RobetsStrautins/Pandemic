@@ -38,6 +38,6 @@ public class DiseaseColorMarker : MonoBehaviour
     public void extinctDisease()
     {
         cross.SetActive(true);
-        DiseaseMarkers.Instance.updateDiseaseProgress(diseaseColor, DiseaseColorProgress.DiseaseEradicated);
+        DiseaseMarkers.Instance.updateDiseaseProgress(diseaseColor, DiseaseColorProgress.Eradicated);
     }
 }

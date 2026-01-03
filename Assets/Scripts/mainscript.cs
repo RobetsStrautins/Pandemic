@@ -59,7 +59,7 @@ public class Mainscript : MonoBehaviour
             
             playersList.Add(activePlayer);
 
-            for (int j = 0; j < 6 - playerCount;j++)
+            for (int j = 0; j < 6 - playerCount; j++)
             {
                 PlayerDeck.draw(activePlayer);
             }
@@ -80,6 +80,9 @@ public class Mainscript : MonoBehaviour
 
         playerTurnCount = 4;///vajag 4
         GameUI.Instance.Setup();
+
+        ActionLog.Instance.addEntry("Spēle sākas!");
+        ActionLog.Instance.addEntry("Player " + (activePlayer.playerId + 1) + " sāk gājienu!", Color.blue);
     }
 
     public Player getActivePlayer()
@@ -110,7 +113,14 @@ public class Mainscript : MonoBehaviour
 
                 case "BuildStation":
                     playerTurnCount++;
-                    pressedCity.buildResearchStation();
+                    if (!pressedCity.hasResearchStation())
+                    {
+                        pressedCity.buildResearchStation();
+                    }
+                    else
+                    {
+                        return;
+                    }
                     break;
 
                 case "AirLift":
@@ -151,6 +161,8 @@ public class Mainscript : MonoBehaviour
 
         playerTurnCount = 4;//vajag 4
         GameUI.Instance.updateMoveCount();
+        ActionLog.Instance.addEntry("--------------------------------------------");
+        ActionLog.Instance.addEntry("Player " + (activePlayer.playerId + 1) + " sāk gājienu!", Color.blue);
     }
     
     public bool inMiddleOfAcion()

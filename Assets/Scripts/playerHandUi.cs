@@ -19,7 +19,7 @@ public class PlayerHandUi : MonoBehaviour
     {
         clearPlayerHand();
 
-        float firstCardCordX = -7.5f;
+        float firstCardCordX = -7.75f;
         float firstCardCordY = -4;
 
         int i = 0;
@@ -35,7 +35,7 @@ public class PlayerHandUi : MonoBehaviour
                 PlayerCityCard newCard = cardObj.GetComponent<PlayerCityCard>();
                 newCard.Init(cardData);
 
-                cardObj.transform.localPosition = new Vector3(firstCardCordX + 1.8f * i, firstCardCordY, 0f);
+                cardObj.transform.localPosition = new Vector3(firstCardCordX + 1.55f * i, firstCardCordY, 0f);
             }
             else if(cardData.Type == CardType.Event)
             {
@@ -44,7 +44,7 @@ public class PlayerHandUi : MonoBehaviour
                 PlayerBonesCard newCard = cardObj.GetComponent<PlayerBonesCard>();
                 newCard.Init(cardData);
 
-                cardObj.transform.localPosition = new Vector3(firstCardCordX + 1.8f * i, firstCardCordY, 0f);
+                cardObj.transform.localPosition = new Vector3(firstCardCordX + 1.55f * i, firstCardCordY, 0f);
             }
             i++;
         }

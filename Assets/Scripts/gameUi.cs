@@ -41,12 +41,12 @@ public class GameUI : MonoBehaviour
 
     public void updateOutBreakCount(int outBreakCount)
     {
-        outBreakCountText.text = "Out Breaks: " + outBreakCount;
+        outBreakCountText.text = "Uzliesmojumu skaits: " + outBreakCount;
     }
 
     public void updateInfectionRateCount(int infectionRateCount)
     {
-        infectionRateCountText.text = "Infection rate: " + infectionRateCount;
+        infectionRateCountText.text = "Infekcijas biežums: " + infectionRateCount;
     }
 
     public void checkIfGameWon()

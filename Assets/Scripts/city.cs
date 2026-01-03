@@ -87,7 +87,7 @@ public class CityData
 
     public void addCubes(int newCubes)
     {
-        if(DiseaseMarkers.Instance?.getDiseaseProgress(color) != DiseaseColorProgress.DiseaseEradicated && !cityIsUnderQuarantine)
+        if(DiseaseMarkers.Instance?.getDiseaseProgress(color) != DiseaseColorProgress.Eradicated && !cityIsUnderQuarantine)
         {
             Debug.Log($"added {newCubes} cube to {cityName}");
             if (cubes + newCubes > 3)

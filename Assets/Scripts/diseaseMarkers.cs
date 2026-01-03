@@ -70,6 +70,7 @@ public class DiseaseMarkers : MonoBehaviour
     public void updateDiseaseProgress(string color, DiseaseColorProgress progress)
     {
         diseaseProgress[color] = progress;
+        ActionLog.Instance.addEntry(color + " slimibas progress ir tagad ir " + progress.ToString().ToLower());
     }
 
     public DiseaseColorProgress getDiseaseProgress(string color)
@@ -87,5 +88,5 @@ public enum DiseaseColorProgress
 {
     NotCured,
     Cured,
-    DiseaseEradicated
+    Eradicated
 }

@@ -140,7 +140,7 @@ public class PopUpButtonManager : MonoBehaviour
 
         int cubes = city.getCubes();
 
-        if (cubes >= 1 && (DiseaseMarkers.Instance?.getDiseaseProgress(city.color) != DiseaseColorProgress.NotCured || player.playerRole == PlayerRole.Medic))
+        if (cubes >= 1 && (DiseaseMarkers.Instance.getDiseaseProgress(city.color) != DiseaseColorProgress.NotCured || player.playerRole == PlayerRole.Medic))
         {
             CreateButton("Nonemt visus kubicinus", () => popupScript.clearAllCubes(city));
         }
@@ -269,7 +269,7 @@ public class PopUpButtonManager : MonoBehaviour
         else if(data.Type == CardType.Event)
         {
             var card = data as EventCardData;
-            CreateButton("Nomest " + card.Type.ToString() + " karti", () => popupScript.removeCard(data, player));
+            CreateButton("Nomest notikuma karti", () => popupScript.removeCard(data, player));
             switch (card.eventType)
             {
                 case EventCardType.QuietNight:

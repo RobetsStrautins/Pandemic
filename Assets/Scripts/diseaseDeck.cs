@@ -26,11 +26,13 @@ public static class DiseaseDeck
 
         for(int i = 3; i > 0 ; i--)
         {
+            ActionLog.Instance.addEntry("Nakamās tris pilsētas tiek inficētas ar " + i + " kubiciņiem.");
             for(int j = 0; j < 3; j++)
             {
                 infectCities(i);
             }
         }
+        ActionLog.Instance.addEntry("--------------------------------------------");
     }
 
     private static void shuffle(List<CityData> list)
@@ -49,6 +51,7 @@ public static class DiseaseDeck
     {
         CityData infectedCity = infectionDeck[0];
 
+        ActionLog.Instance.addEntry("Inficē " + infectedCity.cityName );
         infectedCity.addCubes(cubeCount);
         
         citiesOutBreakHappend.Clear();
@@ -75,7 +78,8 @@ public static class DiseaseDeck
 
         lastCity.addCubes(3);
         citiesOutBreakHappend.Clear();
-
+        ActionLog.Instance.addEntry("Epidēmija " + lastCity.cityName, Color.red);
+        ActionLog.Instance.addEntry("Tiek pielikti 3 kubiciņi " + lastCity.cityName);
         usedInfectionDeck.Add(infectionDeck[temp]);
         infectionDeck.Remove(infectionDeck[temp]);
 
