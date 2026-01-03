@@ -18,7 +18,7 @@ public class PlayerCityCardInPopUp : MonoBehaviour
     private Color selectedColor;
 
 
-    public void Init(string text, Action onClick, CardData data)
+    public void Init(string text, Action onClick, CardData data) //inicializē spēlētāja pilsētas karti pop-up logā
     {
         cardData = data;
         
@@ -40,7 +40,7 @@ public class PlayerCityCardInPopUp : MonoBehaviour
     }
     
 
-    public void selectCard()
+    public void selectCard() //izvēlas vai atceļ izvēli uz kartes
     {
         if (!isSelected && SelectionManager.canSelectMore())
         {

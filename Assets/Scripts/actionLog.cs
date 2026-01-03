@@ -8,22 +8,22 @@ public class ActionLog : MonoBehaviour
     public static ActionLog Instance;
 
     public Text actionLogText;
-    private int maxEntries = 100;
+    private int maxEntries = 100; 
     private Queue<string> entries = new Queue<string>();
 
     public ScrollRect scrollRect;
 
-    void Awake()
+    void Awake() //konstruktors
     {
         Instance = this;
     }
 
-    public void addEntry(string message)
+    public void addEntry(string message) //pievieno ierakstu bez krāsas
     {
         addEntry(message, Color.black);
     }
 
-    public void addEntry(string message, Color color)
+    public void addEntry(string message, Color color) //pievieno ierakstu ar krāsu
     {
         string colored = $"<color=#{ColorUtility.ToHtmlStringRGB(color)}>{message}</color>";
         entries.Enqueue(colored);
@@ -36,7 +36,7 @@ public class ActionLog : MonoBehaviour
         refreshLog();
     }
 
-    private void refreshLog()
+    private void refreshLog() //atjaunina sarkastu
     {
         actionLogText.text = string.Join("\n", entries);
         Canvas.ForceUpdateCanvases();

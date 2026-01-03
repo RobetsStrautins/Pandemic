@@ -14,42 +14,42 @@ public class GameUI : MonoBehaviour
 
     public GameObject gameOverPanel;
     public Text gameEndText;
-    void Awake()
+    void Awake() //konstruktors
     {
         Instance = this;
         gameOverPanel.SetActive(false);
     }
 
-    public void Setup()
+    public void Setup() //inicializācija
     {
         updateMoveCount();
         updateOutBreakCount(0);
         updateInfectionRateCount(2);
     }
 
-    public void usedAction()
+    public void usedAction() //izsauc kad spēlētajs veicis gājienu
     {
         Mainscript.main.playerTurnCount --;
         updateMoveCount();
     }
     
-    public void updateMoveCount()
+    public void updateMoveCount() //atjaunina gājiena skaitu
     {
         whatPlayerTurn.text = "Player " + (Mainscript.main.getActivePlayer().playerId+1) + " turn";
         moveCount.text = Mainscript.main.playerTurnCount.ToString() + "/4";
     }
 
-    public void updateOutBreakCount(int outBreakCount)
+    public void updateOutBreakCount(int outBreakCount) //atjaunina uzliesmojumu skaitu
     {
         outBreakCountText.text = "Uzliesmojumu skaits: " + outBreakCount;
     }
 
-    public void updateInfectionRateCount(int infectionRateCount)
+    public void updateInfectionRateCount(int infectionRateCount) //atjaunina infekcijas biežumu
     {
         infectionRateCountText.text = "Infekcijas biežums: " + infectionRateCount;
     }
 
-    public void checkIfGameWon()
+    public void checkIfGameWon() //pārbauda vai spēle ir uzvarēta
     {
         foreach (DiseaseColorProgress progress in DiseaseMarkers.Instance.getAllDiseaseProgress())
         {
@@ -63,7 +63,7 @@ public class GameUI : MonoBehaviour
         gameEndText.text = "You won";
     }
 
-    public void gameLost(string reason)
+    public void gameLost(string reason) //izsauc kad spēle ir zaudēta
     {
         gameOverPanel.SetActive(true);
         gameEndText.text = "You Lost \n" + reason;

@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     private float playerXOffset = 0;
     private float playerYOffset = 0;
 
-    public void Init()
+    public void Init() //inicializē spēlētāju
     {
         switch (playerId)
         {
@@ -61,7 +61,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void moveToCityIfConnected(CityData pressedCity)
+    public void moveToCityIfConnected(CityData pressedCity) //pārvietojas uz pilsētu ja ir savienota
     {
         if (city.connectedCity.Contains(pressedCity.id))
         {
@@ -72,7 +72,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void moveToCity(CityData pressedCity)
+    public void moveToCity(CityData pressedCity) //pārvietojas uz pilsētu
     {
         city = pressedCity;
         transform.position = new Vector3(city.Xcord + playerXOffset, city.Ycord + playerYOffset, -1);
@@ -80,7 +80,7 @@ public class Player : MonoBehaviour
         removeCubesFromCurrentCity();
     }
 
-    public void removeCubesFromCurrentCity()//medic special ability
+    public void removeCubesFromCurrentCity() //mediķa spējas īstenošana
     {
         if (playerRole == PlayerRole.Medic && DiseaseMarkers.Instance.getDiseaseProgress(city.color) == DiseaseColorProgress.Cured)
         {
@@ -88,7 +88,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private Color getColorForRole(PlayerRole role)
+    private Color getColorForRole(PlayerRole role) //iestata spēlētāja krāsu pēc lomas
     {
         return role switch
         {

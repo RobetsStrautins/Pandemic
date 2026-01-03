@@ -11,14 +11,14 @@ public class CitySpawner : MonoBehaviour
     public GameObject cityParent;
     public static Dictionary<int, CityData> cityMap = new Dictionary<int, CityData>();//c++ map
 
-    void Awake()
+    void Awake() //konstruktors
     {
         Instance = this;
     }
     
-    public void Setup()
+    public void Setup()//uztiasa pilsetas un savienojumus
     {
-        TextAsset jsonFile = Resources.Load<TextAsset>("cities");//dabut pilsetas
+        TextAsset jsonFile = Resources.Load<TextAsset>("cities"); //dabut pilsetas
         WorldData world = JsonUtility.FromJson<WorldData>(jsonFile.text);
 
         foreach (CityData data in world.cities)
@@ -26,7 +26,7 @@ public class CitySpawner : MonoBehaviour
             cityMap[data.id] = data;
         }
 
-        foreach (IntPair temp in world.connections)//savieno pilsetas
+        foreach (IntPair temp in world.connections) //savieno pilsetas
         {
             if (cityMap.ContainsKey(temp.first) && cityMap.ContainsKey(temp.second))
             {
@@ -42,7 +42,7 @@ public class CitySpawner : MonoBehaviour
         }
 
         cityParent = new GameObject("Cities");
-        foreach (CityData data in world.cities)// uztaiasa pilsetas ui
+        foreach (CityData data in world.cities) //uztaiasa pilsetas ui
         {
             GameObject cityObj = Instantiate(city);
             cityObj.transform.parent = cityParent.transform;
@@ -52,7 +52,7 @@ public class CitySpawner : MonoBehaviour
         connectionParent = new GameObject("Connections");
         Vector3 city1Cords;
         Vector3 city2Cords;
-        foreach (IntPair temp in world.connections)// uztaisa ui connections
+        foreach (IntPair temp in world.connections) //uztaisa ui connections
         {
             CityData city1 = cityMap[temp.first];
             CityData city2 = cityMap[temp.second];
@@ -78,7 +78,7 @@ public class CitySpawner : MonoBehaviour
         }
     }
 
-    private void drawConnection(Vector3 start, Vector3 end, GameObject lineObj)
+    private void drawConnection(Vector3 start, Vector3 end, GameObject lineObj) //uzzīmē savienojumu starp pilsētām
     {
         lineObj.transform.parent = connectionParent.transform;
 

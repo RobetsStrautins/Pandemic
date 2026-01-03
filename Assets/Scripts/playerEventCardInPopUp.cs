@@ -12,7 +12,7 @@ public class PlayerEventCardInPopUp : MonoBehaviour
 
     public Button onClickButton;
 
-    public void Init(string text, Action onClick, CardData data)
+    public void Init(string text, Action onClick, CardData data) //inicializē spēlētāja notikumu kārti pop-up logā
     {
         cardData = data;
 

@@ -10,7 +10,7 @@ public class PlayerTop : MonoBehaviour
     public Text playerRoleText;
     private Player player;
 
-    public void Init(Player player)
+    public void Init(Player player) //inicializē spēlētāju
     {
         this.player = player;
 
@@ -24,7 +24,7 @@ public class PlayerTop : MonoBehaviour
         sr.color = player.playerColor;
     }
 
-    void OnMouseDown()
+    void OnMouseDown() //kad nospiež uz spēlētāja
     {
         if (Mainscript.main.inMiddleOfAcion())
         {

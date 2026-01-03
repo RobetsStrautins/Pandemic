@@ -19,7 +19,7 @@ public class PopUpCardManager : MonoBehaviour
 
     private List<GameObject> buttonList = new List<GameObject>();
 
-    private void Awake()
+    private void Awake() //konstruktors
     {
         Instance = this;
         panel.SetActive(false);
@@ -27,7 +27,7 @@ public class PopUpCardManager : MonoBehaviour
         closeButtonRT = closeButton.GetComponent<RectTransform>();
     }
 
-    public void showPlayerCardFromPlayerTop(Player player)
+    public void showPlayerCardFromPlayerTop(Player player) //parāda cita spēlētāja kartis 
     {
         PopUpButtonManager.isPopupOpen = true;
 
@@ -53,7 +53,7 @@ public class PopUpCardManager : MonoBehaviour
         panel.SetActive(true);
     }
 
-    public void pickCardsToCureDisease(string tempColor)
+    public void pickCardsToCureDisease(string tempColor) //parāda spēlētāja kartis, kuras var izmantot slimības izārstēšanai
     {
         Player player = Mainscript.main.getActivePlayer();
 
@@ -85,7 +85,7 @@ public class PopUpCardManager : MonoBehaviour
         panel.SetActive(true);
     }
 
-    public void maxCardLimit(Player player)
+    public void maxCardLimit(Player player) //parāda spēlētāja kartis, ja ir pārsniegts karšu limits
     {
         PopUpButtonManager.isPopupOpen = true;
 
@@ -110,7 +110,7 @@ public class PopUpCardManager : MonoBehaviour
         panel.SetActive(true);
     }
 
-    private void CreateCityCard(string text, Action onClick, CardData data)
+    private void CreateCityCard(string text, Action onClick, CardData data) //izveido pilsētas karti pop-up logā
     {
         GameObject obj = Instantiate(playerPopUpCityCardsPrefab, popUp.transform);
         PlayerCityCardInPopUp newPlayerCityCardInPopUp = obj.GetComponentInChildren<PlayerCityCardInPopUp>();
@@ -118,7 +118,7 @@ public class PopUpCardManager : MonoBehaviour
         buttonList.Add(obj);
     }
 
-    private void CreateEventCard(string text, Action onClick, CardData data)
+    private void CreateEventCard(string text, Action onClick, CardData data) //izveido notikumu karti pop-up logā
     {
         GameObject obj = Instantiate(playerPopUpBonesCardsPrefab, popUp.transform);
         PlayerEventCardInPopUp newPlayerEventCardInPopUp = obj.GetComponentInChildren<PlayerEventCardInPopUp>();
@@ -126,7 +126,7 @@ public class PopUpCardManager : MonoBehaviour
         buttonList.Add(obj);
     }
 
-    private void CardPos()
+    private void CardPos() //izkārto kartis pop-up logā
     {
         float startX = -805;
         int index = 0;
@@ -139,7 +139,7 @@ public class PopUpCardManager : MonoBehaviour
         }
     }
 
-    public void hideInfo()
+    public void hideInfo() //aizver pop-up logu
     {
         panel.SetActive(false);
         PopUpButtonManager.isPopupOpen = false;

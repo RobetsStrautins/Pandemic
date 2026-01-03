@@ -8,7 +8,7 @@ public class PlayerBonesCard : MonoBehaviour
     public CardData cardData;
     public Text title;
     public Text description;
-    public void Init(CardData data)
+    public void Init(CardData data) //inicializē spēlētāja notikumu kārti
     {
         cardData = data;
 
@@ -20,7 +20,7 @@ public class PlayerBonesCard : MonoBehaviour
         description.text = eventCard.description;
     }
 
-    private void OnMouseDown()
+    private void OnMouseDown() //kad nospiež uz spēlētāja notikumu kārti
     {
         if (Mainscript.main.inMiddleOfAcion())
         {

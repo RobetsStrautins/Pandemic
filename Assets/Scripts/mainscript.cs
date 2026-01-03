@@ -24,17 +24,17 @@ public class Mainscript : MonoBehaviour
 
     public List<CityData> researchStationOnMap = new();
 
-    void Awake()
+    void Awake() //konstruktors
     {
         main = this;
     }
 
-    void Start()
+    void Start() //inicializācija
     {
         playerCount = PlayerDeck.playerCount;
 
-        CitySpawner.Instance.Setup();
-        PlayerDeck.SetupBeforeEpidemicCard();
+        CitySpawner.Instance.Setup(); //pilsetu izveide
+        PlayerDeck.SetupBeforeEpidemicCard(); //spēlētāju kāršu kavas izveide
         
         List<PlayerRole> roles = new List<PlayerRole>
         {
@@ -45,13 +45,13 @@ public class Mainscript : MonoBehaviour
             PlayerRole.OperationsExpert
         };
 
-        for (int i = 0; i < playerCount; i++)
+        for (int i = 0; i < playerCount; i++) //spēlētāju izveide
         {
             GameObject spawnedPlayer = Instantiate(playerPrefab);
             activePlayer = spawnedPlayer.GetComponent<Player>();
 
             int radnomRole = UnityEngine.Random.Range(0, roles.Count);
-            activePlayer.playerRole = roles[radnomRole];///roles iedalijums
+            activePlayer.playerRole = roles[radnomRole]; //roles iedalijums
             roles.RemoveAt(radnomRole);
             activePlayer.name = "Player " + (i + 1);
             activePlayer.playerId = i;
@@ -59,7 +59,7 @@ public class Mainscript : MonoBehaviour
             
             playersList.Add(activePlayer);
 
-            for (int j = 0; j < 6 - playerCount; j++)
+            for (int j = 0; j < 6 - playerCount; j++) //spēlētāju sākuma kāršu izdale
             {
                 PlayerDeck.draw(activePlayer);
             }
@@ -69,39 +69,39 @@ public class Mainscript : MonoBehaviour
             newPlayerTop.Init(activePlayer);
         }
 
-        DiseaseDeck.Setup();
-        PlayerDeck.SetupAfterEpidemicCard();
+        DiseaseDeck.Setup(); //slimību kāršu kavas izveide
+        PlayerDeck.SetupAfterEpidemicCard(); //epidēmijas kāršu ielikšana spēlētāju kāršu kavā
 
         activePlayer = playersList[0];
         PlayerHandUi.Instance.renderHand(activePlayer);
 
-        CityData startingCity = CitySpawner.cityMap[3];//sakuma pilseta ar majinu
+        CityData startingCity = CitySpawner.cityMap[3]; //sakuma pilseta ar majinu
         startingCity.buildResearchStation();
 
-        playerTurnCount = 4;///vajag 4
-        GameUI.Instance.Setup();
+        playerTurnCount = 4; //vajag 4
+        GameUI.Instance.Setup(); //spelesUI inicializācija
 
         ActionLog.Instance.addEntry("Spēle sākas!");
         ActionLog.Instance.addEntry("Player " + (activePlayer.playerId + 1) + " sāk gājienu!", Color.blue);
     }
 
-    public Player getActivePlayer()
+    public Player getActivePlayer() //atgriež aktīvo spēlētāju
     {
         return activePlayer;
     }
 
-    private bool playerTurnComplite()
+    private bool playerTurnComplite() //pārbauda vai spēlētājam ir beigušies gājieni
     {
         if (playerTurnCount == 0)
         {
-            //Console.WriteLine("Nav Vairs gaijieni");
+            ActionLog.Instance.addEntry("Darbības vairs nav, jabeidz gājiens", Color.grey);
             return true;
         }
 
         return false;
     }
 
-    public void activePlayerMoveCitys(CityData pressedCity)
+    public void activePlayerMoveCitys(CityData pressedCity) //kad spēlētājs nospiež uz pilsētu izpilda attiecīgo darbību
     {
         if (waitingForCityClick)
         {
@@ -145,13 +145,18 @@ public class Mainscript : MonoBehaviour
         GameUI.Instance.updateMoveCount();
     }
 
-    public void nextTurn()
+    public void nextTurn() //nākamais gājiens
     {
         PlayerHandUi.Instance.clearPlayerHand();
 
+        ActionLog.Instance.addEntry("--------------------------------------------");
         if (!PlayerDeck.quietNight)
         {
-            DiseaseDeck.infectPhase();// infice pilsetas starp gajieniem
+            DiseaseDeck.infectPhase(); // infice pilsetas starp gajieniem
+        }
+        else
+        {
+           ActionLog.Instance.addEntry("Ir klusa nakts nekas nenotiek"); 
         }
 
         currentPlayerIndex = (currentPlayerIndex + 1) % playerCount;
@@ -165,17 +170,18 @@ public class Mainscript : MonoBehaviour
         ActionLog.Instance.addEntry("Player " + (activePlayer.playerId + 1) + " sāk gājienu!", Color.blue);
     }
     
-    public bool inMiddleOfAcion()
+    public bool inMiddleOfAcion() //pārbauda vai notiek kāda darbība
     {
         if (PopUpButtonManager.isPopupOpen || waitingForCityClick)
         {
+            ActionLog.Instance.addEntry("Tu esi vidū citai darbībai ", Color.grey);
             return true;
         }
 
         return false;
     }
 
-    public void putCitysUnderQuarantine(Player player)//QuarantineSpecialist ability
+    public void putCitysUnderQuarantine(Player player) //Karanīnas speciālista spējas īstenošana
     {
         foreach (var city in CitySpawner.cityMap.Values)
         {
@@ -195,7 +201,7 @@ public class Mainscript : MonoBehaviour
         }
     }
 
-    public Color stringToColor(string s)
+    public Color stringToColor(string s) //pārveido string uz Color
     {
         string str = s.ToLower();
         switch (str)

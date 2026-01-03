@@ -10,7 +10,7 @@ public class PopUpButtonAction : MonoBehaviour
     public Text buttonText;
     public Button onClickButton;
 
-    public void Init(string text, Action onClick, bool interactable)
+    public void Init(string text, Action onClick, bool interactable) //inicializē pop-up loga pogu
     {
         name = text + " button";
         buttonText.text = text;

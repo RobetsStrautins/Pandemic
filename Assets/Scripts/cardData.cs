@@ -23,7 +23,7 @@ public abstract class CardData
 {
     public CardType Type;
 
-    protected CardData(CardType type)
+    protected CardData(CardType type) //konstruktors
     {
         Type = type;
     }
@@ -34,7 +34,7 @@ public class PlayerCityCardData : CardData
 {
     public CityData cityCard;
 
-    public PlayerCityCardData(CityData city) : base(CardType.City)
+    public PlayerCityCardData(CityData city) : base(CardType.City) //konstruktors
     {
         cityCard = city;
     }
@@ -47,7 +47,7 @@ public class EventCardData : CardData
     public string description;
     public EventCardType eventType;
 
-    public EventCardData(EventCardType type, string title, string description): base(CardType.Event)
+    public EventCardData(EventCardType type, string title, string description): base(CardType.Event) //konstruktors
     {
         eventType = type;
         this.title = title;
@@ -58,5 +58,5 @@ public class EventCardData : CardData
 [System.Serializable]
 public class EpidemicCardData : CardData
 {
-    public EpidemicCardData() : base(CardType.Epidemic) {  }
+    public EpidemicCardData() : base(CardType.Epidemic) {  }//konstruktors
 }

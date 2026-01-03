@@ -28,12 +28,12 @@ public class DiseaseMarkers : MonoBehaviour
         { "Black", DiseaseColorProgress.NotCured }
     };
 
-    public void Awake()
+    public void Awake() //konstruktors
     {
         Instance = this;
     }
 
-    void Start()
+    void Start() //inicializācija
     {
         for (int i = 0; i < colorList.Length; i++)
         {
@@ -49,7 +49,7 @@ public class DiseaseMarkers : MonoBehaviour
         }
     }
 
-    public void checkForExtinctDisease(string color)
+    public void checkForExtinctDisease(string color) //pārbauda vai slimība ir iznīcināta
     {
         if(cubeColorCount[color] == 0)
         {
@@ -57,7 +57,7 @@ public class DiseaseMarkers : MonoBehaviour
         }
     }
 
-    public void chengeColorCubes(string color, int cubCount)
+    public void chengeColorCubes(string color, int cubCount) //maina kubiciņu skaitu
     {
         cubeColorCount[color] += cubCount;
 
@@ -67,18 +67,18 @@ public class DiseaseMarkers : MonoBehaviour
         }
     }
 
-    public void updateDiseaseProgress(string color, DiseaseColorProgress progress)
+    public void updateDiseaseProgress(string color, DiseaseColorProgress progress) //atjauno slimības progresu
     {
         diseaseProgress[color] = progress;
         ActionLog.Instance.addEntry(color + " slimibas progress ir tagad ir " + progress.ToString().ToLower());
     }
 
-    public DiseaseColorProgress getDiseaseProgress(string color)
+    public DiseaseColorProgress getDiseaseProgress(string color) //atgriež slimības progresu
     {
         return diseaseProgress[color];
     }
 
-    public IEnumerable<DiseaseColorProgress> getAllDiseaseProgress()
+    public IEnumerable<DiseaseColorProgress> getAllDiseaseProgress() //atgriež visu slimību progresu
     {
         return diseaseProgress.Values;
     }

@@ -10,7 +10,7 @@ public class PlayerCityCard : MonoBehaviour
     public Text cityLabel;
     public GameObject cardBackgroundColor;
     
-    public void Init(CardData data)
+    public void Init(CardData data) //inicializē spēlētāja pilsētas karti
     {
         cardData = data;
 
@@ -25,7 +25,7 @@ public class PlayerCityCard : MonoBehaviour
             cityLabel.text = cardsCityData.cityName;
     }
 
-    private void OnMouseDown()
+    private void OnMouseDown() //kad nospiež uz spēlētāja pilsētas karti
     {
         if (Mainscript.main.inMiddleOfAcion())
         {

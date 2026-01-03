@@ -10,9 +10,9 @@ public class CityUi : MonoBehaviour
     public GameObject[] resourceCubes;
     public GameObject researchStation;
 
-    public void Init(CityData data)
+    public void Init(CityData data) //inicializē city objektu
     {
-        cityData = data;///Savieno cityData ar city
+        cityData = data; //Savieno cityData ar city
         cityData.cityObj = this;
 
         transform.position = new Vector3(cityData.Xcord, cityData.Ycord);
@@ -29,7 +29,7 @@ public class CityUi : MonoBehaviour
         setUpColor();
     }   
 
-    public void updateCubes()
+    public void updateCubes() //atjaunina infekcijas kubiciņus
     {
         int cubes = cityData.getCubes();
 
@@ -39,7 +39,7 @@ public class CityUi : MonoBehaviour
         }
     }
 
-    void OnMouseDown()
+    void OnMouseDown() //kad noklikšķina uz city
     {
         if (Mainscript.main.inMiddleOfAcion() && !Mainscript.main.waitingForCityClick)
         {
@@ -49,7 +49,7 @@ public class CityUi : MonoBehaviour
         Mainscript.main.activePlayerMoveCitys(cityData);
     }
 
-    private void setUpColor() 
+    private void setUpColor() //iestata krāsu
     {
         Transform point = transform.Find("Point");
         SpriteRenderer pointRender = point.GetComponent<SpriteRenderer>();
@@ -58,7 +58,7 @@ public class CityUi : MonoBehaviour
         cubeColor(cityData.unityColor);
     }
         
-    private void cubeColor(Color colorValue)
+    private void cubeColor(Color colorValue) //iestata kubiciņu krāsu
     {
         for(int i = 1; i < 4; i++)
         {
@@ -85,7 +85,7 @@ public class CityData
     public bool cityIsUnderQuarantine = false;
     public CityUi cityObj;
 
-    public void addCubes(int newCubes)
+    public void addCubes(int newCubes) //pievieno kubiciņus pilsētai
     {
         if(DiseaseMarkers.Instance?.getDiseaseProgress(color) != DiseaseColorProgress.Eradicated && !cityIsUnderQuarantine)
         {
@@ -105,28 +105,30 @@ public class CityData
         }
     }
 
-    public void removeCubes(int removeCubes)
+    public void removeCubes(int removeCubes) //noņem kubiciņus no pilsētas
     {
         cubes -= removeCubes;
         DiseaseMarkers.Instance.chengeColorCubes(color, cubes);
         cityObj?.updateCubes();
+        ActionLog.Instance.addEntry(removeCubes + " kubiciņi noņemti no " + cityName);
     }
     
-    public int getCubes()
+    public int getCubes() //atgriež kubiciņu skaitu pilsētā
     {
         return cubes;
     }
 
-    public void buildResearchStation()
+    public void buildResearchStation() //uzbūvē izpētes staciju
     {
         cityObj.researchStation.SetActive(true);
         researchStation = true;
         GameUI.Instance.usedAction();
         Mainscript.main.researchStationOnMap.Add(this);
         PopUpButtonManager.Instance.hideInfo();
+        ActionLog.Instance.addEntry("Izpētes stacija uzbūvēta " + cityName);
     }
 
-    public bool hasResearchStation()
+    public bool hasResearchStation() //pārbauda vai ir izpētes stacija
     {
         return researchStation;
     }

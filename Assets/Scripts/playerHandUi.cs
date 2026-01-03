@@ -10,12 +10,12 @@ public class PlayerHandUi : MonoBehaviour
     public GameObject playerBonesCardPrefab;
     private GameObject playerCardParent;
 
-    public void Awake()
+    public void Awake() //konstruktors
     {
         Instance = this;
     }
 
-    public void renderHand(Player player)
+    public void renderHand(Player player) //atjauno spēlētāja roku
     {
         clearPlayerHand();
 
@@ -50,7 +50,7 @@ public class PlayerHandUi : MonoBehaviour
         }
     }
 
-    public void clearPlayerHand()
+    public void clearPlayerHand() //notīra spēlētāja roku
     {
         if (playerCardParent != null)
         {
@@ -73,7 +73,7 @@ public class PlayerCardList
     private CardNode last = null;
     public int playerCardCount = 0;
 
-    public void newNodeCard(CardData data)
+    public void newNodeCard(CardData data) //pievieno jaunu kārti spēlētāja karšu sarakstam
     {
         CardNode node = new CardNode { data = data };
 
@@ -91,7 +91,7 @@ public class PlayerCardList
         playerCardCount++;
     }
     
-    public void removeCard(CardData data)
+    public void removeCard(CardData data) //atraida un noņem kārti no spēlētāja karšu saraksta
     {
         CardNode current = first;
 
@@ -106,7 +106,7 @@ public class PlayerCardList
         }
     }
 
-    private void removeNode(CardNode node)
+    private void removeNode(CardNode node) //noņem kārti no spēlētāja karšu saraksta
     {
         if (first == node && last == node)
         {
@@ -132,7 +132,7 @@ public class PlayerCardList
         playerCardCount--;
     }
 
-    public IEnumerable<CardData> getAllCards()
+    public IEnumerable<CardData> getAllCards() //atgriež visas kārtis spēlētāja karšu sarakstā
     {
         CardNode current = first;
         while (current != null)

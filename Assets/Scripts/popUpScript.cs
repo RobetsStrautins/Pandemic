@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class PopUpScript : MonoBehaviour
 {
-    public void exitPopUp()
+    public void exitPopUp() //aizver pop-up logus
     {
         PopUpCardManager.Instance.hideInfo();
         PopUpButtonManager.Instance.hideInfo();
     }
 
-    public void flyTo(PlayerCityCard card)
+    public void flyTo(PlayerCityCard card) //pārlido uz izvēlēto pilsētu
     {
         Player player = Mainscript.main.getActivePlayer();
 
@@ -21,7 +21,7 @@ public class PopUpScript : MonoBehaviour
         exitPopUp();
     }
 
-    public void flyAnywhere(PlayerCityCard card)
+    public void flyAnywhere(PlayerCityCard card) //pārlido uz jebkuru pilsētu
     {
         Debug.Log("Nospied pilsetu");
         Mainscript.main.waitingForCityClick = true;
@@ -33,7 +33,7 @@ public class PopUpScript : MonoBehaviour
         exitPopUp();
     }
 
-    public void makeRearchStation(PlayerCityCard card)
+    public void makeRearchStation(PlayerCityCard card) //izveido izpētes staciju
     {
         card.cardsCityData.buildResearchStation();
 
@@ -43,7 +43,7 @@ public class PopUpScript : MonoBehaviour
         exitPopUp();
     }
 
-    public void giveCard(PlayerCityCard card, Player playerToGiveCard)
+    public void giveCard(PlayerCityCard card, Player playerToGiveCard) //dod karti citam spēlētājam
     {
         playerToGiveCard.playerCardList.newNodeCard(card.cardData);
 
@@ -55,7 +55,7 @@ public class PopUpScript : MonoBehaviour
         exitPopUp();
     }
 
-    public void takeCard(CardData data, Player playerToTakeCard)
+    public void takeCard(CardData data, Player playerToTakeCard) //paņem karti no cita spēlētāja
     {
         playerToTakeCard.playerCardList.removeCard(data);
 
@@ -69,27 +69,27 @@ public class PopUpScript : MonoBehaviour
         exitPopUp();
     }
 
-    public void removeCard(CardData data, Player player)
+    public void removeCard(CardData data, Player player) //nomet karti
     {
         player.playerCardList.removeCard(data);
 
         exitPopUp();
     }
 
-    public void cureDiseasePopUp(string color)
+    public void cureDiseasePopUp(string color) //izārstē slimību
     {
         Debug.LogWarning("aaaaa" + color);
         exitPopUp();
         PopUpCardManager.Instance.pickCardsToCureDisease(color);
     }
 
-    public void flyToResearchStation(CityData city)
+    public void flyToResearchStation(CityData city) //pārlido uz pilsētu ar izpētes staciju
     {
         exitPopUp();
         PopUpButtonManager.Instance.showCitysWithReserchStation(city);
     }
 
-    public void trasportTo(CityData city)
+    public void trasportTo(CityData city) //transportē uz izvēlēto pilsētu
     {
         Player player = Mainscript.main.getActivePlayer();
         player.moveToCity(city);
@@ -97,7 +97,7 @@ public class PopUpScript : MonoBehaviour
         exitPopUp();
     }
 
-    public void clearCubes(CityData city, int count)
+    public void clearCubes(CityData city, int count) //noņem kubiciņus no pilsētas
     {
         city.removeCubes(count);
 
@@ -107,7 +107,7 @@ public class PopUpScript : MonoBehaviour
         exitPopUp();
     }
 
-    public void clearAllCubes(CityData city)
+    public void clearAllCubes(CityData city) //noņem visus kubiciņus no pilsētas
     {
         int cubes = city.getCubes();
         city.removeCubes(cubes);
@@ -119,7 +119,7 @@ public class PopUpScript : MonoBehaviour
         exitPopUp();
     }
 
-    public void quietNight(CardData data, Player player)
+    public void quietNight(CardData data, Player player) //izmanto klusās nakts notikumu
     {
         PlayerDeck.quietNight = true;
 
@@ -127,21 +127,21 @@ public class PopUpScript : MonoBehaviour
         exitPopUp();
     }
 
-    public void resilientPopulation(CardData data, Player player)
+    public void resilientPopulation(CardData data, Player player) //izmanto populācijas pretošanās notikumu
     {
         exitPopUp();
 
         PopUpButtonManager.Instance.showAllDiscardDiseaseCards(data, player);
     }
 
-    public void discardDisease(CityData CityToRemove, CardData data, Player player)
+    public void discardDisease(CityData CityToRemove, CardData data, Player player) //noņem infekcijas kārti
     {
         player.playerCardList.removeCard(data);
         DiseaseDeck.usedInfectionDeck.Remove(CityToRemove);
         exitPopUp();
     }
 
-    public void governmentGrant(CardData data, Player player)
+    public void governmentGrant(CardData data, Player player) //izmanto valdības subsīdijasnotikumu
     {
         Debug.Log("Nospied pilsetu");
         Mainscript.main.waitingForCityClick = true;
@@ -151,14 +151,14 @@ public class PopUpScript : MonoBehaviour
         exitPopUp();
     }
 
-    public void airLift(CardData data, Player player)
+    public void airLift(CardData data, Player player) //izmanto gaisa transportu
     { 
         exitPopUp();
 
         PopUpButtonManager.Instance.showAllPlayers(data, player);
     }
 
-    public void airLift2(Player playerList, CardData data, Player player)
+    public void airLift2(Player playerList, CardData data, Player player) //gaisa transporta otrā daļa
     {
         PlayerDeck.airLiftPlayer = playerList;
 
@@ -170,12 +170,13 @@ public class PopUpScript : MonoBehaviour
         exitPopUp();
     }
 
-    public void endTurnButton()
+    public void endTurnButton()// beidz gājienu
     {
         Player player = Mainscript.main.getActivePlayer();
         if(player.playerCardList.playerCardCount > 7)
         {
-            Debug.LogWarning("Speletajam ir par daudz kartis, nomest liekas kartis");
+
+            ActionLog.Instance.addEntry("Spēlētājam ir par daudz kārtis", Color.red);
             PopUpCardManager.Instance.maxCardLimit(player);
         }
         else if(PickUpCard.playerTookCards)
@@ -191,17 +192,17 @@ public class PopUpScript : MonoBehaviour
         }
     }
 
-    public void closeButtonForButtonPanal()
+    public void closeButtonForButtonPanal() //aizver pogu pop-up
     {
         PopUpButtonManager.Instance.hideInfo();
     }
 
-    public void closeButtonForCardPanal()
+    public void closeButtonForCardPanal() //aizver kāršu pop-up
     {
         PopUpCardManager.Instance.hideInfo();
     }
 
-    public void confirmButton()
+    public void confirmButton() //apstiprināšanas poga
     {
         int neededCardCount = 5;
 
@@ -240,6 +241,7 @@ public class PopUpScript : MonoBehaviour
         else
         {
             Debug.LogWarning("Need to select 5 cards or 4 if Scientist to cure disease");
+            ActionLog.Instance.addEntry("Vajag 5 kārtis lai izārstētu vai 4 ja ir zinātnieks",Color.red);
         }
     }
 }

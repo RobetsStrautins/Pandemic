@@ -7,7 +7,7 @@ public static class SelectionManager
 
     public static List<PlayerCityCardInPopUp> selectedCards = new List<PlayerCityCardInPopUp>();
 
-    public static void selectCard(PlayerCityCardInPopUp card)
+    public static void selectCard(PlayerCityCardInPopUp card) //pievieno izveleto kārti
     {
         if (!selectedCards.Contains(card))
         {
@@ -15,12 +15,12 @@ public static class SelectionManager
         }
     }
 
-    public static void deselectCard(PlayerCityCardInPopUp card)
+    public static void deselectCard(PlayerCityCardInPopUp card) //noņem izvēlēto kārti
     {
         selectedCards.Remove(card);
     }
 
-    public static bool canSelectMore()
+    public static bool canSelectMore() //atgriež vai var vel pievienot
     {
         return selectedCards.Count < maxSelections;
     }

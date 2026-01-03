@@ -10,7 +10,7 @@ public class DiseaseColorMarker : MonoBehaviour
 
     private string diseaseColor;
 
-    public void Init(string cureColor)
+    public void Init(string cureColor) //konstruktors
     {
         name = cureColor + " marker";
         diseaseColor = cureColor;
@@ -22,7 +22,7 @@ public class DiseaseColorMarker : MonoBehaviour
         cross.SetActive(false);
     }
 
-    public void curedDisease()
+    public void curedDisease() //izsauc kad izārstē slimību
     {
         Color siluetColor = cureSilutet.color;
         siluetColor.a = 1;
@@ -35,7 +35,7 @@ public class DiseaseColorMarker : MonoBehaviour
         GameUI.Instance.checkIfGameWon();
     }
 
-    public void extinctDisease()
+    public void extinctDisease() //izsauc kad slimība ir iznīcināta
     {
         cross.SetActive(true);
         DiseaseMarkers.Instance.updateDiseaseProgress(diseaseColor, DiseaseColorProgress.Eradicated);

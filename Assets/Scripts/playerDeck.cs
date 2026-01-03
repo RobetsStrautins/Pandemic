@@ -14,7 +14,7 @@ public static class PlayerDeck
     public static bool quietNight = false;
     public static Player airLiftPlayer;
 
-    public static void SetupBeforeEpidemicCard()
+    public static void SetupBeforeEpidemicCard() //izveido spēlētāju kāršu kavu pirms epidēmijas kāršu pievienošanas
     {
         deck.Clear();
         usedDeck.Clear();
@@ -29,7 +29,7 @@ public static class PlayerDeck
         shuffle(deck);
     }
 
-    public static void SetupAfterEpidemicCard()
+    public static void SetupAfterEpidemicCard() //atjauno spēlētāju kāršu kavu pēc epidēmijas kāršu pievienošanas
     {
         int baseStackSize = deck.Count / epidemicCardCount;
         int extraCards = deck.Count % epidemicCardCount;
@@ -47,7 +47,7 @@ public static class PlayerDeck
         }
     }
 
-    public static void draw(Player player)
+    public static void draw(Player player) //izvelk kārti no spēlētāju kavas
     {
         if (deck.Count == 0)
         {
@@ -69,7 +69,7 @@ public static class PlayerDeck
         }
     }
 
-    private static void shuffle(List<CardData> list)
+    private static void shuffle(List<CardData> list) //sajauc spēlētāju kāršu kavu
     {
         int cardCount = list.Count;
         while (cardCount > 1)
@@ -80,7 +80,7 @@ public static class PlayerDeck
         }
     }
 
-    private static void createEventCards()
+    private static void createEventCards() //izveido notikumu kārtis
     {
         deck.Add(new EventCardData(
             EventCardType.GovernmentGrant,

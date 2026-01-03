@@ -13,7 +13,7 @@ public static class DiseaseDeck
     private static int infectionRateIndex = 0;
     private static int[] infectionRateList = {2,2,2,3,3,4,4};
 
-    public static void Setup()
+    public static void Setup() //inficē sākuma pilsētas
     {
         infectionDeck.Clear();
 
@@ -35,7 +35,7 @@ public static class DiseaseDeck
         ActionLog.Instance.addEntry("--------------------------------------------");
     }
 
-    private static void shuffle(List<CityData> list)
+    private static void shuffle(List<CityData> list) //sajauc infekciju kārtis
     {
         int cardCount = list.Count;
 
@@ -47,7 +47,7 @@ public static class DiseaseDeck
         }
     }
 
-    private static void infectCities(int cubeCount)
+    private static void infectCities(int cubeCount) //inficē pilsētu
     {
         CityData infectedCity = infectionDeck[0];
 
@@ -60,7 +60,7 @@ public static class DiseaseDeck
         infectionDeck.Remove(infectionDeck[0]);
     }
 
-    public static void infectPhase()
+    public static void infectPhase() //inficēšanas fāze gājiena beigās
     {
         for (int i = 0; i < infectionRateList[infectionRateIndex]; i++)
         {
@@ -68,9 +68,8 @@ public static class DiseaseDeck
         }
     }
 
-    public static void epidemic()
+    public static void epidemic() //epidēmijas funkcija
     {
-
         Debug.LogWarning("aaaa epidemija");
 
         int temp = infectionDeck.Count-1;
@@ -92,7 +91,7 @@ public static class DiseaseDeck
         GameUI.Instance.updateInfectionRateCount(infectionRateList[infectionRateIndex]);
     }
 
-    public static void outBreak(CityData outBreakCity)
+    public static void outBreak(CityData outBreakCity) //uzliesmojuma funkcija
     {
         outBreakCount++;
         GameUI.Instance.updateOutBreakCount(outBreakCount);
@@ -102,6 +101,8 @@ public static class DiseaseDeck
             GameUI.Instance.gameLost(("Uzliesmojumi sasniedza 8"));
         }
 
+        ActionLog.Instance.addEntry(outBreakCity.cityName + " uzliesmo! tas ir" + outBreakCount + "!", Color.red);
+        
         if(!citiesOutBreakHappend.Contains(outBreakCity))
         {
             citiesOutBreakHappend.Add(outBreakCity);

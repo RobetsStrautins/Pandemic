@@ -6,7 +6,7 @@ public class PickUpCard : MonoBehaviour
 {
     public static bool playerTookCards = false;
 
-    void OnMouseDown()
+    void OnMouseDown() //kad nospiež uz pacelšanas karti
     {
         if (Mainscript.main.inMiddleOfAcion())
         {

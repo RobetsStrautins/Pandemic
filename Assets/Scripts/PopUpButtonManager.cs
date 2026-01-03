@@ -18,13 +18,13 @@ public class PopUpButtonManager : MonoBehaviour
 
     private List<GameObject> buttonList = new List<GameObject>();
 
-    void Awake()
+    void Awake() //konstruktors
     {
         Instance = this;
         panel.SetActive(false);
     }
 
-    public void showInfoWhenCardPressed(PlayerCityCard card, Player activePlayer)//izarstet,lidota ar maju,nonemt cubicinu
+    public void showInfoWhenCardPressed(PlayerCityCard card, Player activePlayer) //inicializē pop-up logu kad nospiež uz spēlētāja pilsētas karti
     {
         if (Mainscript.main.playerTurnCount == 0)
         {
@@ -79,7 +79,7 @@ public class PopUpButtonManager : MonoBehaviour
         StartCoroutine(scrollToTop());
     }
 
-    public void showInfoWhenEventCardPressed(CardData data, Player player)
+    public void showInfoWhenEventCardPressed(CardData data, Player player) //inicializē pop-up logu kad nospiež uz spēlētāja notikumu kārti
     {
 
         isPopupOpen = true;
@@ -114,7 +114,7 @@ public class PopUpButtonManager : MonoBehaviour
         StartCoroutine(scrollToTop());
     }
 
-    public void showInfoWhenMyCityPressed(CityData city, Player player)
+    public void showInfoWhenMyCityPressed(CityData city, Player player) //inicializē pop-up logu kad nospiež uz spēlētāja pilsētu
     {
         if (Mainscript.main.playerTurnCount == 0)
         {
@@ -171,7 +171,7 @@ public class PopUpButtonManager : MonoBehaviour
         StartCoroutine(scrollToTop());
     }
 
-    public void showInfoWhenCityCardsFromOtherPlayer(CardData data, Player playerThatWasPressed)
+    public void showInfoWhenCityCardsFromOtherPlayer(CardData data, Player playerThatWasPressed) //inicializē pop-up logu kad nospiež uz citas spēlētāja pilsētas karti
     {
         if (Mainscript.main.playerTurnCount == 0)
         {
@@ -210,8 +210,8 @@ public class PopUpButtonManager : MonoBehaviour
             hideInfo();
         }
     }
-    
-    public void showCitysWithReserchStation(CityData pressedcity)
+
+    public void showCitysWithReserchStation(CityData pressedcity) //inicializē pop-up logu ar pilsētām kurās ir izveidotas izpētes stacijas
     {
         isPopupOpen = true;
 
@@ -228,7 +228,7 @@ public class PopUpButtonManager : MonoBehaviour
         StartCoroutine(scrollToTop());
     }
 
-    public void showAllDiscardDiseaseCards(CardData data, Player player)
+    public void showAllDiscardDiseaseCards(CardData data, Player player) //inicializē pop-up logu ar visām izlietotajām inficēšanās kārtīm
     {
         isPopupOpen = true;
 
@@ -242,7 +242,7 @@ public class PopUpButtonManager : MonoBehaviour
         StartCoroutine(scrollToTop());
     }
 
-    public void showAllPlayers(CardData data, Player player)
+    public void showAllPlayers(CardData data, Player player) //inicializē pop-up logu ar visiem spēlētājiem
     {
         isPopupOpen = true;
 
@@ -256,7 +256,7 @@ public class PopUpButtonManager : MonoBehaviour
         StartCoroutine(scrollToTop());
     }
 
-    public void showRemoveOpcion(CardData data,  Player player)
+    public void showRemoveOpcion(CardData data,  Player player) //inicializē pop-up logu ar kāršu noņemšanas opcijām
     {
         isPopupOpen = true;
 
@@ -296,7 +296,7 @@ public class PopUpButtonManager : MonoBehaviour
         StartCoroutine(scrollToTop());
     }
 
-    private void CreateButton(string text, Action onClick, bool interactable = true)
+    private void CreateButton(string text, Action onClick, bool interactable = true) //izveido pogu pop-up logā
     {
         GameObject obj = Instantiate(buttonPrefab, popUp.transform);
         PopUpButtonAction newButton = obj.GetComponentInChildren<PopUpButtonAction>();
@@ -304,7 +304,7 @@ public class PopUpButtonManager : MonoBehaviour
         buttonList.Add(obj);
     }
 
-    public void hideInfo()
+    public void hideInfo() //aizver pop-up logu
     {
         panel.SetActive(false);
         isPopupOpen = false;
@@ -316,7 +316,7 @@ public class PopUpButtonManager : MonoBehaviour
         buttonList.Clear();
     }
 
-    private string countCardColors(Player player)
+    private string countCardColors(Player player) //skaita spēlētāja karšu krāsas un pārbauda vai var izārstēt kādu slimību
     {
         var colorCounts = new Dictionary<string, int>
         {
@@ -356,7 +356,7 @@ public class PopUpButtonManager : MonoBehaviour
         return null;
     }
 
-    private IEnumerator scrollToTop()
+    private IEnumerator scrollToTop() //ritina pop-up logu uz augšu
     {
         yield return null;
 
