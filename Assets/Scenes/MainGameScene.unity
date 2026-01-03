@@ -1133,7 +1133,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 200
+    m_FontSize: 135
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -1144,7 +1144,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: You lost aaaaa
+  m_Text: "You lost \naaaaa"
 --- !u!222 &462451713
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1481,7 +1481,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 580874144}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1454100992}
+        m_TargetAssemblyTypeName: NewBehaviourScript, Game
+        m_MethodName: playAgainButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &580874144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1766,6 +1778,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 580874142}
+  - {fileID: 904945170}
   m_Father: {fileID: 1454100989}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1938,11 +1951,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1591352735}
-  m_Father: {fileID: 1454100989}
+  m_Father: {fileID: 740794558}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -8, y: -213}
+  m_AnchoredPosition: {x: -8, y: -32.945557}
   m_SizeDelta: {x: 400, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &904945171
@@ -1988,7 +2001,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 904945172}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1454100992}
+        m_TargetAssemblyTypeName: NewBehaviourScript, Game
+        m_MethodName: quitGameButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &904945172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3395,13 +3420,14 @@ GameObject:
   - component: {fileID: 1454100989}
   - component: {fileID: 1454100991}
   - component: {fileID: 1454100990}
+  - component: {fileID: 1454100992}
   m_Layer: 5
   m_Name: gmaeOverPennel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1454100989
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3416,7 +3442,6 @@ RectTransform:
   m_Children:
   - {fileID: 462451711}
   - {fileID: 740794558}
-  - {fileID: 904945170}
   m_Father: {fileID: 1181117794}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3462,6 +3487,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1454100988}
   m_CullTransparentMesh: 1
+--- !u!114 &1454100992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1454100988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1314e0852df6e7d46a4fd7cab89f9104, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1493232051
 GameObject:
   m_ObjectHideFlags: 0

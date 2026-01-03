@@ -26,50 +26,47 @@ public class PopUpButtonManager : MonoBehaviour
 
     public void showInfoWhenCardPressed(PlayerCityCard card, Player activePlayer) //inicializē pop-up logu kad nospiež uz spēlētāja pilsētas karti
     {
-        if (Mainscript.main.playerTurnCount == 0)
-        {
-           return; 
-        }
-
         isPopupOpen = true;
-
-        if (card.cardData.Type != CardType.City)
+        if (Mainscript.main.playerTurnCount > 0)
         {
-           return; 
-        }
-
-        if(activePlayer.playerRole == PlayerRole.OperationsExpert && activePlayer.city.hasResearchStation())
-        {
-            CreateButton("Lidot uz jebkuru pilsetu (Operaciju specialists)", () => popupScript.flyAnywhere(card));
-        }
-        else if (activePlayer.city == card.cardsCityData)
-        {
-            CreateButton("Lidot no " + card.cardsCityData.cityName, () => popupScript.flyAnywhere(card));
-
-            if (!card.cardsCityData.hasResearchStation())
+            if (card.cardData.Type != CardType.City)
             {
-                CreateButton("Uztaisīt mājiņu", () => popupScript.makeRearchStation(card));
-            }
-        }
-        else
-        {
-            CreateButton("Lidot uz " + card.cardsCityData.cityName, () => popupScript.flyTo(card));
-        }
-
-        foreach (Player playerInList in Mainscript.main.playersList)
-        {
-            if(activePlayer.city == playerInList.city && playerInList != activePlayer)
-            {
-                if (playerInList.city == card.cardsCityData)
-                {
-                    CreateButton("Iedot karti spēlētājam " + (playerInList.playerId + 1), () => popupScript.giveCard(card, playerInList));
-                }
-                else if (activePlayer.playerRole == PlayerRole.Researcher || playerInList.playerRole == PlayerRole.Researcher)
-                {
-                    CreateButton("Iedot karti spēlētājam " + (playerInList.playerId + 1) + " (Petnieks)", () => popupScript.giveCard(card, playerInList));
-                }
+               return; 
             }
 
+            if(activePlayer.playerRole == PlayerRole.OperationsExpert && activePlayer.city.hasResearchStation())
+            {
+                CreateButton("Lidot uz jebkuru pilsetu (Operaciju specialists)", () => popupScript.flyAnywhere(card));
+            }
+            else if (activePlayer.city == card.cardsCityData)
+            {
+                CreateButton("Lidot no " + card.cardsCityData.cityName, () => popupScript.flyAnywhere(card));
+
+                if (!card.cardsCityData.hasResearchStation())
+                {
+                    CreateButton("Uztaisīt mājiņu", () => popupScript.makeRearchStation(card));
+                }
+            }
+            else
+            {
+                CreateButton("Lidot uz " + card.cardsCityData.cityName, () => popupScript.flyTo(card));
+            }
+
+            foreach (Player playerInList in Mainscript.main.playersList)
+            {
+                if(activePlayer.city == playerInList.city && playerInList != activePlayer)
+                {
+                    if (playerInList.city == card.cardsCityData)
+                    {
+                        CreateButton("Iedot karti spēlētājam " + (playerInList.playerId + 1), () => popupScript.giveCard(card, playerInList));
+                    }
+                    else if (activePlayer.playerRole == PlayerRole.Researcher || playerInList.playerRole == PlayerRole.Researcher)
+                    {
+                        CreateButton("Iedot karti spēlētājam " + (playerInList.playerId + 1) + " (Petnieks)", () => popupScript.giveCard(card, playerInList));
+                    }
+                }
+
+            }
         }
 
         CreateButton("Nomest karti", () => popupScript.removeCard(card.cardData, activePlayer));
@@ -116,7 +113,7 @@ public class PopUpButtonManager : MonoBehaviour
 
     public void showInfoWhenMyCityPressed(CityData city, Player player) //inicializē pop-up logu kad nospiež uz spēlētāja pilsētu
     {
-        if (Mainscript.main.playerTurnCount == 0)
+        if (Mainscript.main.playerTurnCount <= 0)
         {
            return; 
         }
@@ -173,7 +170,7 @@ public class PopUpButtonManager : MonoBehaviour
 
     public void showInfoWhenCityCardsFromOtherPlayer(CardData data, Player playerThatWasPressed) //inicializē pop-up logu kad nospiež uz citas spēlētāja pilsētas karti
     {
-        if (Mainscript.main.playerTurnCount == 0)
+        if (Mainscript.main.playerTurnCount <= 0)
         {
            return; 
         }

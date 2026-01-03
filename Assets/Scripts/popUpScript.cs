@@ -190,6 +190,10 @@ public class PopUpScript : MonoBehaviour
             PickUpCard.playerTookCards = false;
             Mainscript.main.nextTurn();
         }
+        else
+        {
+            ActionLog.Instance.addEntry("Lai beigtu gājienu, sākuma japaceļ kārtis", Color.grey);
+        }
     }
 
     public void closeButtonForButtonPanal() //aizver pogu pop-up

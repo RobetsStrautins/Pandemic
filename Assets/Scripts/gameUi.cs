@@ -61,6 +61,7 @@ public class GameUI : MonoBehaviour
 
         gameOverPanel.SetActive(true);
         gameEndText.text = "You won";
+        ActionLog.Instance.addEntry("Tu esi uz uzvarējis", Color.green);
     }
 
     public void gameLost(string reason) //izsauc kad spēle ir zaudēta
@@ -68,5 +69,6 @@ public class GameUI : MonoBehaviour
         gameOverPanel.SetActive(true);
         gameEndText.text = "You Lost \n" + reason;
         Mainscript.main.waitingForCityClick = true;
+        ActionLog.Instance.addEntry("Tu esi uz zaudejis, jo " + reason, Color.green);
     }
 }

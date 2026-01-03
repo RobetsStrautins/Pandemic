@@ -92,7 +92,7 @@ public class Mainscript : MonoBehaviour
 
     private bool playerTurnComplite() //pārbauda vai spēlētājam ir beigušies gājieni
     {
-        if (playerTurnCount == 0)
+        if (playerTurnCount < 0)
         {
             ActionLog.Instance.addEntry("Darbības vairs nav, jabeidz gājiens", Color.grey);
             return true;
@@ -156,7 +156,8 @@ public class Mainscript : MonoBehaviour
         }
         else
         {
-           ActionLog.Instance.addEntry("Ir klusa nakts nekas nenotiek"); 
+            PlayerDeck.quietNight = false;
+            ActionLog.Instance.addEntry("Ir klusa nakts nekas nenotiek"); 
         }
 
         currentPlayerIndex = (currentPlayerIndex + 1) % playerCount;
@@ -164,7 +165,7 @@ public class Mainscript : MonoBehaviour
 
         PlayerHandUi.Instance.renderHand(activePlayer);
 
-        playerTurnCount = 4;//vajag 4
+        playerTurnCount = 4; //vajag 4
         GameUI.Instance.updateMoveCount();
         ActionLog.Instance.addEntry("--------------------------------------------");
         ActionLog.Instance.addEntry("Player " + (activePlayer.playerId + 1) + " sāk gājienu!", Color.blue);

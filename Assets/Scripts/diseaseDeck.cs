@@ -101,7 +101,7 @@ public static class DiseaseDeck
             GameUI.Instance.gameLost(("Uzliesmojumi sasniedza 8"));
         }
 
-        ActionLog.Instance.addEntry(outBreakCity.cityName + " uzliesmo! tas ir" + outBreakCount + "!", Color.red);
+        ActionLog.Instance.addEntry(outBreakCity.cityName + " uzliesmo! Tas ir " + outBreakCount + ". uzliesmojums!", Color.red);
         
         if(!citiesOutBreakHappend.Contains(outBreakCity))
         {
