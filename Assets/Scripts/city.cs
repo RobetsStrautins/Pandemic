@@ -116,7 +116,7 @@ public class CityData
     public void removeCubes(int removeCubes) //noņem kubiciņus no pilsētas
     {
         cubes -= removeCubes;
-        DiseaseMarkers.Instance.chengeColorCubes(color, cubes);
+        DiseaseMarkers.Instance.chengeColorCubes(color, -removeCubes);
         cityObj?.updateCubes();
         ActionLog.Instance.addEntry(removeCubes + " kubiciņi noņemti no " + cityName);
     }
