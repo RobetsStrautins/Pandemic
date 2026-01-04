@@ -16,6 +16,10 @@ public class PickUpCard : MonoBehaviour
         if(!playerTookCards)
         {
             Player player = Mainscript.main.getActivePlayer();
+            if (player.playerRole == PlayerRole.QuarantineSpecialist)
+            {
+                Mainscript.main.putCitysUnderQuarantine(player);
+            }
             PlayerDeck.draw(player);
             PlayerDeck.draw(player);
             PlayerHandUi.Instance.renderHand(player);
@@ -24,10 +28,7 @@ public class PickUpCard : MonoBehaviour
             GameUI.Instance.updateMoveCount();
 
             playerTookCards = true;
-            if (player.playerRole == PlayerRole.QuarantineSpecialist)
-            {
-                Mainscript.main.putCitysUnderQuarantine(player);
-            }
+
         }
     }
 

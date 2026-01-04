@@ -184,11 +184,11 @@ public class PopUpButtonManager : MonoBehaviour
 
             Player activePlayer = Mainscript.main.getActivePlayer();
 
-            if (activePlayer.city == cardsCityData)//abi atrodas viena pilseta)
+            if (activePlayer.city == playerThatWasPressed.city)//abi atrodas viena pilseta)
             {
                 CreateButton($"Paņemt {cardsCityData.cityName} karti no {playerThatWasPressed.playerId+1} speletaja", () => popupScript.takeCard(data, playerThatWasPressed));
             }
-            else if (playerThatWasPressed.playerRole == PlayerRole.Researcher || activePlayer.playerRole == PlayerRole.Researcher)//Researcher ability
+            else if (activePlayer.city == playerThatWasPressed.city && (playerThatWasPressed.playerRole == PlayerRole.Researcher || activePlayer.playerRole == PlayerRole.Researcher))//Researcher ability
             {
                 CreateButton($"Paņemt {cardsCityData.cityName} karti no {playerThatWasPressed.playerId+1} speletaja (Petnieks)", () => popupScript.takeCard(data, playerThatWasPressed));
             }

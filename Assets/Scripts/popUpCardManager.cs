@@ -134,7 +134,7 @@ public class PopUpCardManager : MonoBehaviour
         foreach (GameObject obj in buttonList)
         {
             RectTransform rt = obj.GetComponent<RectTransform>();
-            rt.anchoredPosition = new Vector2(startX + index * + 230, 0f);
+            rt.anchoredPosition = new Vector2(startX + index * + 200, 0f);
             index++;
         }
     }

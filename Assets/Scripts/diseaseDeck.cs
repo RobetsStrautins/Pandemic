@@ -98,7 +98,7 @@ public static class DiseaseDeck
 
         if(outBreakCount >= 8)
         {
-            GameUI.Instance.gameLost(("Uzliesmojumi sasniedza 8"));
+            GameUI.Instance.gameLost("Uzliesmojumi sasniedza 8");
         }
 
         ActionLog.Instance.addEntry(outBreakCity.cityName + " uzliesmo! Tas ir " + outBreakCount + ". uzliesmojums!", Color.red);

@@ -87,22 +87,30 @@ public class CityData
 
     public void addCubes(int newCubes) //pievieno kubiciņus pilsētai
     {
-        if(DiseaseMarkers.Instance?.getDiseaseProgress(color) != DiseaseColorProgress.Eradicated && !cityIsUnderQuarantine)
+        if(DiseaseMarkers.Instance?.getDiseaseProgress(color) != DiseaseColorProgress.Eradicated )
         {
-            Debug.Log($"added {newCubes} cube to {cityName}");
-            if (cubes + newCubes > 3)
+            if(!cityIsUnderQuarantine)
             {
-                DiseaseMarkers.Instance?.chengeColorCubes(color, 3 - cubes);
-                cubes = 3;
-                DiseaseDeck.outBreak(this);
+                Debug.Log($"added {newCubes} cube to {cityName}");
+                if (cubes + newCubes > 3)
+                {
+                    DiseaseMarkers.Instance?.chengeColorCubes(color, 3 - cubes);
+                    cubes = 3;
+                    DiseaseDeck.outBreak(this);
+                }
+                else
+                {
+                    DiseaseMarkers.Instance?.chengeColorCubes(color, newCubes);
+                    cubes += newCubes;
+                }
+                cityObj?.updateCubes(); 
             }
-            else
-            {
-                DiseaseMarkers.Instance?.chengeColorCubes(color, newCubes);
-                cubes += newCubes;
-            }
-            cityObj?.updateCubes();
         }
+        else
+        {
+            ActionLog.Instance.addEntry("Karantīnas speciālists apstadināja izplatību " + cityName);
+        }
+
     }
 
     public void removeCubes(int removeCubes) //noņem kubiciņus no pilsētas

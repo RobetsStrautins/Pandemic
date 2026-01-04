@@ -29,8 +29,8 @@ RectTransform:
   m_GameObject: {fileID: 1795310009484395041}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 106.8}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5138128543023256672}
   m_Father: {fileID: 0}
@@ -142,6 +142,7 @@ MonoBehaviour:
     color: 
     unityColor: {r: 0, g: 0, b: 0, a: 0}
     connectedCity: 
+    cityIsUnderQuarantine: 0
     cityObj: {fileID: 0}
   cityLabel: {fileID: 3271214808535363601}
   cardBackgroundColor: {fileID: 8458418097227780692}
