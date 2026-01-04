@@ -88,7 +88,7 @@ public static class DiseaseDeck
         usedInfectionDeck.Clear();
 
         infectionRateIndex++;
-        GameUI.Instance.updateInfectionRateCount(infectionRateList[infectionRateIndex]);
+        GameUI.Instance.updateInfectionRateCount(infectionRateList[infectionRateIndex],infectionRateIndex);
     }
 
     public static void outBreak(CityData outBreakCity) //uzliesmojuma funkcija

@@ -105,6 +105,11 @@ public class PopUpCardManager : MonoBehaviour
         closeButtonRT.anchoredPosition = new Vector2(0, -190);
         confirmButton.SetActive(false);
 
+        if(Mainscript.main.getActivePlayer() != player)
+        {
+            closeButtonRT.anchoredPosition = new Vector2(0, -3190);
+        }
+
         CardPos();
         titleText.text = "Speletajam ir par daudz kartis, jaņomet kārti";
         panel.SetActive(true);

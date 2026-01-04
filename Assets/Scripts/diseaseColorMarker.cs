@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class DiseaseColorMarker : MonoBehaviour
 {
     public SpriteRenderer cure;
     public SpriteRenderer cureSilutet;
     public GameObject cross;
 
+    public Text text;
     private string diseaseColor;
 
     public void Init(string cureColor) //konstruktors
@@ -37,6 +38,7 @@ public class DiseaseColorMarker : MonoBehaviour
 
     public void extinctDisease() //izsauc kad slimība ir iznīcināta
     {
+        text.text = " ";
         cross.SetActive(true);
         DiseaseMarkers.Instance.updateDiseaseProgress(diseaseColor, DiseaseColorProgress.Eradicated);
     }

@@ -37,7 +37,7 @@ public class PlayerTop : MonoBehaviour
         }
         else
         {
-            
+            RolesDescription.Instance.showRoleDescription(player); 
         }
     }
 }

@@ -45,6 +45,8 @@ public static class PlayerDeck
 
             currentIndex += stackSize + 1;
         }
+
+        GameUI.Instance.updateCardCount(deck.Count);
     }
 
     public static void draw(Player player) //izvelk kārti no spēlētāju kavas
@@ -67,6 +69,8 @@ public static class PlayerDeck
             usedDeck.Add(deck[0]);
             deck.Remove(deck[0]);
         }
+        
+        GameUI.Instance.updateCardCount(deck.Count);
     }
 
     private static void shuffle(List<CardData> list) //sajauc spēlētāju kāršu kavu

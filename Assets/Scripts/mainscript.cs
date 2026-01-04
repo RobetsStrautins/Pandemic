@@ -229,5 +229,5 @@ public enum PlayerRole
     Researcher,
     OperationsExpert,
     ContingencyPlanner,
-    Dispitcher,
+    Dispatcher,
 }

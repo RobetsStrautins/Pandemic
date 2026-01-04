@@ -60,6 +60,7 @@ public class DiseaseMarkers : MonoBehaviour
     public void chengeColorCubes(string color, int cubCount) //maina kubiciņu skaitu
     {
         cubeColorCount[color] += cubCount;
+        diseaseColorDict[color].text.text = cubeColorCount[color].ToString();
 
         if (cubeColorCount[color] > 24)
         {

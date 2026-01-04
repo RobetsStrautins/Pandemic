@@ -11,6 +11,7 @@ public class GameUI : MonoBehaviour
     [SerializeField] private Text whatPlayerTurn;
     [SerializeField] private Text outBreakCountText;
     [SerializeField] private Text infectionRateCountText;
+    [SerializeField] private Text cardCount;
 
     public GameObject gameOverPanel;
     public Text gameEndText;
@@ -24,7 +25,7 @@ public class GameUI : MonoBehaviour
     {
         updateMoveCount();
         updateOutBreakCount(0);
-        updateInfectionRateCount(2);
+        updateInfectionRateCount(2,0);
     }
 
     public void usedAction() //izsauc kad spēlētajs veicis gājienu
@@ -44,9 +45,14 @@ public class GameUI : MonoBehaviour
         outBreakCountText.text = "Uzliesmojumu skaits: " + outBreakCount;
     }
 
-    public void updateInfectionRateCount(int infectionRateCount) //atjaunina infekcijas biežumu
+    public void updateInfectionRateCount(int infectionRateCount, int epidemicCount) //atjaunina infekcijas biežumu
     {
-        infectionRateCountText.text = "Infekcijas biežums: " + infectionRateCount;
+        infectionRateCountText.text = "Infekcijas biežums: " + infectionRateCount + "\nIr bijušas "+ epidemicCount + " epidēmijas";
+    }
+
+    public void updateCardCount(int count) //atjauno atlikušo kāršu skaitu
+    {
+        cardCount.text = "Atlikušas \n" + count + " kārtis";
     }
 
     public void checkIfGameWon() //pārbauda vai spēle ir uzvarēta

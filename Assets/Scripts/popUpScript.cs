@@ -53,6 +53,11 @@ public class PopUpScript : MonoBehaviour
         GameUI.Instance.usedAction();
 
         exitPopUp();
+
+        if(playerToGiveCard.playerCardList.playerCardCount > 7)
+        {
+            PopUpCardManager.Instance.maxCardLimit(playerToGiveCard);
+        }
     }
 
     public void takeCard(CardData data, Player playerToTakeCard) //paņem karti no cita spēlētāja
