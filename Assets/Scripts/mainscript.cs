@@ -59,7 +59,7 @@ public class Mainscript : MonoBehaviour
             
             playersList.Add(activePlayer);
 
-            for (int j = 0; j < 9; j++) //spēlētāju sākuma kāršu izdale
+            for (int j = 0; j < 6 - playerCount; j++) //spēlētāju sākuma kāršu izdale
             {
                 PlayerDeck.draw(activePlayer);
             }

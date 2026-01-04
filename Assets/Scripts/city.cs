@@ -87,20 +87,20 @@ public class CityData
 
     public void addCubes(int newCubes) //pievieno kubiciņus pilsētai
     {
-        if(DiseaseMarkers.Instance?.getDiseaseProgress(color) != DiseaseColorProgress.Eradicated )
+        if(DiseaseMarkers.Instance.getDiseaseProgress(color) != DiseaseColorProgress.Eradicated )
         {
             if(!cityIsUnderQuarantine)
             {
                 Debug.Log($"added {newCubes} cube to {cityName}");
                 if (cubes + newCubes > 3)
                 {
-                    DiseaseMarkers.Instance?.chengeColorCubes(color, 3 - cubes);
+                    DiseaseMarkers.Instance.chengeColorCubes(color, 3 - cubes);
                     cubes = 3;
                     DiseaseDeck.outBreak(this);
                 }
                 else
                 {
-                    DiseaseMarkers.Instance?.chengeColorCubes(color, newCubes);
+                    DiseaseMarkers.Instance.chengeColorCubes(color, newCubes);
                     cubes += newCubes;
                 }
                 cityObj?.updateCubes(); 
