@@ -18,6 +18,7 @@ public class CitySpawner : MonoBehaviour
     
     public void Setup()//uztiasa pilsetas un savienojumus
     {
+        cityMap.Clear();
         TextAsset jsonFile = Resources.Load<TextAsset>("cities"); //dabut pilsetas
         WorldData world = JsonUtility.FromJson<WorldData>(jsonFile.text);
 

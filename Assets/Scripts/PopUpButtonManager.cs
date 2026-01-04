@@ -14,7 +14,7 @@ public class PopUpButtonManager : MonoBehaviour
     public GameObject buttonPrefab;
 
     public PopUpScript popupScript;
-    public static bool isPopupOpen = false;
+    public static bool isPopupOpen;
 
     private List<GameObject> buttonList = new List<GameObject>();
 
@@ -22,6 +22,7 @@ public class PopUpButtonManager : MonoBehaviour
     {
         Instance = this;
         panel.SetActive(false);
+        isPopupOpen = false;
     }
 
     public void showInfoWhenCardPressed(PlayerCityCard card, Player activePlayer) //inicializē pop-up logu kad nospiež uz spēlētāja pilsētas karti
@@ -184,7 +185,7 @@ public class PopUpButtonManager : MonoBehaviour
 
             Player activePlayer = Mainscript.main.getActivePlayer();
 
-            if (activePlayer.city == playerThatWasPressed.city)//abi atrodas viena pilseta)
+            if (activePlayer.city == playerThatWasPressed.city && activePlayer.city == cardsCityData)//abi atrodas viena pilseta)
             {
                 CreateButton($"Paņemt {cardsCityData.cityName} karti no {playerThatWasPressed.playerId+1} spēlētāja", () => popupScript.takeCard(data, playerThatWasPressed));
             }

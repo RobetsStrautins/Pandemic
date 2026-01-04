@@ -51,7 +51,7 @@ public class Mainscript : MonoBehaviour
             activePlayer = spawnedPlayer.GetComponent<Player>();
 
             int radnomRole = UnityEngine.Random.Range(0, roles.Count);
-            activePlayer.playerRole = roles[radnomRole]; //roles iedalijums
+            activePlayer.playerRole = roles[radnomRole]; //lomu iedalijums
             roles.RemoveAt(radnomRole);
             activePlayer.name = "Spēlētājs " + (i + 1);
             activePlayer.playerId = i;

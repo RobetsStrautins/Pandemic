@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class PickUpCard : MonoBehaviour
 {
-    public static bool playerTookCards = false;
+    public static bool playerTookCards;
+
+    void Awake()
+    {
+        playerTookCards = false;
+    }
 
     void OnMouseDown() //kad nospiež uz pacelšanas karti
     {

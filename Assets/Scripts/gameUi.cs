@@ -26,6 +26,7 @@ public class GameUI : MonoBehaviour
         updateMoveCount();
         updateOutBreakCount(0);
         updateInfectionRateCount(2,0);
+        gameOverPanel.SetActive(false);
     }
 
     public void usedAction() //izsauc kad spēlētajs veicis gājienu

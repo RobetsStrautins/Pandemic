@@ -8,14 +8,19 @@ public static class DiseaseDeck
     public static List<CityData> usedInfectionDeck = new List<CityData>();
 
     private static List<CityData> citiesOutBreakHappend = new List<CityData>();
-    private static int outBreakCount = 0;
+    private static int outBreakCount;
 
-    private static int infectionRateIndex = 0;
+    private static int infectionRateIndex;
     private static int[] infectionRateList = {2,2,2,3,3,4,4};
 
     public static void Setup() //inficē sākuma pilsētas
     {
         infectionDeck.Clear();
+        usedInfectionDeck.Clear();
+        citiesOutBreakHappend.Clear();
+        
+        outBreakCount = 0;
+        infectionRateIndex = 0;
 
         foreach (var city in CitySpawner.cityMap.Values)
         {

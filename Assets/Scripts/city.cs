@@ -105,12 +105,11 @@ public class CityData
                 }
                 cityObj?.updateCubes(); 
             }
+            else
+            {
+                ActionLog.Instance.addEntry("Karantīnas speciālists apstadināja izplatību " + cityName);
+            }
         }
-        else
-        {
-            ActionLog.Instance.addEntry("Karantīnas speciālists apstadināja izplatību " + cityName);
-        }
-
     }
 
     public void removeCubes(int removeCubes) //noņem kubiciņus no pilsētas

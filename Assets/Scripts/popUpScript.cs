@@ -119,8 +119,11 @@ public class PopUpScript : MonoBehaviour
 
         GameUI.Instance.usedAction();
 
-        DiseaseMarkers.Instance.checkForExtinctDisease(city.color);
-
+        if(DiseaseMarkers.Instance.getDiseaseProgress(city.color) == DiseaseColorProgress.Cured)
+        {
+           DiseaseMarkers.Instance.checkForExtinctDisease(city.color); 
+        }
+        
         exitPopUp();
     }
 

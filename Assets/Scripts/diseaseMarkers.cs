@@ -35,6 +35,25 @@ public class DiseaseMarkers : MonoBehaviour
 
     void Start() //inicializācija
     {
+
+        diseaseColorDict.Clear();
+
+        cubeColorCount = new Dictionary<string, int>
+        {
+            { "Yellow", 0 },
+            { "Red", 0 },
+            { "Blue", 0 },
+            { "Black", 0 }
+        };
+
+        diseaseProgress = new Dictionary<string, DiseaseColorProgress>
+        {
+            { "Yellow", DiseaseColorProgress.NotCured },
+            { "Red", DiseaseColorProgress.NotCured },
+            { "Blue", DiseaseColorProgress.NotCured },
+            { "Black", DiseaseColorProgress.NotCured }
+        };
+
         for (int i = 0; i < colorList.Length; i++)
         {
             GameObject newDisease = Instantiate(Disease, transform);

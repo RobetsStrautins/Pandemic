@@ -19,7 +19,7 @@ public class PopUpCardManager : MonoBehaviour
 
     private List<GameObject> buttonList = new List<GameObject>();
 
-    private void Awake() //konstruktors
+    void Awake() //konstruktors
     {
         Instance = this;
         panel.SetActive(false);
