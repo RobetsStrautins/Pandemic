@@ -35,7 +35,7 @@ public class GameUI : MonoBehaviour
     
     public void updateMoveCount() //atjaunina gājiena skaitu
     {
-        whatPlayerTurn.text = "Player " + (Mainscript.main.getActivePlayer().playerId+1) + " turn";
+        whatPlayerTurn.text = "Spēlētāja " + (Mainscript.main.getActivePlayer().playerId+1) + " gājiens";
         moveCount.text = Mainscript.main.playerTurnCount.ToString() + "/4";
     }
 
@@ -60,14 +60,14 @@ public class GameUI : MonoBehaviour
         }
 
         gameOverPanel.SetActive(true);
-        gameEndText.text = "You won";
+        gameEndText.text = "Jūs uzvarējis";
         ActionLog.Instance.addEntry("Tu esi uz uzvarējis", Color.green);
     }
 
     public void gameLost(string reason) //izsauc kad spēle ir zaudēta
     {
         gameOverPanel.SetActive(true);
-        gameEndText.text = "You Lost \n" + reason;
+        gameEndText.text = "Jūs zaudējāt \n" + reason;
         Mainscript.main.waitingForCityClick = true;
         ActionLog.Instance.addEntry("Tu esi uz zaudejis, jo " + reason, Color.green);
     }

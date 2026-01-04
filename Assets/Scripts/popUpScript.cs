@@ -23,7 +23,7 @@ public class PopUpScript : MonoBehaviour
 
     public void flyAnywhere(PlayerCityCard card) //pārlido uz jebkuru pilsētu
     {
-        Debug.Log("Nospied pilsetu");
+        Debug.Log("Nospied pilsētu");
         Mainscript.main.waitingForCityClick = true;
         Mainscript.main.waitingForCityClickAction = "FlyTo";
 
@@ -143,7 +143,7 @@ public class PopUpScript : MonoBehaviour
 
     public void governmentGrant(CardData data, Player player) //izmanto valdības subsīdijasnotikumu
     {
-        Debug.Log("Nospied pilsetu");
+        Debug.Log("Nospied pilsētu");
         Mainscript.main.waitingForCityClick = true;
         Mainscript.main.waitingForCityClickAction = "BuildStation";
 
@@ -162,7 +162,7 @@ public class PopUpScript : MonoBehaviour
     {
         PlayerDeck.airLiftPlayer = playerList;
 
-        Debug.Log("Nospied pilsetu");
+        Debug.Log("Nospied pilsētu");
         Mainscript.main.waitingForCityClick = true;
         Mainscript.main.waitingForCityClickAction = "AirLift";
 
@@ -183,7 +183,7 @@ public class PopUpScript : MonoBehaviour
         {
             if(Mainscript.main.inMiddleOfAcion())
             {
-                Debug.LogWarning("Esi vidu citai darbibai");
+                Debug.LogWarning("Esi vidu citai darbībai");
                 return;
             }
             

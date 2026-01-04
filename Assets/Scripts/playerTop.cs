@@ -35,5 +35,9 @@ public class PlayerTop : MonoBehaviour
         {
             PopUpCardManager.Instance.showPlayerCardFromPlayerTop(player);
         }
+        else
+        {
+            
+        }
     }
 }

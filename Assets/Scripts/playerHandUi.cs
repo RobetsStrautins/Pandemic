@@ -24,7 +24,7 @@ public class PlayerHandUi : MonoBehaviour
 
         int i = 0;
 
-        playerCardParent = new GameObject("Speletaja " + (player.playerId+1)+ " kartis");
+        playerCardParent = new GameObject("Spēlētāja" + (player.playerId+1)+ " kārtis");
 
        foreach (CardData cardData in player.playerCardList.getAllCards())
         {

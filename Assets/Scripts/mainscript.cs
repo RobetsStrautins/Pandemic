@@ -53,7 +53,7 @@ public class Mainscript : MonoBehaviour
             int radnomRole = UnityEngine.Random.Range(0, roles.Count);
             activePlayer.playerRole = roles[radnomRole]; //roles iedalijums
             roles.RemoveAt(radnomRole);
-            activePlayer.name = "Player " + (i + 1);
+            activePlayer.name = "Spēlētājs " + (i + 1);
             activePlayer.playerId = i;
             activePlayer.Init();
             
@@ -82,7 +82,7 @@ public class Mainscript : MonoBehaviour
         GameUI.Instance.Setup(); //spelesUI inicializācija
 
         ActionLog.Instance.addEntry("Spēle sākas!");
-        ActionLog.Instance.addEntry("Player " + (activePlayer.playerId + 1) + " sāk gājienu!", Color.blue);
+        ActionLog.Instance.addEntry("Spēlētājs " + (activePlayer.playerId + 1) + " sāk gājienu!", Color.blue);
     }
 
     public Player getActivePlayer() //atgriež aktīvo spēlētāju
@@ -92,7 +92,7 @@ public class Mainscript : MonoBehaviour
 
     private bool playerTurnComplite() //pārbauda vai spēlētājam ir beigušies gājieni
     {
-        if (playerTurnCount < 0)
+        if (playerTurnCount <= 0)
         {
             ActionLog.Instance.addEntry("Darbības vairs nav, jabeidz gājiens", Color.grey);
             return true;
@@ -168,7 +168,7 @@ public class Mainscript : MonoBehaviour
         playerTurnCount = 4; //vajag 4
         GameUI.Instance.updateMoveCount();
         ActionLog.Instance.addEntry("--------------------------------------------");
-        ActionLog.Instance.addEntry("Player " + (activePlayer.playerId + 1) + " sāk gājienu!", Color.blue);
+        ActionLog.Instance.addEntry("Spēlētājs " + (activePlayer.playerId + 1) + " sāk gājienu!", Color.blue);
     }
     
     public bool inMiddleOfAcion() //pārbauda vai notiek kāda darbība

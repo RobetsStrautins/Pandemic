@@ -36,7 +36,7 @@ public class PopUpButtonManager : MonoBehaviour
 
             if(activePlayer.playerRole == PlayerRole.OperationsExpert && activePlayer.city.hasResearchStation())
             {
-                CreateButton("Lidot uz jebkuru pilsetu (Operaciju specialists)", () => popupScript.flyAnywhere(card));
+                CreateButton("Lidot uz jebkuru pilsētu (Operaciju speciālists)", () => popupScript.flyAnywhere(card));
             }
             else if (activePlayer.city == card.cardsCityData)
             {
@@ -58,18 +58,18 @@ public class PopUpButtonManager : MonoBehaviour
                 {
                     if (playerInList.city == card.cardsCityData)
                     {
-                        CreateButton("Iedot karti spēlētājam " + (playerInList.playerId + 1), () => popupScript.giveCard(card, playerInList));
+                        CreateButton("Iedot kārti spēlētājam " + (playerInList.playerId + 1), () => popupScript.giveCard(card, playerInList));
                     }
                     else if (activePlayer.playerRole == PlayerRole.Researcher || playerInList.playerRole == PlayerRole.Researcher)
                     {
-                        CreateButton("Iedot karti spēlētājam " + (playerInList.playerId + 1) + " (Petnieks)", () => popupScript.giveCard(card, playerInList));
+                        CreateButton("Iedot kārti spēlētājam " + (playerInList.playerId + 1) + " (Petnieks)", () => popupScript.giveCard(card, playerInList));
                     }
                 }
 
             }
         }
 
-        CreateButton("Nomest karti", () => popupScript.removeCard(card.cardData, activePlayer));
+        CreateButton("Nomest kārti", () => popupScript.removeCard(card.cardData, activePlayer));
 
         titleText.text = card.cardsCityData.cityName;
         panel.SetActive(true);
@@ -103,7 +103,7 @@ public class PopUpButtonManager : MonoBehaviour
 
         if (player == Mainscript.main.getActivePlayer())
         {
-            CreateButton("Nomest karti", () => popupScript.removeCard(data, player));
+            CreateButton("Nomest kārti", () => popupScript.removeCard(data, player));
         }
 
         titleText.text = card.title;
@@ -126,20 +126,20 @@ public class PopUpButtonManager : MonoBehaviour
         {
             if(DiseaseMarkers.Instance.getDiseaseProgress(colorThatCanBeCured) == DiseaseColorProgress.NotCured)
             {
-                CreateButton("Izarstet slimibu " + colorThatCanBeCured, () => popupScript.cureDiseasePopUp(colorThatCanBeCured));
+                CreateButton("Izārstet slīmibu " + colorThatCanBeCured, () => popupScript.cureDiseasePopUp(colorThatCanBeCured));
             }
         }
         
         if (city.hasResearchStation() && Mainscript.main.researchStationOnMap.Count >= 2)
         {
-            CreateButton("Lidot starp stacijam", () => popupScript.flyToResearchStation(city));
+            CreateButton("Lidot starp stacijām", () => popupScript.flyToResearchStation(city));
         }
 
         int cubes = city.getCubes();
 
         if (cubes >= 1 && (DiseaseMarkers.Instance.getDiseaseProgress(city.color) != DiseaseColorProgress.NotCured || player.playerRole == PlayerRole.Medic))
         {
-            CreateButton("Nonemt visus kubicinus", () => popupScript.clearAllCubes(city));
+            CreateButton("Noņemt visus kubiciņus", () => popupScript.clearAllCubes(city));
         }
         else
         {
@@ -148,11 +148,11 @@ public class PopUpButtonManager : MonoBehaviour
                 int cubeCount = i;
                 if(i > Mainscript.main.playerTurnCount)
                 {
-                    CreateButton($"Nonemt {i} kubicinus", () => popupScript.clearCubes(city, cubeCount), false);
+                    CreateButton($"Noņemt {i} kubiciņus", () => popupScript.clearCubes(city, cubeCount), false);
                 }
                 else
                 {
-                    CreateButton($"Nonemt {i} kubicinus", () => popupScript.clearCubes(city, cubeCount));
+                    CreateButton($"Noņemt {i} kubiciņus", () => popupScript.clearCubes(city, cubeCount));
                 }
             }  
         }
@@ -186,11 +186,11 @@ public class PopUpButtonManager : MonoBehaviour
 
             if (activePlayer.city == playerThatWasPressed.city)//abi atrodas viena pilseta)
             {
-                CreateButton($"Paņemt {cardsCityData.cityName} karti no {playerThatWasPressed.playerId+1} speletaja", () => popupScript.takeCard(data, playerThatWasPressed));
+                CreateButton($"Paņemt {cardsCityData.cityName} karti no {playerThatWasPressed.playerId+1} spēlētāja", () => popupScript.takeCard(data, playerThatWasPressed));
             }
             else if (activePlayer.city == playerThatWasPressed.city && (playerThatWasPressed.playerRole == PlayerRole.Researcher || activePlayer.playerRole == PlayerRole.Researcher))//Researcher ability
             {
-                CreateButton($"Paņemt {cardsCityData.cityName} karti no {playerThatWasPressed.playerId+1} speletaja (Petnieks)", () => popupScript.takeCard(data, playerThatWasPressed));
+                CreateButton($"Paņemt {cardsCityData.cityName} karti no {playerThatWasPressed.playerId+1} spēlētāja (Petnieks)", () => popupScript.takeCard(data, playerThatWasPressed));
             }
 
             titleText.text = cardsCityData.cityName;
@@ -234,7 +234,7 @@ public class PopUpButtonManager : MonoBehaviour
             CreateButton(city.cityName, () => popupScript.discardDisease(city, data, player));
         }
         
-        titleText.text = "Kuru karti iznemt";
+        titleText.text = "Kuru kārti izņemt";
         panel.SetActive(true);
         StartCoroutine(scrollToTop());
     }
@@ -245,10 +245,10 @@ public class PopUpButtonManager : MonoBehaviour
 
         foreach (Player playerList in Mainscript.main.playersList)
         {
-            CreateButton("Parvietot speletaju " + (playerList.playerId + 1) + " uz jebkuru pilsetu", () => popupScript.airLift2(playerList, data, player));
+            CreateButton("Pārvietot spēlētāju " + (playerList.playerId + 1) + " uz jebkuru pilsetu", () => popupScript.airLift2(playerList, data, player));
         }
         
-        titleText.text = "Kuru cilveku parcel";
+        titleText.text = "Kuru cilveku pārcelt";
         panel.SetActive(true);
         StartCoroutine(scrollToTop());
     }
@@ -260,13 +260,13 @@ public class PopUpButtonManager : MonoBehaviour
         if(data.Type == CardType.City)
         {
             var card = data as PlayerCityCardData;
-            CreateButton("Nomest " + card.cityCard.cityName + " karti", () => popupScript.removeCard(data, player));
+            CreateButton("Nomest " + card.cityCard.cityName + " kārti", () => popupScript.removeCard(data, player));
             titleText.text = card.cityCard.cityName;
         }
         else if(data.Type == CardType.Event)
         {
             var card = data as EventCardData;
-            CreateButton("Nomest notikuma karti", () => popupScript.removeCard(data, player));
+            CreateButton("Nomest notikuma kārti", () => popupScript.removeCard(data, player));
             switch (card.eventType)
             {
                 case EventCardType.QuietNight:

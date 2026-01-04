@@ -106,7 +106,7 @@ public class PopUpCardManager : MonoBehaviour
         confirmButton.SetActive(false);
 
         CardPos();
-        titleText.text = "Speletajam ir par daudz kartis, janomet karti";
+        titleText.text = "Speletajam ir par daudz kartis, jaņomet kārti";
         panel.SetActive(true);
     }
 
