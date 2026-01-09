@@ -53,6 +53,11 @@ public class GameUI : MonoBehaviour
 
     public void updateCardCount(int count) //atjauno atlikušo kāršu skaitu
     {
+        if (!gameObject.activeInHierarchy || cardCount == null)
+        {
+            return;
+        }
+        
         cardCount.text = "Atlikušas \n" + count + " kārtis";
     }
 

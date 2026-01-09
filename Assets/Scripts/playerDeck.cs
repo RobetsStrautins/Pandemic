@@ -46,7 +46,10 @@ public static class PlayerDeck
             currentIndex += stackSize + 1;
         }
 
-        GameUI.Instance.updateCardCount(deck.Count);
+        if (GameUI.Instance != null)
+        {
+            GameUI.Instance.updateCardCount(deck.Count);
+        }
     }
 
     public static void draw(Player player) //izvelk kārti no spēlētāju kavas

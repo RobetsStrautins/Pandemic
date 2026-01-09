@@ -5,14 +5,26 @@ using System.Linq;
 
 public class PlayerDeckTests
 {
+    private GameObject gameUIObject;
+
     [SetUp]
     public void Setup()
     {
+        gameUIObject = new GameObject("GameUI");
+        GameUI.Instance = gameUIObject.AddComponent<GameUI>();
+
         CitySpawner.cityMap = new Dictionary<int, CityData>();
 
         CitySpawner.cityMap[1] = CreateCity(1);
         CitySpawner.cityMap[2] = CreateCity(2);
         CitySpawner.cityMap[3] = CreateCity(3);
+    }
+
+    [TearDown]
+    public void TearDown()
+    {
+        Object.DestroyImmediate(gameUIObject);
+        GameUI.Instance = null;
     }
 
     [Test]
