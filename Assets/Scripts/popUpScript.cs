@@ -16,7 +16,6 @@ public class PopUpScript : MonoBehaviour
 
         player.moveToCity(card.cardsCityData);
         player.playerCardList.removeCard(card.cardData);
-        GameUI.Instance.usedAction();
 
         exitPopUp();
     }

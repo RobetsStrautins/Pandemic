@@ -89,7 +89,7 @@ public static class DiseaseDeck
 
         shuffle(usedInfectionDeck);
 
-        infectionDeck.AddRange(usedInfectionDeck);
+        infectionDeck.InsertRange(0, usedInfectionDeck);
         usedInfectionDeck.Clear();
 
         infectionRateIndex++;
